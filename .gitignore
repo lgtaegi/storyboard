@@ -2,6 +2,7 @@
 # Created by lgtaegi
 # Updated:
 # - initialized local git backup structure for the storyboard app
+# - keeps local backup and release folders out of GitHub
 
 .DS_Store
 versions/

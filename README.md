@@ -8,6 +8,7 @@ Updated:
 - changed version backups to use one folder per update with only updated code files
 - changed version backups to include essential runnable app files plus updated files
 - simplified backup folder names because each backup is now a runnable app bundle
+- clarified which files stay local and do not go to GitHub
 
 ## Description
 
@@ -38,6 +39,13 @@ An AI storyboard tool for creating fast-paced short video stories with object-dr
   - each update can have its own subfolder
   - each backup folder contains essential runnable app files plus the files updated in that change
   - each backup folder also contains `notes.md`
+
+## GitHub Scope
+
+- GitHub is for the app source and core setup files
+- local backup folders such as `versions/` do not go to GitHub
+- local packaged release folders such as `releases/` do not go to GitHub
+- local-only guide files such as `RELEASE-GUIDE.local.md` stay on this computer only
 
 ## Run Locally
 
