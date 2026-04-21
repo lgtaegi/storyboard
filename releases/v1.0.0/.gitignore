@@ -1,0 +1,7 @@
+# Created: 2026-04-21 America/Denver
+# Created by lgtaegi
+# Updated:
+# - initialized local git backup structure for the storyboard app
+
+.DS_Store
+versions/

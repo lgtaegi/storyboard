@@ -47,7 +47,6 @@ CODE_FILES=(
   "start.command"
   "check-requirements.command"
   "create-version-backup.command"
-  "create-release.command"
 )
 
 UPDATED_FILES=()
