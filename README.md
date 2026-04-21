@@ -6,6 +6,7 @@ Updated:
 - added INSTALL.md and check-requirements.command for easier setup
 - clarified that the app runs with Node.js built-in modules and Ollama
 - changed version backups to use one folder per update with only updated code files
+- changed version backups to include essential runnable app files plus updated files
 
 ## Description
 
@@ -34,7 +35,8 @@ An AI storyboard tool for creating fast-paced short video stories with object-dr
 - `app-settings/`: persistent app settings such as save name prefix
 - `versions/`: manual backup snapshots and version notes
   - each update can have its own subfolder
-  - each backup folder should contain only the code files updated in that change plus `notes.md`
+  - each backup folder contains essential runnable app files plus the files updated in that change
+  - each backup folder also contains `notes.md`
 
 ## Run Locally
 
@@ -51,9 +53,16 @@ An AI storyboard tool for creating fast-paced short video stories with object-dr
 ## Version Backups
 
 - Run `create-version-backup.command` with the updated code files
-- A new folder is created inside `versions/`
-- Only the updated files for that change are copied into that folder
+- A new folder is created inside `versions/` with `_newCodes` in the name
+- Essential runnable app files are always copied into that folder
+- The updated files for that change are copied into that folder too
 - A `notes.md` file is created in the same folder
+
+Example:
+
+```bash
+./create-version-backup.command --label save-prefix index.html server.js
+```
 
 ## Notes
 
