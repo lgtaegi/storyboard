@@ -1,0 +1,30 @@
+{
+  "id": "2026-04-18T01-54-37-448Z-yellow-frantically-searches-fridge-as",
+  "reason": "story-generated",
+  "name": "Yellow Frantically Searches Fridge As",
+  "title": "Yellow's Fridge Frenzy",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Yellow frantically searches fridge as crewmates prepare space cake explosion.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style",
+    "includeScenePromptDetails": false
+  },
+  "storyboard": "Title: Yellow's Fridge Frenzy\n\nTotal duration: 15 seconds\n\nGenre: Comedy\n\nMood: Joy\n\n\n\nKey object / product hook:\n\nOne visible object must drive the story events and appear repeatedly as the main prop, making it suitable for a future product or affiliate link.\n\n\n\nCharacter prompt format:\n\nMain character: [age or role], [face and hair details], [clothing], [distinctive prop], [emotion], [body language], consistent appearance across every scene.\n\nCharacter prompt for this story: Among Us game character Yellow. Design: Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body. Keep this character as the main protagonist in every scene, with recognizable colors, silhouette, props, emotion, body language, and consistent appearance.\n\n\n\nImage style prompt:\n\nUse 2d flash animation style, simple outline art style, Among Us game style. Emphasize clear composition, readable subject placement, expressive lighting, detailed textures, cinematic camera language, and smooth continuity between shots.\n\n\n\nOverall art style prompt:\n\nComedy story with a joy mood, cohesive color palette, consistent world design, high-detail cinematic frames, and Sora-friendly visual clarity.\n\n\n\nVisual style: 2d flash animation style, simple outline art style, Among Us game style\n\n\n\nScene 1 - 0s:\nYellow frantically opens the fridge door, revealing a mess of expired astronaut ice cream.\n\nScene 2 - 3s:\nYellow's eyes widen in horror as they spot an almost-empty canister of \"Galactic Gloop\" space-age fridge cleaner amidst the chaos.\n\nScene 3 - 6s:\nWith a determined glint in their eye, Yellow grabs the cleaner and frantically starts spraying it around the fridge, creating a miniature mess.\n\nScene 4 - 9s:\nAs the cleaner starts to foam up, the camera zooms out to reveal the crewmates gathered outside the fridge, watching the commotion with amusement and concern.\n\nScene 5 - 12s:\nYellow triumphantly emerges from the fridge, covered in foam, with a satisfied grin on their face, holding up the nearly-empty canister of \"Galactic Gloop\" as if it's a trophy.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T01:54:37.448Z",
+  "updatedAt": "2026-04-18T01:54:37.448Z"
+}

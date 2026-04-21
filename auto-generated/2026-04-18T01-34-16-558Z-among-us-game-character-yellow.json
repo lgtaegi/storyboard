@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T01-34-16-558Z-among-us-game-character-yellow",
+  "reason": "story-generated",
+  "name": "Among Us Game Character Yellow",
+  "title": "Yellow's Shoe Surprise",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "shoes",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Among Us game character Yellow finds a shoes in a funny place.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: Yellow's Shoe Surprise\nTotal duration: 15 seconds\nGenre: Comedy\nMood: Joy\n\nKey object / product hook: Yellow finds a pair of hilarious, oversized novelty shoes in the airlock with a \"Property of Impostor\" tag.\n\nCharacter prompt format:\n- Age/Role: Adult Impostor\n- Face: Round, cheerful visage with a hint of mischief\n- Hair: Messy, bright yellow locks\n- Clothing: Fuzzy, orange jumpsuit with metallic accents\n- Distinctive prop: Oversized novelty shoes in hand\n- Emotion: Playful, mischievous grin\n- Body language: Leaning against the airlock door, one foot resting on the shoe's sole\n- Consistency notes: Bright yellow and orange color scheme throughout\n\nImage style prompt:\n- Lighting: Warm, sunny overhead lighting with subtle shadows\n- Composition: Symmetrical framing around Yellow, emphasizing the shoes in the center\n- Camera feel: Smooth, fluid motions with a slight camera shake for added realism\n- Detail level: High, with detailed textures on the airlock and Yellow's suit\n- Continuity: Consistent color palette, lighting effects, and character pose throughout\n\nOverall art style prompt:\n- Palette: Bright, poppy colors like yellow, orange, and red, with subtle metallic accents\n- World design: Clean, minimalist 2D environment inspired by Among Us' aesthetic\n- Mood: Playful, joyful atmosphere with an undercurrent of mischief\n- Cinematic quality: Fast-paced editing with quick cuts and transitions to create a sense of energy\n- Sora-friendly clarity: High contrast between bright colors and neutral backgrounds for easy visibility\n\nScene 1 - 0s:\nYellow holds up a pair of oversized novelty shoes, grinning from ear to ear.\n\nScene 2 - 3s:\nA shot of the airlock door with the \"Property of Impostor\" tag prominently displayed below Yellow's feet.\n\nScene 3 - 6s:\nClose-up of Yellow admiring their new shoes, spinning them around in excitement.\n\nScene 4 - 9s:\nYellow puts on a pair of Goggles with brightly colored frames and strikes a pose, admiring the reflection in the airlock window.\n\nScene 5 - 12s:\nA final shot of Yellow proudly wearing their novelty shoes, striking a \"cool impostor\" pose as the screen fades to black.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T01:34:16.558Z",
+  "updatedAt": "2026-04-18T01:34:16.558Z"
+}

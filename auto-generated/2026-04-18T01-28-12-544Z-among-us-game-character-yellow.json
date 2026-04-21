@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T01-28-12-544Z-among-us-game-character-yellow",
+  "reason": "story-generated",
+  "name": "Among Us Game Character Yellow",
+  "title": "Yellow's Glove Misadventure",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "glove",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Among Us game character Yellow finds a glove in a funny place.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 8,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "custom",
+      "duration": "15",
+      "customScenes": 8,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: Yellow's Glove Misadventure\nTotal duration: 15 seconds\nGenre: Comedy\nMood: Joy\nKey object / product hook: A quirky, oversized, neon-green workout glove from the popular fitness brand, Gymshark, which can be purchased on their website.\nCharacter prompt format:\n- Age/Role: Adult Space Crew Member\n- Face: Heart-shaped with a bright, cheerful smile\n- Hair: Short, spiky hair in a vibrant shade of orange\n- Clothing: White space suit with yellow accents\n- Distinctive prop: Oversized neon-green workout glove\n- Emotion: Excitement and curiosity\n- Body language: Bouncing up and down with enthusiasm\n- Consistency notes: Maintaining a consistent, youthful appearance throughout the animation\n\nImage style prompt:\n- Lighting: Bright, saturated colors with a focus on yellow and green hues\n- Composition: Close-ups of Yellow's face and glove, gradually transitioning to wide shots of the space suit and surroundings\n- Camera feel: Fast-paced, energetic camera movements, using a mix of zooms, pans, and tilts\n- Detail level: High definition with subtle texture and pattern details on the space suit and glove\n- Continuity: Maintaining a consistent visual style throughout the animation\n\nOverall art style prompt:\n- Palette: Bright, poppy colors with a focus on yellow, green, and blue hues\n- World design: A futuristic, colorful space station with minimalist details and clean lines\n- Mood: Joyful, energetic atmosphere with a touch of playfulness\n- Cinematic quality: Quick cuts and dynamic camera movements to create a sense of urgency and excitement\n- Sora-friendly clarity: Easy-to-read text overlays for scene descriptions and key prop details\n\nScene 1 - 0s:\nYellow finds the oversized neon-green glove in a humorous, unexpected location on the space station floor.\n\nScene 2 - 2s:\nYellow picks up the glove, examining it curiously, with a bright smile on their face.\n\nScene 3 - 4s:\nYellow puts on the glove, striking an exaggerated pose, showcasing its bulkiness and neon color.\n\nScene 4 - 6s:\nThe camera zooms out to reveal Yellow's space suit and the surrounding area, highlighting the contrast between the normal suit and the oversized glove.\n\nScene 5 - 8s:\nYellow starts bouncing up and down, excitedly gesturing with the glove, as if demonstrating its aerodynamics.\n\nScene 6 - 10s:\nThe animation speeds up, with quick cuts of Yellow jumping around in zero gravity, glove floating behind them.\n\nScene 7 - 12s:\nYellow lands on a space station console, still bouncing, and gives a comically exaggerated thumbs-up with the oversized glove.\n\nScene 8 - 14s:\nThe animation ends with a shot of the Gymshark logo on the screen, as Yellow's face appears once more, smiling at the camera.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T01:28:12.544Z",
+  "updatedAt": "2026-04-18T01:28:12.544Z"
+}

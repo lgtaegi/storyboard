@@ -1,0 +1,18 @@
+{
+  "id": "2026-04-17T18-02-47-021Z-amongusyellow-baseballbat",
+  "name": "AmongUsYellow_baseballBat",
+  "title": "Yellow's Surprise Hit",
+  "settings": {
+    "idea": "Among Us Game character Yellow finds a baseball bat on the street",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: Yellow's Surprise Hit\n\nTotal duration: 15 seconds\n\nGenre: Comedy\nMood: Joy\n\nCharacter prompt format:\n- Age/role: Young adult\n- Face: Wide smile, bright eyes\n- Hair: Short and messy, blonde\n- Clothing: Yellow crew member outfit with a baseball cap\n- Distinctive prop: A shiny baseball bat\n- Emotion: Excitement and curiosity\n- Body language: Bouncy steps, gestures with the bat\n- Consistency notes: Friendly and carefree demeanor\n\nImage style prompt:\nLighting: Bright and playful, with warm shadows. Softbox lighting for a cozy feel.\nComposition: Close-ups and medium shots to emphasize reactions and actions.\nCamera feel: Quick cuts and snappy transitions to match Yellow's energetic pace.\nDetail level: Simple textures and shapes to maintain clarity and focus on key visuals.\nContinuity: Establish consistent color palette, lighting, and composition throughout.\n\nOverall art style prompt:\nPalette: Vibrant yellows, oranges, and whites for a lively atmosphere.\nWorld design: Minimalist background with a blurred cityscape or a simple whiteboard for a clean canvas.\nMood: Carefree and playful, conveying Yellow's infectious enthusiasm.\nCinematic quality: Fast-paced editing and dynamic camera movements to create energy.\nSora-friendly clarity: Easy-to-read text overlays and clear visual hierarchy for quick storytelling.\n\nScene 1 - 0s:\nYellow finds an old baseball bat on the street, excitement etched on their face.\n\nScene 2 - 3s:\nAs they examine the bat, Yellow's eyes light up with imagination, and they start to swing it playfully.\n\nScene 3 - 6s:\nThe camera cuts to a montage of Yellow using the bat in various comedic scenarios: hitting an imaginary ball, knocking over objects, and playfully fighting friends.\n\nScene 4 - 9s:\nIn a surprising twist, Yellow finds out they're actually really good at baseball and scores a home run with their new bat.\n\nScene 5 - 12s:\nYellow is celebrated by crewmates as the \"Bat Master\" in an adorable, exaggerated scene of friendship and teamwork.",
+  "createdAt": "2026-04-17T18:02:47.021Z",
+  "updatedAt": "2026-04-17T18:02:47.021Z"
+}

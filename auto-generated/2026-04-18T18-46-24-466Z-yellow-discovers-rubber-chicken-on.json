@@ -1,0 +1,30 @@
+{
+  "id": "2026-04-18T18-46-24-466Z-yellow-discovers-rubber-chicken-on",
+  "reason": "story-generated",
+  "name": "Yellow Discovers Rubber Chicken On",
+  "title": "Yellow's Fowl Surprise",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "",
+    "characterDesign": "A professional 2D character turnaround sheet of a yellow crewmate (Among Us style), including front, back, left profile, and right profile views.\n\nBody proportions:\n- height about 2.5x the width\n- rounded top, flat bottom feet\n- legs separated with a small gap\n- no visible arms\n\nBackpack:\n- rectangular with rounded corners\n- centered on upper back\n- same color as body with slightly darker shading\n\nVisor:\n- large horizontal oval\n- placed slightly above center of the body\n- glossy light blue gradient with white highlight on top-left\n\nLinework:\n- thick, uniform black outline\n- smooth and clean, no sketchiness\n\nColor:\n- soft warm yellow (slightly desaturated)\n- subtle shading on lower body and edges\n- no texture, no noise\n\nStyle:\n- flat cel-shaded cartoon\n- clean vector-like finish\n- similar to mobile game character design\n\nBackground:\n- pure white\n\nAvoid:\n- realistic rendering\n- 3D shading\n- high detail textures\n- lighting effects\n- extra props or decorations",
+    "idea": "Yellow discovers a rubber chicken on the Captain's desk unexpectedly.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style",
+    "includeScenePromptDetails": false
+  },
+  "storyboard": "Title: Yellow's Fowl Surprise\n\nTotal duration: 15 seconds\n\nGenre: Comedy\n\nMood: Joy\n\n\n\nKey object / product hook:\n\nOne visible object must drive the story events and appear repeatedly as the main prop, making it suitable for a future product or affiliate link.\n\n\n\nCharacter prompt format:\n\nMain character: [age or role], [face and hair details], [clothing], [distinctive prop], [emotion], [body language], consistent appearance across every scene.\n\nCharacter prompt for this story: Among Us game character Yellow. Design: A professional 2D character turnaround sheet of a yellow crewmate (Among Us style), including front, back, left profile, and right profile views.\n\nBody proportions:\n- height about 2.5x the width\n- rounded top, flat bottom feet\n- legs separated with a small gap\n- no visible arms\n\nBackpack:\n- rectangular with rounded corners\n- centered on upper back\n- same color as body with slightly darker shading\n\nVisor:\n- large horizontal oval\n- placed slightly above center of the body\n- glossy light blue gradient with white highlight on top-left\n\nLinework:\n- thick, uniform black outline\n- smooth and clean, no sketchiness\n\nColor:\n- soft warm yellow (slightly desaturated)\n- subtle shading on lower body and edges\n- no texture, no noise\n\nStyle:\n- flat cel-shaded cartoon\n- clean vector-like finish\n- similar to mobile game character design\n\nBackground:\n- pure white\n\nAvoid:\n- realistic rendering\n- 3D shading\n- high detail textures\n- lighting effects\n- extra props or decorations. Keep this character as the main protagonist in every scene, with recognizable colors, silhouette, props, emotion, body language, and consistent appearance.\n\n\n\nImage style prompt:\n\nUse 2d flash animation style, simple outline art style, Among Us game style. Emphasize clear composition, readable subject placement, expressive lighting, detailed textures, cinematic camera language, and smooth continuity between shots.\n\n\n\nOverall art style prompt:\n\nComedy story with a joy mood, cohesive color palette, consistent world design, high-detail cinematic frames, and Sora-friendly visual clarity.\n\n\n\nVisual style: 2d flash animation style, simple outline art style, Among Us game style\n\n\n\nScene 1 - 0s:\nYellow walks into the Captain's office, sees a rubber chicken on the desk, and freezes in surprise.\n\nScene 2 - 3s:\nThe camera zooms in on Yellow's face as they look at the rubber chicken with an exaggerated expression of shock and confusion.\n\nScene 3 - 6s:\nYellow takes a step closer to the Captain's desk, the rubber chicken's beak peering out from behind a stack of papers, and a hint of amusement appears on their face.\n\nScene 4 - 9s:\nThe Captain enters the office, oblivious to Yellow's discovery, and walks towards the desk as if nothing is out of the ordinary.\n\nScene 5 - 12s:\nYellow swiftly takes the rubber chicken and makes a \"present\" gesture with it, as the camera spins around them in a playful circular motion.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T18:46:24.466Z",
+  "updatedAt": "2026-04-18T18:46:24.466Z"
+}

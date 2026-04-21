@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T17-40-36-502Z-yellow-finds-super-sized-tennis-racket",
+  "name": "Yellow Finds Super-sized Tennis Racket",
+  "title": "Yellow Finds Super-sized Tennis Racket",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "",
+    "characterDesign": "A professional 2D character turnaround sheet of a yellow crewmate (Among Us style), including front, back, left profile, and right profile views.\n\nBody proportions:\n- height about 2.5x the width\n- rounded top, flat bottom feet\n- legs separated with a small gap\n- no visible arms\n\nBackpack:\n- rectangular with rounded corners\n- centered on upper back\n- same color as body with slightly darker shading\n\nVisor:\n- large horizontal oval\n- placed slightly above center of the body\n- glossy light blue gradient with white highlight on top-left\n\nLinework:\n- thick, uniform black outline\n- smooth and clean, no sketchiness\n\nColor:\n- soft warm yellow (slightly desaturated)\n- subtle shading on lower body and edges\n- no texture, no noise\n\nStyle:\n- flat cel-shaded cartoon\n- clean vector-like finish\n- similar to mobile game character design\n\nBackground:\n- pure white\n\nAvoid:\n- realistic rendering\n- 3D shading\n- high detail textures\n- lighting effects\n- extra props or decorations",
+    "idea": "Yellow finds a super-sized tennis racket at/in the crew's exercise room suddenly.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style",
+    "includeScenePromptDetails": false
+  },
+  "storyboard": "Title: Yellow Finds Super-sized Tennis Racket\n\nTotal duration: 15 seconds\n\nGenre: Comedy\n\nMood: Joy\n\n\n\nKey object / product hook:\n\nOne visible object must drive the story events and appear repeatedly as the main prop, making it suitable for a future product or affiliate link.\n\n\n\nCharacter prompt format:\n\nMain character: [age or role], [face and hair details], [clothing], [distinctive prop], [emotion], [body language], consistent appearance across every scene.\n\nCharacter prompt for this story: Among Us game character Yellow. Design: A professional 2D character turnaround sheet of a yellow crewmate (Among Us style), including front, back, left profile, and right profile views.\n\nBody proportions:\n- height about 2.5x the width\n- rounded top, flat bottom feet\n- legs separated with a small gap\n- no visible arms\n\nBackpack:\n- rectangular with rounded corners\n- centered on upper back\n- same color as body with slightly darker shading\n\nVisor:\n- large horizontal oval\n- placed slightly above center of the body\n- glossy light blue gradient with white highlight on top-left\n\nLinework:\n- thick, uniform black outline\n- smooth and clean, no sketchiness\n\nColor:\n- soft warm yellow (slightly desaturated)\n- subtle shading on lower body and edges\n- no texture, no noise\n\nStyle:\n- flat cel-shaded cartoon\n- clean vector-like finish\n- similar to mobile game character design\n\nBackground:\n- pure white\n\nAvoid:\n- realistic rendering\n- 3D shading\n- high detail textures\n- lighting effects\n- extra props or decorations. Keep this character as the main protagonist in every scene, with recognizable colors, silhouette, props, emotion, body language, and consistent appearance.\n\n\n\nImage style prompt:\n\nUse 2d flash animation style, simple outline art style, Among Us game style. Emphasize clear composition, readable subject placement, expressive lighting, detailed textures, cinematic camera language, and smooth continuity between shots.\n\n\n\nOverall art style prompt:\n\nComedy story with a joy mood, cohesive color palette, consistent world design, high-detail cinematic frames, and Sora-friendly visual clarity.\n\n\n\nVisual style: 2d flash animation style, simple outline art style, Among Us game style\n\n\n\nScene 1 - 0s:\nYellow finds a super-sized tennis racket at/in the crew's exercise room suddenly.. Introduce the main subject and the world before anything changes.\n\nScene 2 - 3s:\nYellow finds a super-sized tennis racket at/in the crew's exercise room suddenly.. Reveal the unusual detail that makes the story feel alive.\n\nScene 3 - 6s:\nYellow finds a super-sized tennis racket at/in the crew's exercise room suddenly.. Show the subject making a clear decision that moves the story forward.\n\nScene 4 - 9s:\nYellow finds a super-sized tennis racket at/in the crew's exercise room suddenly.. Let the world react, shift, or open into something larger.\n\nScene 5 - 12s:\nYellow finds a super-sized tennis racket at/in the crew's exercise room suddenly.. Reveal the emotional or visual center of the story.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T17:40:36.502Z",
+  "updatedAt": "2026-04-18T17:40:36.502Z"
+}

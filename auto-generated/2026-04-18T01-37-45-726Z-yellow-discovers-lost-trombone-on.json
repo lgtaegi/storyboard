@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T01-37-45-726Z-yellow-discovers-lost-trombone-on",
+  "reason": "story-generated",
+  "name": "Yellow Discovers Lost Trombone On",
+  "title": "Yellow's Trombone Takedown",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Yellow discovers a lost trombone on the spaceship's mess hall table.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: Yellow's Trombone Takedown\n\nTotal duration: 15 seconds\n\nGenre: Comedy\nMood: Joy\n\nKey object / product hook: A shiny, lost trombone on the spaceship's mess hall table is the key to a hilarious prank.\n\nCharacter prompt format:\n- Age/Role: Young Adult Crewmate (around 20)\n- Face: Bright Smile, Dimpled Cheekbones\n- Hair: Messy Brown Bangs, Side-Swept Fringe\n- Clothing: Standard Space Suit, with few visible patches of grease and grime\n- Distinctive prop: A bright yellow toolbox attached to Yellow's belt\n- Emotion: Mischievous Curiosity\n- Body language: Lean against the mess hall table, elbows slightly bent\n- Consistency notes: Yellow always wears a faint hint of paint on their gloves\n\nImage style prompt:\n- Lighting: Soft, warm overhead lighting with subtle shadows on the ship's interior\n- Composition: Tight framing on Yellow, centered in the frame with the trombone prominently displayed to the left\n- Camera feel: Smooth, fluid motion with slight blurs and camera shakes for added realism\n- Detail level: High, showcasing intricate details on the toolbox and trombone\n- Continuity: Consistent with the ship's interior design and crew uniforms\n\nOverall art style prompt:\n- Palette: Bright and saturated colors like primary blues, yellows, and whites\n- World design: Familiar spaceship layout, recognizable modules and corridors\n- Mood: Playful and mischievous, conveying a sense of youthful excitement\n- Cinematic quality: Stylized, exaggerated movements and poses to emphasize comedic timing\n- Sora-friendly clarity: Clear, defined lines and sharp edges for easy image recognition\n\nScene 1 - 0s:\nYellow suddenly discovers the trombone on the mess hall table, eyes widening in surprise as they reach out to investigate.\n\nScene 2 - 3s:\nYellow picks up the trombone, examining it with curiosity before a playful grin spreads across their face.\n\nScene 3 - 6s:\nAs Yellow begins to play an impromptu tune on the trombone, crewmates passing by can't help but stop and stare at the absurd sound.\n\nScene 4 - 9s:\nCrewmates start to giggle and snicker, some attempting to join in with their own off-key singing, adding to the chaos.\n\nScene 5 - 12s:\nThe mess hall erupts into a full-blown musical free-for-all, with Yellow at the center, triumphant and out of control.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T01:37:45.726Z",
+  "updatedAt": "2026-04-18T01:37:45.726Z"
+}

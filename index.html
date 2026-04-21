@@ -1,0 +1,1866 @@
+<!--
+Created: 2026-04-21 America/Denver
+Created by lgtaegi
+Updated:
+- added copy option to include YouTube upload content
+- changed art style presets into fixed save slots
+- added save name prefix option with persistent settings
+- removed automatic object suffix from Save Story file names
+-->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>AI Story Builder</title>
+    <style>
+      :root {
+        color: #202124;
+        background: #f6f7f9;
+        --ink: #202124;
+        --muted: #5f6670;
+        --line: #d4d9df;
+        --panel: #ffffff;
+        --mint: #0f7b68;
+        --mint-dark: #095c4e;
+        --rose: #b8325f;
+        --gold: #b77a13;
+        --sky: #2676a8;
+        --soft-mint: #e8f5f1;
+        --soft-rose: #faeaf0;
+        --soft-gold: #fff5df;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+        background: #f6f7f9;
+        color: var(--ink);
+      }
+
+      main {
+        width: min(1180px, calc(100% - 32px));
+        margin: 0 auto;
+        padding: 24px 0 36px;
+      }
+
+      .top {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(280px, 390px);
+        gap: 24px;
+        align-items: stretch;
+        min-height: 240px;
+        margin-bottom: 22px;
+      }
+
+      .intro {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 14px;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 18px;
+      }
+
+      h1 {
+        margin: 0;
+        max-width: 760px;
+        font-size: 56px;
+        line-height: 0.96;
+        letter-spacing: 0;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      .intro p {
+        max-width: 660px;
+        font-size: 17px;
+      }
+
+      .cover {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        min-height: 240px;
+        background: #d9ece8;
+      }
+
+      .cover img {
+        width: 100%;
+        height: 100%;
+        min-height: 240px;
+        object-fit: cover;
+        display: block;
+      }
+
+      .cover-note {
+        position: absolute;
+        left: 14px;
+        right: 14px;
+        bottom: 14px;
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.9);
+        color: #26302c;
+        font-weight: 750;
+      }
+
+      .workspace {
+        display: grid;
+        grid-template-columns: minmax(280px, 390px) minmax(0, 1fr);
+        gap: 18px;
+        align-items: start;
+      }
+
+      .panel {
+        background: var(--panel);
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 18px;
+      }
+
+      .controls {
+        display: grid;
+        gap: 14px;
+      }
+
+      label {
+        display: grid;
+        gap: 7px;
+        font-weight: 750;
+      }
+
+      .label-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .inline-button {
+        padding: 7px 9px;
+        font-size: 13px;
+        white-space: nowrap;
+      }
+
+      .check-row {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #f9fafb;
+        font-weight: 650;
+      }
+
+      .check-row input {
+        width: auto;
+        min-height: 0;
+        margin-top: 4px;
+      }
+
+      .check-row span {
+        display: block;
+      }
+
+      .check-row small {
+        display: block;
+        margin-top: 3px;
+        color: var(--muted);
+        font-weight: 500;
+        line-height: 1.35;
+      }
+
+      .radio-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .radio-card {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-height: 40px;
+        padding: 9px 10px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #f9fafb;
+        font-weight: 700;
+      }
+
+      .radio-card input[type="radio"] {
+        width: auto;
+        min-height: 0;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        border: 1px solid #b9c1c9;
+        border-radius: 6px;
+        padding: 10px 11px;
+        font: inherit;
+        color: var(--ink);
+        background: white;
+      }
+
+      textarea {
+        min-height: 104px;
+        resize: vertical;
+      }
+
+      .split {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .conditional-field {
+        display: none;
+        margin-top: 8px;
+      }
+
+      .conditional-field.active {
+        display: block;
+      }
+
+      button {
+        border: 1px solid var(--mint);
+        border-radius: 6px;
+        background: var(--mint);
+        color: white;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 800;
+        padding: 11px 13px;
+      }
+
+      button:hover {
+        background: var(--mint-dark);
+      }
+
+      .secondary {
+        background: white;
+        border-color: #b9c1c9;
+        color: var(--ink);
+      }
+
+      .secondary:hover {
+        background: #eef4f2;
+      }
+
+      .actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .save-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+
+      .status {
+        min-height: 24px;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      .story-head {
+        display: flex;
+        justify-content: space-between;
+        gap: 14px;
+        align-items: flex-start;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 14px;
+        margin-bottom: 14px;
+      }
+
+      h2,
+      h3 {
+        margin: 0;
+        line-height: 1.2;
+      }
+
+      h2 {
+        font-size: 22px;
+      }
+
+      .tag-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .tag {
+        border-radius: 999px;
+        padding: 6px 9px;
+        font-size: 13px;
+        font-weight: 750;
+      }
+
+      .tag:nth-child(1) {
+        background: var(--soft-mint);
+        color: var(--mint-dark);
+      }
+
+      .tag:nth-child(2) {
+        background: var(--soft-rose);
+        color: var(--rose);
+      }
+
+      .tag:nth-child(3) {
+        background: var(--soft-gold);
+        color: #7d5207;
+      }
+
+      .output {
+        display: grid;
+        gap: 12px;
+      }
+
+      .scene {
+        border: 1px solid var(--line);
+        border-left: 5px solid var(--sky);
+        border-radius: 8px;
+        padding: 13px;
+        background: #fbfcfd;
+      }
+
+      .scene:nth-child(3n) {
+        border-left-color: var(--rose);
+      }
+
+      .scene:nth-child(3n + 1) {
+        border-left-color: var(--gold);
+      }
+
+      .scene h3 {
+        font-size: 16px;
+        margin-bottom: 7px;
+      }
+
+      .scene p {
+        color: #32383f;
+      }
+
+      .script-box {
+        width: 100%;
+        min-height: 260px;
+        margin-top: 14px;
+        border: 1px solid #b9c1c9;
+        border-radius: 8px;
+        padding: 13px;
+        white-space: pre-wrap;
+        background: #2b2f33;
+        color: #eaf4ef;
+        overflow: auto;
+        line-height: 1.5;
+      }
+
+      #youtubeBox {
+        background: #10233f;
+        border-color: #29476f;
+        color: #edf5ff;
+      }
+
+      .hidden {
+        display: none;
+      }
+
+      @media (max-width: 860px) {
+        main {
+          width: min(100% - 24px, 1180px);
+          padding-top: 16px;
+        }
+
+        .top,
+        .workspace,
+        .split,
+        .actions,
+        .save-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .story-head {
+          display: grid;
+        }
+
+        h1 {
+          font-size: 38px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section class="top">
+        <div class="intro">
+          <h1>Build a new AI story.</h1>
+          <p>Start with a rough idea, choose the mood, then turn it into a scene-numbered storyboard for Sora, ChatGPT, or your next video draft.</p>
+        </div>
+        <figure class="cover" aria-label="A cinematic robot and child looking at a bright city">
+          <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=900&q=80" alt="Abstract AI network lights" />
+          <figcaption class="cover-note">One idea becomes a story beat by beat.</figcaption>
+        </figure>
+      </section>
+
+      <section class="workspace">
+        <form class="panel controls" id="storyForm">
+          <label>
+            Character
+            <textarea id="character" placeholder="Among Us game character Yellow">Among Us game character Yellow</textarea>
+          </label>
+
+          <label>
+            Object keyword
+            <input id="objectKeyword" type="text" placeholder="baseball bat, toy, gadget, snack, tool..." />
+          </label>
+
+          <label>
+            Set
+            <textarea id="setDescription" placeholder="Describe the main place or world. Example: a neon vending machine corner inside a tiny spaceship hallway"></textarea>
+          </label>
+
+          <div>
+            <label>Art Style</label>
+            <div class="radio-grid" role="radiogroup" aria-label="Art Style type">
+              <label class="radio-card">
+                <input type="radio" name="artStyleMode" value="2d" checked />
+                <span>2D Animation</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="artStyleMode" value="live" />
+                <span>Live-Action</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="artStyleMode" value="custom" />
+                <span id="customArtStyleRadioLabel">Custom Style</span>
+              </label>
+              <label class="radio-card">
+                <input type="radio" name="artStyleMode" value="saved" />
+                <span>Saved Art Style</span>
+              </label>
+            </div>
+          </div>
+
+          <label>
+            Third style button name
+            <input id="customArtStyleName" type="text" placeholder="Example: Clay Stop Motion" />
+          </label>
+
+          <label>
+            Art Style prompt
+            <textarea id="characterDesign" placeholder="Art style prompt">2D animation art style for a yellow crewmate-inspired character.
+
+Visual direction:
+- flat cel-shaded cartoon
+- clean vector-like finish
+- simple readable shapes
+- smooth uniform outlines
+- bright but controlled colors
+- mobile game character design feel
+- clear silhouette and expressive body language
+
+Avoid:
+- realistic rendering
+- 3D shading
+- heavy texture
+- noisy details</textarea>
+          </label>
+
+          <label>
+            Art Style save title
+            <input id="characterDesignTitle" type="text" placeholder="Yellow crewmate turnaround sheet" />
+          </label>
+
+          <div class="save-grid">
+            <button type="button" class="secondary" id="saveCharacterDesign">Save Art Style</button>
+            <button type="button" class="secondary" id="loadCharacterDesign">Load Style</button>
+          </div>
+
+          <label>
+            Saved Art Styles
+            <select id="savedCharacterDesign">
+              <option value="">No saved art styles yet</option>
+            </select>
+          </label>
+
+          <label>
+            <span class="label-head">
+              <span>Story idea</span>
+              <button type="button" class="secondary inline-button" id="generateIdea">Generate Idea</button>
+            </span>
+            <textarea id="idea" placeholder="finds a baseball bat on the street">finds a baseball bat on the street</textarea>
+          </label>
+          <p class="status">Every idea should include one clear object that drives the story, so it can later connect to a product link.</p>
+
+          <div class="split">
+            <label>
+              Genre
+              <select id="genre">
+                <option>Science fiction</option>
+                <option>Fantasy</option>
+                <option>Mystery</option>
+                <option>Adventure</option>
+                <option>Drama</option>
+                <option selected>Comedy</option>
+              </select>
+            </label>
+
+            <label>
+              Mood
+              <select id="mood">
+                <option>Wonder</option>
+                <option>Suspense</option>
+                <option>Hope</option>
+                <option>Melancholy</option>
+                <option selected>Joy</option>
+                <option>Tension</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="split">
+            <label>
+              Scenes
+              <select id="sceneCount">
+                <option value="auto">Auto</option>
+                <option>4</option>
+                <option selected>5</option>
+                <option>6</option>
+                <option>8</option>
+                <option>10</option>
+                <option>12</option>
+                <option>16</option>
+                <option>20</option>
+                <option value="custom">Custom</option>
+              </select>
+              <input class="conditional-field" id="customSceneCount" type="number" min="1" max="30" value="12" />
+            </label>
+
+            <label>
+              Duration
+              <select id="duration">
+                <option value="12">12 seconds</option>
+                <option value="15" selected>15 seconds</option>
+                <option value="20">20 seconds</option>
+                <option value="25">25 seconds</option>
+                <option value="30">30 seconds</option>
+                <option value="45">45 seconds</option>
+                <option value="60">1 minute</option>
+                <option value="90">1.5 minutes</option>
+                <option value="120">2 minutes</option>
+                <option value="180">3 minutes</option>
+                <option value="custom">Custom</option>
+              </select>
+              <input class="conditional-field" id="customDuration" type="number" min="3" max="180" value="60" />
+            </label>
+          </div>
+
+          <label>
+            Script language
+            <select id="language">
+              <option value="same">Same as idea</option>
+              <option value="ko">Korean</option>
+              <option value="en" selected>English</option>
+            </select>
+          </label>
+
+          <label>
+            AI model
+            <select id="model">
+              <option value="llama3.2:latest" selected>llama3.2:latest</option>
+              <option value="llama3:latest">llama3:latest</option>
+              <option value="qwen2.5:latest">qwen2.5:latest</option>
+              <option value="mistral:latest">mistral:latest</option>
+              <option value="gemma3:latest">gemma3:latest</option>
+            </select>
+          </label>
+
+          <label class="check-row">
+            <input id="includeScenePromptDetails" type="checkbox" />
+            <span>
+              Add detailed prompt guide to every scene
+              <small>Off by default. Turn on to append camera, style, mood, and visual prompt wording to each scene.</small>
+            </span>
+          </label>
+
+          <label class="check-row">
+            <input id="includeYoutubeOnCopy" type="checkbox" />
+            <span>
+              Include YouTube upload content when copying
+              <small>Off by default. Turn on to copy storyboard text and YouTube upload content together.</small>
+            </span>
+          </label>
+
+          <div class="actions">
+            <button type="submit" id="createStory">Create AI Story</button>
+            <button type="button" class="secondary" id="copyStory">Copy Text</button>
+          </div>
+          <button type="button" class="secondary" id="generateYoutube">Generate YouTube Upload Content</button>
+          <button type="button" class="secondary" id="convertStory">Convert Script to Korean</button>
+
+          <label>
+            Save name
+            <input id="projectName" type="text" placeholder="Future robot storyboard" />
+          </label>
+
+          <label class="check-row">
+            <input id="useSaveNamePrefix" type="checkbox" />
+            <span>
+              Add prefix to auto save name
+              <small>Off by default. Turn on to put the saved prefix before the automatic story name.</small>
+            </span>
+          </label>
+
+          <label>
+            Save name prefix
+            <input id="saveNamePrefix" type="text" placeholder="Example: Shorts01" />
+          </label>
+
+          <label>
+            Saved Storys
+            <select id="savedProject">
+              <option value="">No saved storys yet</option>
+            </select>
+          </label>
+
+          <div class="save-grid">
+            <button type="button" class="secondary" id="saveProject">Save Story</button>
+            <button type="button" class="secondary" id="loadProject">Load Selected</button>
+          </div>
+          <p class="status" id="statusText">Ready to create with Ollama llama3.2.</p>
+        </form>
+
+        <section class="panel" aria-live="polite">
+          <div class="story-head">
+            <div>
+              <h2 id="storyTitle">The Future in the Robot</h2>
+              <div class="tag-row">
+                <span class="tag" id="genreTag">Science fiction</span>
+                <span class="tag" id="moodTag">Wonder</span>
+                <span class="tag" id="durationTag">15 seconds</span>
+              </div>
+            </div>
+            <button type="button" class="secondary" id="toggleScript">Show storyboard text</button>
+          </div>
+
+          <div class="output" id="sceneOutput"></div>
+          <div class="script-box hidden" id="scriptBox"></div>
+          <div class="script-box hidden" id="youtubeBox"></div>
+        </section>
+      </section>
+    </main>
+
+    <script>
+      const form = document.querySelector("#storyForm");
+      const default2DArtStyle = `2D animation art style for a yellow crewmate-inspired character.
+
+Visual direction:
+- flat cel-shaded cartoon
+- clean vector-like finish
+- simple readable shapes
+- smooth uniform outlines
+- bright but controlled colors
+- mobile game character design feel
+- clear silhouette and expressive body language
+
+Avoid:
+- realistic rendering
+- 3D shading
+- heavy texture
+- noisy details`;
+      const defaultLiveActionArtStyle = `Cinematic live-action sci-fi reinterpretation of crewmate-like astronauts.
+
+Visual direction:
+- realistic film still quality
+- compact rounded astronaut silhouette
+- functional high-end spacesuit construction
+- dark opaque reflective visor with no visible face
+- integrated backpack life-support system
+- physically believable metal, glass, and fabric materials
+- cinematic lighting, shallow depth of field, natural camera perspective
+
+Avoid:
+- flat 2D game art
+- cartoon outlines
+- visible human faces
+- plastic toy surfaces
+- noisy textures`;
+      const defaultCharacterDesign = default2DArtStyle;
+      const characterInput = document.querySelector("#character");
+      const objectKeywordInput = document.querySelector("#objectKeyword");
+      const setDescriptionInput = document.querySelector("#setDescription");
+      const characterDesignInput = document.querySelector("#characterDesign");
+      const characterDesignTitleInput = document.querySelector("#characterDesignTitle");
+      const customArtStyleNameInput = document.querySelector("#customArtStyleName");
+      const customArtStyleRadioLabel = document.querySelector("#customArtStyleRadioLabel");
+      const artStyleModeInputs = [...document.querySelectorAll('input[name="artStyleMode"]')];
+      const ideaInput = document.querySelector("#idea");
+      const genreInput = document.querySelector("#genre");
+      const moodInput = document.querySelector("#mood");
+      const sceneCountInput = document.querySelector("#sceneCount");
+      const customSceneCountInput = document.querySelector("#customSceneCount");
+      const durationInput = document.querySelector("#duration");
+      const customDurationInput = document.querySelector("#customDuration");
+      const languageInput = document.querySelector("#language");
+      const modelInput = document.querySelector("#model");
+      const includeScenePromptDetailsInput = document.querySelector("#includeScenePromptDetails");
+      const includeYoutubeOnCopyInput = document.querySelector("#includeYoutubeOnCopy");
+      const storyTitle = document.querySelector("#storyTitle");
+      const genreTag = document.querySelector("#genreTag");
+      const moodTag = document.querySelector("#moodTag");
+      const durationTag = document.querySelector("#durationTag");
+      const sceneOutput = document.querySelector("#sceneOutput");
+      const scriptBox = document.querySelector("#scriptBox");
+      const youtubeBox = document.querySelector("#youtubeBox");
+      const copyStory = document.querySelector("#copyStory");
+      const toggleScript = document.querySelector("#toggleScript");
+      const generateIdea = document.querySelector("#generateIdea");
+      const createStory = document.querySelector("#createStory");
+      const generateYoutube = document.querySelector("#generateYoutube");
+      const convertStory = document.querySelector("#convertStory");
+      const projectNameInput = document.querySelector("#projectName");
+      const useSaveNamePrefixInput = document.querySelector("#useSaveNamePrefix");
+      const saveNamePrefixInput = document.querySelector("#saveNamePrefix");
+      const savedProjectInput = document.querySelector("#savedProject");
+      const saveProject = document.querySelector("#saveProject");
+      const loadProject = document.querySelector("#loadProject");
+      const savedCharacterDesignInput = document.querySelector("#savedCharacterDesign");
+      const saveCharacterDesign = document.querySelector("#saveCharacterDesign");
+      const loadCharacterDesign = document.querySelector("#loadCharacterDesign");
+      const statusText = document.querySelector("#statusText");
+      let projectNameWasManuallyEdited = false;
+      let saveNamePrefixTimer = null;
+      const customArtStyleStorageKey = "aiStoryBuilder.customArtStyle";
+
+      const beats = [
+        {
+          name: "Opening Image",
+          action: "Introduce the main subject and the world before anything changes.",
+          camera: "wide establishing shot, slow push-in"
+        },
+        {
+          name: "First Spark",
+          action: "Reveal the unusual detail that makes the story feel alive.",
+          camera: "medium shot, gentle handheld movement"
+        },
+        {
+          name: "Choice",
+          action: "Show the subject making a clear decision that moves the story forward.",
+          camera: "close-up, steady focus"
+        },
+        {
+          name: "Escalation",
+          action: "Let the world react, shift, or open into something larger.",
+          camera: "tracking shot with visible motion"
+        },
+        {
+          name: "Discovery",
+          action: "Reveal the emotional or visual center of the story.",
+          camera: "dramatic reveal, slow pullback"
+        },
+        {
+          name: "Cost",
+          action: "Show what the subject risks or leaves behind.",
+          camera: "quiet close-up, shallow depth of field"
+        },
+        {
+          name: "Turn",
+          action: "Add a final surprise that changes the meaning of the journey.",
+          camera: "low angle or overhead shot"
+        },
+        {
+          name: "Final Image",
+          action: "End with a memorable image that feels complete but still mysterious.",
+          camera: "wide shot, lingering frame"
+        }
+      ];
+
+      const genreDetails = {
+        "Science fiction": "advanced technology, glowing interfaces, believable future design",
+        Fantasy: "mythic atmosphere, magical light, ancient symbols",
+        Mystery: "clues, shadows, quiet tension, hidden motives",
+        Adventure: "movement, discovery, bold environments, rising stakes",
+        Drama: "expressive faces, intimate choices, grounded emotion",
+        Comedy: "playful timing, visual contrast, surprising reactions"
+      };
+
+      function titleFromIdea(idea) {
+        const words = idea
+          .replace(/[^\p{L}\p{N}\s-]/gu, "")
+          .split(/\s+/)
+          .filter(Boolean)
+          .filter((word) => !["a", "an", "the", "that", "with", "and", "or", "in", "of", "to"].includes(word.toLowerCase()));
+        const picked = words.slice(0, 5).map((word) => word.charAt(0).toUpperCase() + word.slice(1));
+        return picked.length ? picked.join(" ") : "Untitled AI Story";
+      }
+
+      function youtubeTitleFromContent(text) {
+        const match = String(text || "").match(/^Title:\s*(.+)$/im);
+        return match ? match[1].trim() : "";
+      }
+
+      function wordsForTitle(value) {
+        return String(value || "")
+          .replace(/[^\p{L}\p{N}\s-]/gu, " ")
+          .split(/\s+/)
+          .filter(Boolean)
+          .filter((word) => !["a", "an", "the", "that", "with", "and", "or", "in", "of", "to", "is", "this"].includes(word.toLowerCase()));
+      }
+
+      function titleCaseWords(words) {
+        return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
+      }
+
+      function objectNameFromIdea(idea) {
+        const match = String(idea || "").match(/\b(?:finds|uses|loses|drops|chases|hides|discovers|grabs|opens)\s+(?:a|an|the)?\s*([^.,;]+?)(?:\s+(?:at|in|inside|on|under|near|beside|behind)\b|[.!?]|$)/i);
+        return match ? match[1].trim() : "";
+      }
+
+      function cleanObjectForSaveName(value) {
+        return String(value || "")
+          .replace(/[^\p{L}\p{N}\s-]/gu, " ")
+          .split(/\s+/)
+          .filter(Boolean)
+          .slice(0, 4)
+          .join("_");
+      }
+
+      function cleanSaveNamePrefix(value) {
+        return String(value || "")
+          .replace(/[^\p{L}\p{N}\s-]/gu, " ")
+          .split(/\s+/)
+          .filter(Boolean)
+          .slice(0, 4)
+          .join("-");
+      }
+
+      function hookWordFromTitle(value) {
+        const source = String(value || "").toLowerCase();
+        if (/mystery|secret|hidden/.test(source)) return "Mystery";
+        if (/chaos|meltdown|crazy/.test(source)) return "Chaos";
+        if (/twist|ending/.test(source)) return "Twist";
+        if (/find|discover|discovery/.test(source)) return "Find";
+        return "Surprise";
+      }
+
+      function shortObjectTitle(objectName, sourceTitle) {
+        const objectWords = wordsForTitle(objectName).slice(0, 2);
+        if (!objectWords.length) return "Object Surprise";
+        const hook = hookWordFromTitle(sourceTitle);
+        const titleWords = objectWords.length >= 2 ? [...objectWords, hook] : [objectWords[0], hook];
+        return titleCaseWords(titleWords.slice(0, 3));
+      }
+
+      function suggestedProjectName() {
+        const data = currentFormData();
+        const youtubeTitle = youtubeTitleFromContent(youtubeBox.textContent);
+        const sourceTitle = youtubeTitle || storyTitle.textContent || titleFromIdea(data.idea);
+        const objectSource = data.objectKeyword || objectNameFromIdea(data.idea) || "object";
+        const shortTitle = shortObjectTitle(objectSource, sourceTitle);
+        const prefix = useSaveNamePrefixInput.checked
+          ? cleanSaveNamePrefix(saveNamePrefixInput.value)
+          : "";
+        return prefix ? `${prefix}_${shortTitle}` : shortTitle;
+      }
+
+      function setSuggestedProjectName() {
+        if (projectNameWasManuallyEdited && projectNameInput.value.trim()) return;
+        projectNameInput.value = suggestedProjectName();
+        projectNameWasManuallyEdited = false;
+      }
+
+      async function loadSaveNamePrefixSettings() {
+        try {
+          const response = await fetch("/api/save-name-prefix");
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not load save name prefix.");
+          }
+
+          const settings = result.settings || {};
+          useSaveNamePrefixInput.checked = Boolean(settings.enabled);
+          saveNamePrefixInput.value = settings.prefix || "";
+        } catch (error) {
+          statusText.textContent = `Could not load save name prefix. ${error.message}`;
+        }
+      }
+
+      async function saveSaveNamePrefixSettings({ quiet = true } = {}) {
+        const settings = {
+          enabled: useSaveNamePrefixInput.checked,
+          prefix: saveNamePrefixInput.value.trim()
+        };
+
+        try {
+          const response = await fetch("/api/save-name-prefix", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(settings)
+          });
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not save prefix.");
+          }
+
+          useSaveNamePrefixInput.checked = Boolean(result.settings.enabled);
+          saveNamePrefixInput.value = result.settings.prefix || "";
+          if (!quiet) {
+            statusText.textContent = "Save name prefix saved.";
+          }
+        } catch (error) {
+          statusText.textContent = `Could not save prefix. ${error.message}`;
+        }
+      }
+
+      function scheduleSaveNamePrefixSettings() {
+        clearTimeout(saveNamePrefixTimer);
+        saveNamePrefixTimer = setTimeout(() => {
+          saveSaveNamePrefixSettings();
+        }, 400);
+      }
+
+      function timestampFor(index, sceneCount, duration) {
+        if (index === 0) return 0;
+        return Math.round((duration / sceneCount) * index);
+      }
+
+      function clampNumber(value, min, max, fallback) {
+        const number = Number(value);
+        if (!Number.isFinite(number)) return fallback;
+        return Math.min(max, Math.max(min, Math.round(number)));
+      }
+
+      function resolvedDuration() {
+        if (durationInput.value === "custom") {
+          return clampNumber(customDurationInput.value, 3, 180, 60);
+        }
+        return clampNumber(durationInput.value, 3, 180, 15);
+      }
+
+      function autoSceneCount(duration) {
+        return clampNumber(Math.round(duration / 6), 3, Math.min(30, duration), 5);
+      }
+
+      function resolvedSceneCount(duration) {
+        if (sceneCountInput.value === "auto") {
+          return autoSceneCount(duration);
+        }
+        if (sceneCountInput.value === "custom") {
+          return clampNumber(customSceneCountInput.value, 1, Math.min(30, duration), autoSceneCount(duration));
+        }
+        return clampNumber(sceneCountInput.value, 1, Math.min(30, duration), 5);
+      }
+
+      function updateCustomTimingFields() {
+        customSceneCountInput.classList.toggle("active", sceneCountInput.value === "custom");
+        customDurationInput.classList.toggle("active", durationInput.value === "custom");
+        if (sceneCountInput.value === "auto") {
+          customSceneCountInput.value = String(autoSceneCount(resolvedDuration()));
+        }
+      }
+
+      function setSelectOrCustom(select, customInput, value) {
+        const stringValue = String(value);
+        const hasOption = [...select.options].some((option) => option.value === stringValue);
+        if (hasOption) {
+          select.value = stringValue;
+          return;
+        }
+        select.value = "custom";
+        customInput.value = stringValue;
+      }
+
+      function escapeHtml(value) {
+        return value
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
+
+      function selectedArtStyleMode() {
+        return artStyleModeInputs.find((input) => input.checked)?.value || "2d";
+      }
+
+      function fixedArtStyleIdForMode(mode = selectedArtStyleMode()) {
+        if (mode === "2d") return "2d-animation";
+        if (mode === "live") return "live-action";
+        if (mode === "custom") return "custom-style";
+        return "";
+      }
+
+      function defaultArtStyleForMode(mode) {
+        if (mode === "live") return defaultLiveActionArtStyle;
+        return default2DArtStyle;
+      }
+
+      function setArtStyleMode(mode) {
+        const input = artStyleModeInputs.find((option) => option.value === mode);
+        if (input) input.checked = true;
+      }
+
+      function updateCustomArtStyleLabel() {
+        const name = customArtStyleNameInput.value.trim() || "Custom Style";
+        customArtStyleRadioLabel.textContent = name;
+      }
+
+      function saveCustomArtStyleSlot() {
+        const payload = {
+          name: customArtStyleNameInput.value.trim(),
+          prompt: characterDesignInput.value.trim()
+        };
+        localStorage.setItem(customArtStyleStorageKey, JSON.stringify(payload));
+      }
+
+      function loadCustomArtStyleSlot() {
+        try {
+          const payload = JSON.parse(localStorage.getItem(customArtStyleStorageKey) || "{}");
+          customArtStyleNameInput.value = payload.name || "";
+          updateCustomArtStyleLabel();
+          return payload.prompt || "";
+        } catch {
+          updateCustomArtStyleLabel();
+          return "";
+        }
+      }
+
+      async function loadFixedArtStyle(mode) {
+        const fixedId = fixedArtStyleIdForMode(mode);
+        if (!fixedId) return null;
+
+        try {
+          const response = await fetch(`/api/art-styles/${encodeURIComponent(fixedId)}`);
+          if (response.ok) {
+            const result = await response.json();
+            return result.design || null;
+          }
+
+          const listResponse = await fetch("/api/art-styles");
+          if (!listResponse.ok) return null;
+
+          const listResult = await listResponse.json();
+          const expectedName = mode === "2d"
+            ? "2D Animation"
+            : mode === "live"
+              ? "Live-Action"
+              : customArtStyleNameInput.value.trim();
+          const fallback = (listResult.designs || []).find((design) => (
+            expectedName && String(design.name || "").toLowerCase() === expectedName.toLowerCase()
+          ));
+          if (!fallback) return null;
+
+          const fallbackResponse = await fetch(`/api/art-styles/${encodeURIComponent(fallback.id)}`);
+          if (!fallbackResponse.ok) return null;
+
+          const fallbackResult = await fallbackResponse.json();
+          return fallbackResult.design || null;
+        } catch {
+          return null;
+        }
+      }
+
+      async function hydrateCustomArtStyleLabelFromServer() {
+        const design = await loadFixedArtStyle("custom");
+        if (!design) return;
+
+        customArtStyleNameInput.value = design.name || customArtStyleNameInput.value;
+        updateCustomArtStyleLabel();
+        localStorage.setItem(customArtStyleStorageKey, JSON.stringify({
+          name: customArtStyleNameInput.value.trim(),
+          prompt: design.design || ""
+        }));
+      }
+
+      function applyLoadedArtStyle(mode, design) {
+        if (design) {
+          characterDesignInput.value = design.design || defaultArtStyleForMode(mode);
+          characterDesignTitleInput.value = design.name || artStyleModeLabel();
+          if (mode === "custom") {
+            customArtStyleNameInput.value = design.name || customArtStyleNameInput.value;
+            updateCustomArtStyleLabel();
+            saveCustomArtStyleSlot();
+          }
+          return;
+        }
+
+        if (mode === "2d") {
+          characterDesignInput.value = default2DArtStyle;
+          characterDesignTitleInput.value = "2D Animation";
+        } else if (mode === "live") {
+          characterDesignInput.value = defaultLiveActionArtStyle;
+          characterDesignTitleInput.value = "Live-Action";
+        } else if (mode === "custom") {
+          const prompt = loadCustomArtStyleSlot();
+          characterDesignInput.value = prompt || characterDesignInput.value || default2DArtStyle;
+          characterDesignTitleInput.value = customArtStyleNameInput.value.trim() || "Custom Style";
+        }
+      }
+
+      async function applyArtStyleMode(mode) {
+        setArtStyleMode(mode);
+        if (mode === "2d" || mode === "live" || mode === "custom") {
+          const design = await loadFixedArtStyle(mode);
+          applyLoadedArtStyle(mode, design);
+        }
+        renderTemplateStory(`${artStyleModeLabel()} selected.`);
+      }
+
+      function artStyleModeLabel() {
+        const mode = selectedArtStyleMode();
+        if (mode === "2d") return "2D Animation";
+        if (mode === "live") return "Live-Action";
+        if (mode === "saved") return "Saved Art Style";
+        return customArtStyleNameInput.value.trim() || "Custom Style";
+      }
+
+      function scenePromptDetailSuffix(genre, mood, style, index, sceneCount) {
+        const beat = beats[index] || beats[beats.length - 1];
+        const genreTexture = genreDetails[genre] || "distinctive visual details";
+        const ending = index === sceneCount - 1
+          ? "The scene resolves into a strong final image with room for the next chapter."
+          : "The moment leads naturally into the next scene.";
+
+        const stylePart = style ? ` Style: ${style}.` : "";
+        return `visual scene prompt with clear character action, key prop, location, pose, expression, lighting, and background details. Use ${genreTexture}. Camera: ${beat.camera}.${stylePart} Mood: ${mood.toLowerCase()}. ${ending}`;
+      }
+
+      function stripScenePromptDetails(text) {
+        return String(text || "")
+          .replace(/;?\s*"?visual scene prompt with clear character action,[\s\S]*?(?:The moment leads naturally into the next scene\.|The scene resolves into a strong final image with room for the next chapter\.)"?/gi, "")
+          .replace(/\s{2,}/g, " ")
+          .trim();
+      }
+
+      function applyScenePromptPreference(scenes, data) {
+        return scenes.map((scene, index) => {
+          const cleanText = stripScenePromptDetails(scene.text);
+          const text = data.includeScenePromptDetails
+            ? `${cleanText}; ${scenePromptDetailSuffix(data.genre, data.mood, data.style, index, data.sceneCount)}`
+            : cleanText;
+
+          return { ...scene, text };
+        });
+      }
+
+      function makeScene(idea, genre, mood, style, index, sceneCount, duration, includeScenePromptDetails) {
+        const beat = beats[index] || beats[beats.length - 1];
+        const time = timestampFor(index, sceneCount, duration);
+        const baseText = `${idea}. ${beat.action}`;
+        const text = includeScenePromptDetails
+          ? `${baseText}; ${scenePromptDetailSuffix(genre, mood, style, index, sceneCount)}`
+          : baseText;
+
+        return {
+          number: index + 1,
+          time,
+          title: beat.name,
+          text
+        };
+      }
+
+      function currentFormData() {
+        const character = characterInput.value.trim() || "Among Us game character Yellow";
+        const objectKeyword = objectKeywordInput.value.trim();
+        const setDescription = setDescriptionInput.value.trim();
+        const characterDesign = characterDesignInput.value.trim() || default2DArtStyle;
+        const idea = ideaInput.value.trim() || "finds a baseball bat on the street";
+        const genre = genreInput.value;
+        const mood = moodInput.value;
+        const duration = resolvedDuration();
+        const sceneCount = resolvedSceneCount(duration);
+        const language = languageInput.value;
+        const model = modelInput.value;
+        const artStyleMode = selectedArtStyleMode();
+        const style = "";
+        const includeScenePromptDetails = includeScenePromptDetailsInput.checked;
+        const saveNamePrefix = {
+          enabled: useSaveNamePrefixInput.checked,
+          prefix: saveNamePrefixInput.value.trim()
+        };
+        const timingMode = {
+          scenes: sceneCountInput.value,
+          duration: durationInput.value,
+          customScenes: Number(customSceneCountInput.value),
+          customDuration: Number(customDurationInput.value)
+        };
+        return { character, objectKeyword, setDescription, characterDesign, artStyleMode, idea, genre, mood, sceneCount, duration, timingMode, language, model, style, includeScenePromptDetails, saveNamePrefix };
+      }
+
+      function storyboardTextFromScenes(title, data, scenes) {
+        return [
+          `Title: ${title}`,
+          `Total duration: ${data.duration} seconds`,
+          `Genre: ${data.genre}`,
+          `Mood: ${data.mood}`,
+          "",
+          "Key object / product hook:",
+          "One visible object must drive the story events and appear repeatedly as the main prop, making it suitable for a future product or affiliate link.",
+          "",
+          "Set prompt:",
+          data.setDescription
+            ? `Primary set: ${data.setDescription}. Prioritize this place over any location mentioned inside the art style prompt, while allowing extra locations only when the story structure needs them.`
+            : "No fixed set was entered; use the location created by the story idea or AI story generation.",
+          "",
+          "Art style prompt:",
+          `Art style for this story: ${data.characterDesign}. Keep the main character, object, set, materials, camera language, and negative style rules consistent across every scene.`,
+          "",
+          ...(data.style ? ["Art direction:", data.style, ""] : []),
+          ...scenes.map((scene) => `Scene ${scene.number} - ${scene.time}s:\n${scene.text}`)
+        ].join("\n\n");
+      }
+
+      function scriptLooksKorean() {
+        return /[\u3131-\u318e\uac00-\ud7a3]/.test(scriptBox.textContent);
+      }
+
+      function convertTargetLanguage() {
+        return scriptLooksKorean() ? "en" : "ko";
+      }
+
+      function updateConvertButtonLabel() {
+        convertStory.textContent = convertTargetLanguage() === "ko"
+          ? "Convert Script to Korean"
+          : "Convert Script to English";
+      }
+
+      function renderScenes(title, data, scenes) {
+        storyTitle.textContent = title;
+        genreTag.textContent = data.genre;
+        moodTag.textContent = data.mood;
+        durationTag.textContent = `${data.duration} seconds`;
+
+        sceneOutput.innerHTML = scenes
+          .map((scene) => `
+            <article class="scene">
+              <h3>Scene ${scene.number} - ${scene.time}s: ${escapeHtml(scene.title)}</h3>
+              <p>${escapeHtml(scene.text)}</p>
+            </article>
+          `)
+          .join("");
+
+        scriptBox.textContent = storyboardTextFromScenes(title, data, scenes);
+        setSuggestedProjectName();
+        updateConvertButtonLabel();
+      }
+
+      function renderTemplateStory(message = "Template story ready.") {
+        const data = currentFormData();
+        const title = titleFromIdea(data.idea);
+
+        const scenes = Array.from({ length: data.sceneCount }, (_, index) =>
+          makeScene(data.idea, data.genre, data.mood, data.style, index, data.sceneCount, data.duration, data.includeScenePromptDetails)
+        );
+
+        renderScenes(title, data, scenes);
+        statusText.textContent = message;
+      }
+
+      function sceneTitleFromText(text, fallback) {
+        const firstLine = text.split("\n")[0] || "";
+        const cleaned = firstLine.replace(/^Scene\s+\d+\s*-\s*\d+s\s*:?\s*/i, "").trim();
+        return cleaned && cleaned.length < 80 ? cleaned : fallback;
+      }
+
+      function scenesFromStoryboardText(text, data) {
+        const matches = [...text.matchAll(/Scene\s+(\d+)\s*-\s*(\d+)s\s*:?\s*([\s\S]*?)(?=\s*Scene\s+\d+\s*-\s*\d+s\s*:|\s*$)/gi)];
+        if (!matches.length) return null;
+
+        return matches.slice(0, data.sceneCount).map((match, index) => {
+          const sceneText = match[3].trim().replace(/\n{3,}/g, "\n\n");
+          const fallback = beats[index]?.name || `Scene ${index + 1}`;
+          const title = sceneTitleFromText(sceneText, fallback);
+          const body = sceneText.startsWith(title) && sceneText.length > title.length
+            ? sceneText.slice(title.length).trim()
+            : sceneText;
+          return {
+            number: Number(match[1]) || index + 1,
+            time: Number(match[2]) || timestampFor(index, data.sceneCount, data.duration),
+            title,
+            text: body || sceneText
+          };
+        });
+      }
+
+      async function createAiStory() {
+        const data = currentFormData();
+        createStory.disabled = true;
+        createStory.textContent = "Creating...";
+        statusText.textContent = `Asking local Ollama ${data.model} for a new story...`;
+
+        try {
+          const response = await fetch("/api/story", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "The local AI server could not create a story.");
+          }
+
+          const title = result.title || titleFromIdea(data.idea);
+          const scenes = scenesFromStoryboardText(result.storyboard || "", data);
+          if (!scenes) {
+            throw new Error("The AI response did not include scene-numbered storyboard text.");
+          }
+
+          renderScenes(title, data, applyScenePromptPreference(scenes, data));
+          youtubeBox.textContent = "";
+          youtubeBox.classList.add("hidden");
+          statusText.textContent = "AI story created. Creating YouTube upload content...";
+          await generateYoutubeContent({ quiet: true, autoSave: false });
+          statusText.textContent = youtubeBox.textContent.trim()
+            ? "AI story and YouTube upload content created."
+            : "AI story created with local Ollama.";
+          await autoSaveCurrentStory("story-generated");
+        } catch (error) {
+          renderTemplateStory(`Local AI unavailable, so a template story was created. ${error.message}`);
+        } finally {
+          createStory.disabled = false;
+          createStory.textContent = "Create AI Story";
+        }
+      }
+
+      async function autoSaveCurrentStory(reason = "auto") {
+        const data = currentFormData();
+        const storyboard = scriptBox.textContent.trim();
+        if (!storyboard) return;
+
+        try {
+          await fetch("/api/auto-saves", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              reason,
+              name: projectNameInput.value.trim() || storyTitle.textContent || titleFromIdea(data.idea),
+              title: storyTitle.textContent,
+              settings: data,
+              storyboard,
+              youtubeContent: youtubeBox.textContent.trim()
+            })
+          });
+        } catch {
+          // Auto-save should never interrupt story creation.
+        }
+      }
+
+      async function generateYoutubeContent(options = {}) {
+        const shouldAutoSave = options.autoSave !== false;
+        const quiet = Boolean(options.quiet);
+        const data = currentFormData();
+        const storyboard = scriptBox.textContent.trim();
+        if (!storyboard) {
+          statusText.textContent = "Create a story first, then generate YouTube upload content.";
+          return;
+        }
+
+        generateYoutube.disabled = true;
+        if (!quiet) {
+          generateYoutube.textContent = "Generating YouTube Content...";
+          statusText.textContent = "Creating YouTube Shorts upload content...";
+        }
+
+        try {
+          const response = await fetch("/api/youtube", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              ...data,
+              title: storyTitle.textContent,
+              storyboard
+            })
+          });
+
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "The local AI server could not create YouTube content.");
+          }
+
+          youtubeBox.textContent = result.youtubeContent.trim();
+          youtubeBox.classList.remove("hidden");
+          setSuggestedProjectName();
+          if (!quiet) {
+            statusText.textContent = "YouTube upload content generated.";
+          }
+          if (shouldAutoSave) {
+            await autoSaveCurrentStory("youtube-generated");
+          }
+        } catch (error) {
+          statusText.textContent = `Could not generate YouTube upload content. ${error.message}`;
+        } finally {
+          generateYoutube.disabled = false;
+          generateYoutube.textContent = "Generate YouTube Upload Content";
+        }
+      }
+
+      async function generateStoryIdea(options = {}) {
+        const shouldCreateStory = Boolean(options.createStory);
+        const data = currentFormData();
+        generateIdea.disabled = true;
+        generateIdea.textContent = "Generating...";
+        statusText.textContent = `Asking ${data.model} for a fresh story idea...`;
+
+        try {
+          const response = await fetch("/api/idea", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "The local AI server could not generate an idea.");
+          }
+
+          ideaInput.value = result.idea || ideaInput.value;
+          setSuggestedProjectName();
+          if (shouldCreateStory) {
+            statusText.textContent = "Random idea generated. Creating AI scene-focused prompts...";
+            await createAiStory();
+          } else {
+            renderTemplateStory("Random short idea generated. Press Create AI Story to build the scene prompts.");
+          }
+        } catch (error) {
+          statusText.textContent = `Could not generate an idea. ${error.message}`;
+        } finally {
+          generateIdea.disabled = false;
+          generateIdea.textContent = "Generate Idea";
+        }
+      }
+
+      async function convertCurrentStory() {
+        const data = { ...currentFormData(), language: convertTargetLanguage() };
+        const storyboard = scriptBox.textContent.trim();
+        if (!storyboard) {
+          statusText.textContent = "Create a story first, then convert it.";
+          return;
+        }
+
+        convertStory.disabled = true;
+        convertStory.textContent = "Converting...";
+        statusText.textContent = "Converting the current storyboard with Ollama...";
+
+        try {
+          const response = await fetch("/api/translate", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ ...data, storyboard })
+          });
+
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "The local AI server could not convert the script.");
+          }
+
+          const title = result.title || titleFromIdea(data.idea);
+          const scenes = scenesFromStoryboardText(result.storyboard || "", data);
+          if (!scenes) {
+            throw new Error("The converted response did not keep the scene format.");
+          }
+
+          renderScenes(title, data, scenes);
+          scriptBox.textContent = result.storyboard.trim();
+          statusText.textContent = "Current script converted.";
+        } catch (error) {
+          statusText.textContent = `Could not convert with local AI. ${error.message}`;
+        } finally {
+          convertStory.disabled = false;
+          updateConvertButtonLabel();
+        }
+      }
+
+      async function refreshSavedProjects(selectedId = "") {
+        try {
+          const response = await fetch("/api/projects");
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not load saved stories.");
+          }
+
+          const projects = result.projects || [];
+          savedProjectInput.innerHTML = projects.length
+            ? projects.map((project) => `<option value="${escapeHtml(project.id)}">${escapeHtml(project.name)} - ${escapeHtml(project.updatedAtLabel)}</option>`).join("")
+            : `<option value="">No saved storys yet</option>`;
+
+          if (selectedId) {
+            savedProjectInput.value = selectedId;
+          }
+        } catch (error) {
+          statusText.textContent = `Could not refresh saved stories. ${error.message}`;
+        }
+      }
+
+      async function refreshSavedCharacterDesigns(selectedId = "") {
+        try {
+          const response = await fetch("/api/art-styles");
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not load saved art styles.");
+          }
+
+          const designs = result.designs || [];
+          const defaultOption = `<option value="__default">Default Yellow Crewmate Turnaround</option>`;
+          const savedOptions = designs
+            .map((design) => `<option value="${escapeHtml(design.id)}">${escapeHtml(design.name)} - ${escapeHtml(design.updatedAtLabel)}</option>`)
+            .join("");
+          savedCharacterDesignInput.innerHTML = savedOptions
+            ? `${defaultOption}${savedOptions}`
+            : defaultOption;
+
+          if (selectedId) {
+            savedCharacterDesignInput.value = selectedId;
+          }
+        } catch (error) {
+          statusText.textContent = `Could not refresh art styles. ${error.message}`;
+        }
+      }
+
+      function characterDesignName() {
+        const typedTitle = characterDesignTitleInput.value.trim();
+        if (typedTitle) return typedTitle;
+
+        const firstLine = characterDesignInput.value
+          .split(/\n/)
+          .map((line) => line.trim())
+          .find(Boolean);
+        return firstLine
+          ? firstLine.replace(/[^\p{L}\p{N}\s-]/gu, "").split(/\s+/).slice(0, 8).join(" ")
+          : "Art style";
+      }
+
+      async function saveCurrentCharacterDesign() {
+        const design = characterDesignInput.value.trim();
+        if (!design) {
+          statusText.textContent = "Art style is empty.";
+          return;
+        }
+
+        saveCharacterDesign.disabled = true;
+        saveCharacterDesign.textContent = "Saving...";
+
+        try {
+          const response = await fetch("/api/art-styles", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name: characterDesignName(),
+              design,
+              fixedId: fixedArtStyleIdForMode()
+            })
+          });
+
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not save this art style.");
+          }
+
+          characterDesignTitleInput.value = result.design.name;
+          if (selectedArtStyleMode() === "custom") {
+            customArtStyleNameInput.value = result.design.name;
+            updateCustomArtStyleLabel();
+            saveCustomArtStyleSlot();
+          }
+          await refreshSavedCharacterDesigns(result.design.id);
+          statusText.textContent = `Saved art style to art-styles/${result.design.fileName}`;
+        } catch (error) {
+          statusText.textContent = `Could not save art style. ${error.message}`;
+        } finally {
+          saveCharacterDesign.disabled = false;
+          saveCharacterDesign.textContent = "Save Art Style";
+        }
+      }
+
+      async function loadSelectedCharacterDesign() {
+        const id = savedCharacterDesignInput.value;
+        if (!id) {
+          statusText.textContent = "Choose a saved art style first.";
+          return;
+        }
+
+        if (id === "__default") {
+          characterDesignTitleInput.value = "Default Yellow Crewmate Turnaround";
+          characterDesignInput.value = default2DArtStyle;
+          setArtStyleMode("2d");
+          renderTemplateStory("Loaded default art style.");
+          return;
+        }
+
+        loadCharacterDesign.disabled = true;
+        loadCharacterDesign.textContent = "Loading...";
+
+        try {
+          const response = await fetch(`/api/art-styles/${encodeURIComponent(id)}`);
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not load this art style.");
+          }
+
+          characterDesignInput.value = result.design.design || default2DArtStyle;
+          characterDesignTitleInput.value = result.design.name || "";
+          setArtStyleMode("saved");
+          renderTemplateStory(`Loaded art style: ${result.design.name}.`);
+        } catch (error) {
+          statusText.textContent = `Could not load art style. ${error.message}`;
+        } finally {
+          loadCharacterDesign.disabled = false;
+          loadCharacterDesign.textContent = "Load Style";
+        }
+      }
+
+      async function saveCurrentProject() {
+        const data = currentFormData();
+        setSuggestedProjectName();
+        const name = projectNameInput.value.trim() || suggestedProjectName();
+        const storyboard = scriptBox.textContent.trim();
+
+        saveProject.disabled = true;
+        saveProject.textContent = "Saving...";
+
+        try {
+          const response = await fetch("/api/projects", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              title: storyTitle.textContent,
+              settings: data,
+              storyboard,
+              youtubeContent: youtubeBox.textContent.trim()
+            })
+          });
+
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not save this idea.");
+          }
+
+          projectNameInput.value = result.project.name;
+          await refreshSavedProjects(result.project.id);
+          statusText.textContent = `Saved to data/${result.project.fileName}`;
+        } catch (error) {
+          statusText.textContent = `Could not save. ${error.message}`;
+        } finally {
+          saveProject.disabled = false;
+          saveProject.textContent = "Save Story";
+        }
+      }
+
+      async function loadSelectedProject() {
+        const id = savedProjectInput.value;
+        if (!id) {
+          statusText.textContent = "Choose a saved story first.";
+          return;
+        }
+
+        loadProject.disabled = true;
+        loadProject.textContent = "Loading...";
+
+        try {
+          const response = await fetch(`/api/projects/${encodeURIComponent(id)}`);
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not load this idea.");
+          }
+
+          const project = result.project;
+          const settings = project.settings || {};
+          characterInput.value = settings.character || "Among Us game character Yellow";
+          objectKeywordInput.value = settings.objectKeyword || "";
+          setDescriptionInput.value = settings.setDescription || "";
+          characterDesignInput.value = settings.characterDesign || default2DArtStyle;
+          ideaInput.value = settings.idea || "";
+          genreInput.value = settings.genre || genreInput.value;
+          moodInput.value = settings.mood || moodInput.value;
+          const timingMode = settings.timingMode || {};
+          if (timingMode.scenes) {
+            sceneCountInput.value = timingMode.scenes;
+            customSceneCountInput.value = String(timingMode.customScenes || settings.sceneCount || customSceneCountInput.value);
+          } else {
+            setSelectOrCustom(sceneCountInput, customSceneCountInput, settings.sceneCount || sceneCountInput.value);
+          }
+          if (timingMode.duration) {
+            durationInput.value = timingMode.duration;
+            customDurationInput.value = String(timingMode.customDuration || settings.duration || customDurationInput.value);
+          } else {
+            setSelectOrCustom(durationInput, customDurationInput, settings.duration || durationInput.value);
+          }
+          updateCustomTimingFields();
+          languageInput.value = settings.language || languageInput.value;
+          modelInput.value = settings.model || modelInput.value;
+          setArtStyleMode(settings.artStyleMode || "saved");
+          includeScenePromptDetailsInput.checked = Boolean(settings.includeScenePromptDetails);
+          projectNameInput.value = project.name || "";
+          projectNameWasManuallyEdited = Boolean(project.name);
+
+          const data = currentFormData();
+          const storyboard = project.storyboard || "";
+          youtubeBox.textContent = project.youtubeContent || "";
+          youtubeBox.classList.toggle("hidden", !youtubeBox.textContent.trim());
+          const scenes = scenesFromStoryboardText(storyboard, data);
+          if (scenes) {
+            renderScenes(project.title || titleFromIdea(data.idea), data, applyScenePromptPreference(scenes, data));
+          } else {
+            renderTemplateStory("Saved settings loaded. No storyboard text was found, so a template story is showing.");
+          }
+
+          statusText.textContent = `Loaded ${project.name}.`;
+        } catch (error) {
+          statusText.textContent = `Could not load. ${error.message}`;
+        } finally {
+          loadProject.disabled = false;
+          loadProject.textContent = "Load Selected";
+          updateConvertButtonLabel();
+        }
+      }
+
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        await createAiStory();
+      });
+
+      sceneCountInput.addEventListener("change", () => {
+        updateCustomTimingFields();
+        renderTemplateStory("Timing updated.");
+      });
+
+      durationInput.addEventListener("change", () => {
+        updateCustomTimingFields();
+        renderTemplateStory("Timing updated.");
+      });
+
+      customSceneCountInput.addEventListener("input", () => {
+        renderTemplateStory("Custom scene count updated.");
+      });
+
+      customDurationInput.addEventListener("input", () => {
+        if (sceneCountInput.value === "auto") {
+          updateCustomTimingFields();
+        }
+        renderTemplateStory("Custom duration updated.");
+      });
+
+      projectNameInput.addEventListener("input", () => {
+        projectNameWasManuallyEdited = Boolean(projectNameInput.value.trim());
+      });
+
+      useSaveNamePrefixInput.addEventListener("change", () => {
+        scheduleSaveNamePrefixSettings();
+        setSuggestedProjectName();
+      });
+
+      saveNamePrefixInput.addEventListener("input", () => {
+        scheduleSaveNamePrefixSettings();
+        setSuggestedProjectName();
+      });
+
+      artStyleModeInputs.forEach((input) => {
+        input.addEventListener("change", () => {
+          if (input.checked) applyArtStyleMode(input.value);
+        });
+      });
+
+      customArtStyleNameInput.addEventListener("input", () => {
+        updateCustomArtStyleLabel();
+        if (selectedArtStyleMode() === "custom") {
+          characterDesignTitleInput.value = customArtStyleNameInput.value.trim() || "Custom Style";
+        }
+        saveCustomArtStyleSlot();
+      });
+
+      characterDesignInput.addEventListener("input", () => {
+        if (selectedArtStyleMode() === "custom") {
+          saveCustomArtStyleSlot();
+        }
+      });
+
+      includeScenePromptDetailsInput.addEventListener("change", () => {
+        const data = currentFormData();
+        const scenes = scenesFromStoryboardText(scriptBox.textContent, data);
+        if (scenes) {
+          renderScenes(storyTitle.textContent || titleFromIdea(data.idea), data, applyScenePromptPreference(scenes, data));
+          statusText.textContent = data.includeScenePromptDetails
+            ? "Detailed prompt guide added to each scene."
+            : "Detailed prompt guide removed from each scene.";
+        } else {
+          renderTemplateStory(data.includeScenePromptDetails
+            ? "Detailed prompt guide will be added to each scene."
+            : "Detailed prompt guide is off.");
+        }
+      });
+
+      copyStory.addEventListener("click", async () => {
+        const storyboardText = scriptBox.textContent.trim();
+        const youtubeText = youtubeBox.textContent.trim();
+        const text = includeYoutubeOnCopyInput.checked && youtubeText
+          ? `${storyboardText}\n\n---\n\n${youtubeText}`
+          : storyboardText;
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(text);
+        } else {
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand("copy");
+          textArea.remove();
+        }
+        copyStory.textContent = "Copied";
+        setTimeout(() => {
+          copyStory.textContent = "Copy Text";
+        }, 1200);
+      });
+
+      convertStory.addEventListener("click", convertCurrentStory);
+      generateIdea.addEventListener("click", () => generateStoryIdea({ createStory: false }));
+      generateYoutube.addEventListener("click", generateYoutubeContent);
+      saveProject.addEventListener("click", saveCurrentProject);
+      loadProject.addEventListener("click", loadSelectedProject);
+      saveCharacterDesign.addEventListener("click", saveCurrentCharacterDesign);
+      loadCharacterDesign.addEventListener("click", loadSelectedCharacterDesign);
+
+      toggleScript.addEventListener("click", () => {
+        scriptBox.classList.toggle("hidden");
+        toggleScript.textContent = scriptBox.classList.contains("hidden")
+          ? "Show storyboard text"
+          : "Hide storyboard text";
+      });
+
+      async function initializeApp() {
+        await loadSaveNamePrefixSettings();
+        loadCustomArtStyleSlot();
+        await hydrateCustomArtStyleLabelFromServer();
+        await applyArtStyleMode(selectedArtStyleMode());
+        if (!characterDesignInput.value.trim()) {
+          characterDesignInput.value = default2DArtStyle;
+        }
+        renderTemplateStory();
+        updateCustomTimingFields();
+        refreshSavedProjects();
+        refreshSavedCharacterDesigns();
+        updateConvertButtonLabel();
+        generateStoryIdea({ createStory: true });
+      }
+
+      initializeApp();
+    </script>
+  </body>
+</html>

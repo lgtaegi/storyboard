@@ -1,0 +1,18 @@
+{
+  "id": "2026-04-17T18-03-04-785Z-amongusyellow-baseballbat",
+  "name": "AmongUsYellow_baseballBat",
+  "title": "Yellow's Big Find",
+  "settings": {
+    "idea": "Among Us Game character Yellow finds a baseball bat on the street",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: Yellow's Big Find\n\nTotal duration: 15 seconds\n\nGenre: Comedy\nMood: Joy\n\nCharacter prompt format:\n\n* Age/Role: Young Adult Crewmate (20-25 years old)\n* Face: Bright and cheerful, with a small nose and full lips\n* Hair: Short, spiky yellow hair with a few loose strands framing the face\n* Clothing: Casual crew outfit with a bright yellow shirt and matching pants\n* Distinctive prop: A large baseball bat (similar to the one from Among Us)\n* Emotion: Excitement and curiosity\n* Body language: Standing with feet shoulder-width apart, holding the bat at an angle as if exploring it\n* Consistency notes: Yellow's usual cheerful demeanor and expressive facial expressions\n\nImage style prompt:\n\n* Lighting: Bright and naturalistic, with a slight warm glow to emphasize the comedic tone\n* Composition: Tight framing of Yellow's face and upper body, with the baseball bat filling most of the screen\n* Camera feel: Quick cuts and energetic camera movements to convey Yellow's excitement\n* Detail level: High level of detail in the set dressing and character props, but minimal background clutter\n* Continuity: Establish a clear continuity between scenes by using similar angles, lighting setups, and camera movements\n\nOverall art style prompt:\n\n* Palette: Vibrant and saturated colors with a focus on blues and yellows to match Yellow's bright personality\n* World design: Simple and functional spaces that reflect the crewmates' casual and laid-back environment\n* Mood: Lighthearted and humorous, with an emphasis on showcasing Yellow's enthusiasm and joy\n* Cinematic quality: Emphasis on quick cuts and energetic camera movements to create a dynamic and playful feel\n* Sora-friendly clarity: Clear and easy-to-read text overlays and concise scene descriptions to facilitate storytelling and pacing\n\nScene 1 - 0s:\nYellow discovers the baseball bat lying on the ground, with a look of excitement and curiosity on their face.\n\nScene 2 - 3s:\nA close-up shot of Yellow's hand as they pick up the baseball bat, showcasing the prop in detail. Their eyes light up with joy as they hold it aloft.\n\nScene 3 - 6s:\nYellow begins to explore the baseball bat, examining it from different angles and testing its weight. They can't help but bounce up and down with excitement.\n\nScene 4 - 9s:\nA shot of the crewmates' common area, showing Yellow proudly holding up the baseball bat and gesturing for others to see. Their faces react with surprise and amusement.\n\nScene 5 - 12s:\nAs the crewmates gather around to inspect the baseball bat, a comical moment unfolds where they all take turns trying to hold it without falling over, resulting in a series of hilarious mishaps.",
+  "createdAt": "2026-04-17T18:03:04.785Z",
+  "updatedAt": "2026-04-17T18:03:04.785Z"
+}

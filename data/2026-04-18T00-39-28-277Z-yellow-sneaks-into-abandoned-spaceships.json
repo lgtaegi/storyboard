@@ -1,0 +1,26 @@
+{
+  "id": "2026-04-18T00-39-28-277Z-yellow-sneaks-into-abandoned-spaceships",
+  "name": "Yellow Sneaks Into Abandoned Spaceships",
+  "title": "Yellow's Toasty Trouble",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Yellow sneaks into abandoned spaceship's kitchen and loses a toaster.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 10,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "custom",
+      "duration": "15",
+      "customScenes": 10,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: Yellow's Toasty Trouble\n\nTotal duration: 15 seconds\n\nGenre: Comedy\n\nMood: Joy\n\nKey object / product hook: A shiny new toaster that connects to an online store selling retro-style appliances.\n\nCharacter prompt format:\n\n- Age/Role: Young adult\n- Face: Round, cheerful\n- Hair: Short, messy yellow\n- Clothing: White spacesuit with bright yellow accents\n- Distinctive prop: None\n- Emotion: Mischievous\n- Body language: Slouching, with one leg slightly bent\n- Consistency notes: Always has a hint of excitement in their expression\n\nImage style prompt:\n\n- Lighting: Warm, soft glow from spaceship lights\n- Composition: Close-up shots with some surrounding environment\n- Camera feel: Fast-paced cuts with slight motion blur\n- Detail level: High for textures, low for backgrounds\n- Continuity: Same lighting and camera angles throughout the animation\n\nOverall art style prompt:\n\n- Palette: Pastel colors with a focus on yellow, white, and metallic blues\n- World design: Abandoned spaceship interior with pipes, ducts, and some exposed wiring\n- Mood: Lighthearted and playful\n- Cinematic quality: Simple, yet visually engaging\n- Sora-friendly clarity: High contrast for easy visibility\n\nScene 1 - 0s:\nYellow sneaks into the kitchen, peeking around a corner with their helmet visor.\n\nScene 2 - 2s:\nThey spot an old toaster on the counter and quickly grab it, stuffing it into a backpack.\n\nScene 3 - 4s:\nCut to Yellow rummaging through their backpack, looking for the toaster's cord to plug in the appliance.\n\nScene 4 - 6s:\nYellow finally finds the cord but gets distracted by a spaceship manual, causing them to drop the toaster.\n\nScene 5 - 8s:\nThe toaster lands on the floor with a clang, and Yellow frantically tries to pick it up while avoiding a rolling trash can.\n\nScene 6 - 10s:\nYellow manages to grab the toaster but realizes they need batteries to activate it.\n\nScene 7 - 12s:\nCut to Yellow rummaging through their spacesuit pockets for spare batteries, only to find an old pencil instead.\n\nScene 8 - 14s:\nYellow uses a nearby welding torch to heat up a metal piece from another ship part, creating makeshift batteries.\n\nScene 9 - 14s:\nWith the improvised batteries in hand, Yellow proudly holds up the toaster and plugs it in.\n\nScene 10 - 14s:\nThe toaster roars to life, and Yellow beams with joy as they take a triumphant bite of toast.",
+  "createdAt": "2026-04-18T00:39:28.277Z",
+  "updatedAt": "2026-04-18T00:39:28.277Z"
+}

@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T01-40-38-574Z-yellow-finds-rubber-chicken-spaceships",
+  "reason": "story-generated",
+  "name": "Yellow Finds Rubber Chicken Spaceships",
+  "title": "\"Yellow's Fowl Play\"",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "shoes",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Yellow finds a rubber chicken in the spaceship's cafeteria break room.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: \"Yellow's Fowl Play\"\n\nTotal duration: 15 seconds\n\nGenre: Comedy\n\nMood: Joy\n\nKey object / product hook: Yellow discovers a rubber chicken that's an exact replica of the infamous \"Cluck Norris\" brand rubber chickens.\n\nCharacter prompt format:\n- Age: Adult\n- Role: Crewmate\n- Face: Round, smiling visor with slight creases around eyes\n- Hair: Short, yellow stripes on helmet\n- Clothing: Standard space suit with utility belt\n- Distinctive prop: Rubber chicken in hand\n- Emotion: Excitement\n- Body language: Stretched legs, arms outstretched to hold chicken\n- Consistency notes: Yellow's character design should be consistent throughout the storyboard\n\nImage style prompt:\n- Lighting: Bright, colorful with slight shadows on characters' faces and objects\n- Composition: Over-the-shoulder shots of Yellow with camera slightly above their head\n- Camera feel: Smooth, playful zooms and pans\n- Detail level: High for characters and low for background spaces\n- Continuity: Consistent colors and textures throughout\n\nOverall art style prompt:\n- Palette: Bright yellows, whites, and blues\n- World design: Simple spaceship interior with sleek lines and metallic surfaces\n- Mood: Lighthearted and playful\n- Cinematic quality: Fast-paced cuts and dynamic camera movements\n- Sora-friendly clarity: Easy-to-follow action and characters\n\nScene 1 - 0s:\nYellow finds a rubber chicken in the cafeteria break room, staring at it with confusion.\n\nScene 2 - 3s:\nClose-up of Yellow's face as they hold up the Cluck Norris rubber chicken, eyes wide with excitement.\n\nScene 3 - 6s:\nWide shot of Yellow standing next to a shelf stocked with various spacesuit accessories, surrounded by identical-looking rubber chickens.\n\nScene 4 - 9s:\nZoom-in on the shelf behind Yellow, revealing dozens of identical \"Cluck Norris\" rubber chickens with the logo \"Amazon Prime Exclusive\" on them.\n\nScene 5 - 12s:\nYellow holds up a shopping list and suddenly remembers they need to buy Cluck Norris rubber chickens for the ship's party, triumphantly pumping their fist in the air.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T01:40:38.574Z",
+  "updatedAt": "2026-04-18T01:40:38.574Z"
+}

@@ -1,0 +1,32 @@
+{
+  "id": "2026-04-20T21-40-06-153Z-sha-surprise-sha",
+  "reason": "story-generated",
+  "name": "Sha Surprise_Sha",
+  "title": "Yellow's Space Fiasco",
+  "settings": {
+    "character": "Among Us game character Black",
+    "objectKeyword": "Sha",
+    "setDescription": "",
+    "characterDesign": "2D",
+    "artStyleMode": "2d",
+    "idea": "Yellow accidentally discovers a rubber chicken in a spaceship's air vent.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "",
+    "includeScenePromptDetails": false
+  },
+  "storyboard": "Title: Yellow's Space Fiasco\n\nTotal duration: 15 seconds\n\nGenre: Comedy\n\nMood: Joy\n\n\n\nKey object / product hook:\n\nOne visible object must drive the story events and appear repeatedly as the main prop, making it suitable for a future product or affiliate link.\n\n\n\nSet prompt:\n\nNo fixed set was entered; use the location created by the story idea or AI story generation.\n\n\n\nArt style prompt:\n\nArt style for this story: 2D. Keep the main character, object, set, materials, camera language, and negative style rules consistent across every scene.\n\n\n\nScene 1 - 0s:\nYellow, the Among Us game character, is crawling through a dark spaceship air vent, their visor reflecting excitement and curiosity. They spot something odd in the shadows and reach for it, revealing the rubber chicken.\n\nScene 2 - 3s:\nThe rubber chicken suddenly inflates and transforms into a mini drone, which zooms around Yellow's head, causing them to jump back in surprise. The camera spins with Yellow, capturing their delighted reaction.\n\nScene 3 - 6s:\nYellow tries to catch the mini drone again, but it dodges and weaves through the air vent's ductwork. Yellow chases after it, their movements exaggerated for comedic effect.\n\nScene 4 - 9s:\nThe mini drone suddenly stops in front of a ventilation grate, revealing a bright, colorful cityscape outside. The camera zooms out to show Yellow staring at the view, amazed by the sight.\n\nScene 5 - 12s:\nYellow excitedly points at the cityscape, and the rubber chicken (now back to its normal form) flies towards them, as if to share in the excitement. The scene ends with a playful, colorful image of Yellow grinning from ear to ear.",
+  "youtubeContent": "YouTube upload content:\nTitle: BLACK'S GALAXY GAFFE: WHEN TOYS TAKE OVER SPACE!\nDescription:\nGet ready for the most epic space malfunction ever! Black's adventure takes a hilarious turn when they stumble upon an unexpected passenger in their spaceship.\n\n#SpaceExploration #ToysInTheSky #RobotChickenMischief #AlienAntics #GalacticGadgets\n\nRubber chickens, spaceship hijinks, alien encounters, comedy shorts, animated adventures, Among Us game, must watch, viral short, funny twist, unexpected ending, comedy short, AI animation, animated story, YouTube Shorts, quick laugh, crazy moment, surprise reaction, visual hook, fast paced, cartoon comedy, game character, Among Us style, yellow crewmate, product hook, object story, storyboard idea, Sora prompt, short video, meme energy, cute chaos",
+  "createdAt": "2026-04-20T21:40:06.153Z",
+  "updatedAt": "2026-04-20T21:40:06.153Z"
+}

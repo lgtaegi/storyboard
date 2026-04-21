@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T01-32-46-964Z-yellow-accidentally-breaks-toaster-using",
+  "reason": "story-generated",
+  "name": "Yellow Accidentally Breaks Toaster Using",
+  "title": "Toaster Trouble with Yellow!",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "shoes",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Yellow accidentally breaks a toaster using its sabotage in the kitchen.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: Toaster Trouble with Yellow!\n\nTotal duration: 15 seconds.\n\nGenre: Comedy.\n\nMood: Joy.\n\nKey object / product hook: A broken toaster that can be linked to a brand of toasters on online stores, such as \"Toasty's Toaster\" or similar branded products.\n\nCharacter prompt format:\n- Age/Role: Young Adult Crewmate\n- Face: Round with a hint of mischief\n- Hair: Short, messy yellow hair\n- Clothing: White and yellow crew uniform\n- Distinctive prop: A small repair tool\n- Emotion: Mischievous grin\n- Body language: Slouching, leaning against the counter\n- Consistency notes: Yellow's posture changes slightly in each scene\n\nImage style prompt:\nLighting: Bright and airy with warm tones\nComposition: Close-ups of Yellow's face and hands, with the toaster in the background\nCamera feel: Quick cuts and smooth pans to match the comedic pace\nDetail level: Detailed facial expressions and props, but simplified background details\nContinuity: Consistent camera angles and lighting throughout\n\nOverall art style prompt:\nPalette: Pastel colors with a pop of bright yellow\nWorld design: A clean, modern kitchen with cream-colored walls and white appliances\nMood: Lighthearted and playful\nCinematic quality: Fast-paced cuts and editing to match the comedic tone\nSora-friendly clarity: Simple, easy-to-read text overlays for quick scene changes\n\nScene 1 - 0s:\nYellow leans against a counter in the kitchen, a small repair tool in hand.\n\nScene 2 - 3s:\nYellow's face lights up with mischief as it pulls out a sabotage device from its uniform pocket.\n\nScene 3 - 6s:\nYellow quickly deploys the sabotage device and watches as it triggers the toaster to explode.\n\nScene 4 - 9s:\nA shower of sparks and broken toast erupts from the toaster, with Yellow covering its face in surprise.\n\nScene 5 - 12s:\nYellow bursts into laughter, holding its sides as the toaster's remains lie smoldering on the counter.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T01:32:46.964Z",
+  "updatedAt": "2026-04-18T01:32:46.964Z"
+}

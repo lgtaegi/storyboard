@@ -1,0 +1,30 @@
+{
+  "id": "2026-04-18T05-31-32-154Z-yellow-discovers-rubber-chicken-spaceships",
+  "reason": "youtube-generated",
+  "name": "Yellow Discovers Rubber Chicken Spaceships",
+  "title": "Yellow's Fowl Play",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Yellow discovers a rubber chicken in the spaceship's mess hall cafeteria.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style",
+    "includeScenePromptDetails": false
+  },
+  "storyboard": "Title: Yellow's Fowl Play\n\nTotal duration: 15 seconds\n\nGenre: Comedy\n\nMood: Joy\n\n\n\nKey object / product hook:\n\nOne visible object must drive the story events and appear repeatedly as the main prop, making it suitable for a future product or affiliate link.\n\n\n\nCharacter prompt format:\n\nMain character: [age or role], [face and hair details], [clothing], [distinctive prop], [emotion], [body language], consistent appearance across every scene.\n\nCharacter prompt for this story: Among Us game character Yellow. Design: Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body. Keep this character as the main protagonist in every scene, with recognizable colors, silhouette, props, emotion, body language, and consistent appearance.\n\n\n\nImage style prompt:\n\nUse 2d flash animation style, simple outline art style, Among Us game style. Emphasize clear composition, readable subject placement, expressive lighting, detailed textures, cinematic camera language, and smooth continuity between shots.\n\n\n\nOverall art style prompt:\n\nComedy story with a joy mood, cohesive color palette, consistent world design, high-detail cinematic frames, and Sora-friendly visual clarity.\n\n\n\nVisual style: 2d flash animation style, simple outline art style, Among Us game style\n\n\n\nScene 1 - 0s:\nYellow enters the spaceship's mess hall cafeteria, finding a rubber chicken on the counter amidst the usual astronaut snacks.\n\nScene 2 - 3s:\nYellow picks up the rubber chicken, examining it with curiosity, as the camera zooms in on their surprised face, highlighting their bright yellow skin and helmet visor.\n\nScene 3 - 6s:\nThe camera cuts to a montage of Yellow attempting various space-themed tasks while holding the rubber chicken, like trying to eat freeze-dried ice cream or using the spaceship's tools, with each action exaggerated for comedic effect.\n\nScene 4 - 9s:\nAs the rubber chicken becomes more prominent in the chaos, Yellow starts to lose control, causing a domino effect of kitchen utensils and appliances falling around them, creating a sense of playful mayhem.\n\nScene 5 - 12s:\nIn a final, hilarious moment, Yellow is seen \"playing\" the rubber chicken like a musical instrument, with silly sounds effects accompanying each movement, bringing the scene to an absurd, comedic close.",
+  "youtubeContent": "YouTube upload content:\n\nTitle: Finds Baseball Bat On Street\nDescription: Yellow's day just got more interesting! Our favorite Among Us crew member stumbles upon a mysterious object that changes everything.\n\nAI short, YouTube Shorts, animated comedy, Among Us style, product story\n\n#baseballbat #amongus #comedy #animatedadventures #funnyfinds #amongusgame #yellowcharacter #spaceshiplife #messhallmischief #animationart #flashanimationstyle #gameshowfun #whodunit #spaceshipintrigue #gamingantics #shorts #youtubeshorts #animation #2danimation #flashanimation #amongusstyle #funny #cartoon #viral #trend #meme #gaming #gamecharacter #yellow #object #product #toy #gadget #chase #surprise #twist #funnytwist #slapstick #visualstory #storyboard #sora #aivideo #aistory #creator #contentcreator #shortvideo #fastpaced #hook #attention #laugh",
+  "createdAt": "2026-04-18T05:31:32.154Z",
+  "updatedAt": "2026-04-18T05:31:32.154Z"
+}

@@ -1,0 +1,36 @@
+{
+  "id": "2026-04-20T21-52-40-106Z-shampoo-chaos",
+  "reason": "story-generated",
+  "name": "Shampoo Chaos",
+  "title": "Astral Vacuum Chaos",
+  "settings": {
+    "character": "Among Us game character Black",
+    "objectKeyword": "Shampoo",
+    "setDescription": "bat",
+    "characterDesign": "2D",
+    "artStyleMode": "2d",
+    "idea": "Yellow discovers an old vacuum cleaner on the moon's dusty surface yesterday.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "",
+    "includeScenePromptDetails": false,
+    "saveNamePrefix": {
+      "enabled": false,
+      "prefix": ""
+    }
+  },
+  "storyboard": "Title: Astral Vacuum Chaos\n\nTotal duration: 15 seconds\n\nGenre: Comedy\n\nMood: Joy\n\n\n\nKey object / product hook:\n\nOne visible object must drive the story events and appear repeatedly as the main prop, making it suitable for a future product or affiliate link.\n\n\n\nSet prompt:\n\nNo fixed set was entered; use the location created by the story idea or AI story generation.\n\n\n\nArt style prompt:\n\nArt style for this story: 2D. Keep the main character, object, set, materials, camera language, and negative style rules consistent across every scene.\n\n\n\nScene 1 - 0s:\nYellow, wearing a spacesuit, stands on the moon's surface, staring at an old vacuum cleaner that has been left behind, its cord tangled around a space helmet.\n\nScene 2 - 3s:\nYellow's eyes widen as they notice the vacuum cleaner's buttons and dials; Yellow eagerly reaches out to press the vacuum cleaner's power button.\n\nScene 3 - 6s:\nThe vacuum cleaner roars to life, spewing out bright pink confetti and balloons that fill the lunar landscape, causing Yellow to leap in surprise and delight.\n\nScene 4 - 9s:\nYellow dances around the now-filled space, waving their arms and laughing as more and more colorful debris spills from the vacuum cleaner, creating an impromptu moon party atmosphere.\n\nScene 5 - 12s:\nAs the last balloons pop and confetti settles, Yellow takes a triumphant pose with the now-empty vacuum cleaner at their feet, grinning mischievously as if to say \"that was out of this world\".",
+  "youtubeContent": "YouTube upload content:\nTitle: MOON PARTY GONE WRONG? Old Vacuum Cleaner Causes ASTRAL CHAOS!\nDescription:\nGet ready for a cosmic comedy that's OUT OF THIS WORLD! Join Yellow on the moon as they discover an old vacuum cleaner and unleash a blast of colorful chaos. Will it clean up the mess or make it WORSE?\n\n#AstralVacuumChaos #ComedyMoonAdventures #OutofThisWorldFun #SpacePartyDisaster #LunarShenanigans\n\nAmong Us game, must watch, viral short, funny twist, unexpected ending, comedy short, AI animation, animated story, YouTube Shorts, quick laugh, crazy moment, surprise reaction, visual hook, fast paced, cartoon comedy, game character, Among Us style, yellow crewmate, product hook, object story, storyboard idea, Sora prompt, short video, meme energy, cute chaos, attention grabber, final twist, family friendly, creator idea, shareable clip",
+  "createdAt": "2026-04-20T21:52:40.106Z",
+  "updatedAt": "2026-04-20T21:52:40.106Z"
+}

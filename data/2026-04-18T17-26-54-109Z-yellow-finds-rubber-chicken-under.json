@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T17-26-54-109Z-yellow-finds-rubber-chicken-under",
+  "name": "Yellow Finds Rubber Chicken Under",
+  "title": "Yellow Finds Rubber Chicken Under",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Yellow finds a rubber chicken under the park bench suddenly laughing.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style",
+    "includeScenePromptDetails": false
+  },
+  "storyboard": "Title: Yellow Finds Rubber Chicken Under\n\nTotal duration: 15 seconds\n\nGenre: Comedy\n\nMood: Joy\n\n\n\nKey object / product hook:\n\nOne visible object must drive the story events and appear repeatedly as the main prop, making it suitable for a future product or affiliate link.\n\n\n\nCharacter prompt format:\n\nMain character: [age or role], [face and hair details], [clothing], [distinctive prop], [emotion], [body language], consistent appearance across every scene.\n\nCharacter prompt for this story: Among Us game character Yellow. Design: Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body. Keep this character as the main protagonist in every scene, with recognizable colors, silhouette, props, emotion, body language, and consistent appearance.\n\n\n\nImage style prompt:\n\nUse 2d flash animation style, simple outline art style, Among Us game style. Emphasize clear composition, readable subject placement, expressive lighting, detailed textures, cinematic camera language, and smooth continuity between shots.\n\n\n\nOverall art style prompt:\n\nComedy story with a joy mood, cohesive color palette, consistent world design, high-detail cinematic frames, and Sora-friendly visual clarity.\n\n\n\nVisual style: 2d flash animation style, simple outline art style, Among Us game style\n\n\n\nScene 1 - 0s:\nYellow finds a rubber chicken under the park bench suddenly laughing.. Introduce the main subject and the world before anything changes.\n\nScene 2 - 3s:\nYellow finds a rubber chicken under the park bench suddenly laughing.. Reveal the unusual detail that makes the story feel alive.\n\nScene 3 - 6s:\nYellow finds a rubber chicken under the park bench suddenly laughing.. Show the subject making a clear decision that moves the story forward.\n\nScene 4 - 9s:\nYellow finds a rubber chicken under the park bench suddenly laughing.. Let the world react, shift, or open into something larger.\n\nScene 5 - 12s:\nYellow finds a rubber chicken under the park bench suddenly laughing.. Reveal the emotional or visual center of the story.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T17:26:54.109Z",
+  "updatedAt": "2026-04-18T17:26:54.109Z"
+}

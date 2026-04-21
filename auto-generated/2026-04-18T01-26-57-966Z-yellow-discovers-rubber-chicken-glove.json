@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T01-26-57-966Z-yellow-discovers-rubber-chicken-glove",
+  "reason": "story-generated",
+  "name": "Yellow Discovers Rubber Chicken Glove",
+  "title": "Yellow's Glove Chaos",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "glove",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Yellow discovers a rubber chicken glove in the spaceship's storage compartment.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 8,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "custom",
+      "duration": "15",
+      "customScenes": 8,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: Yellow's Glove Chaos\n\nTotal duration: 15 seconds\n\nGenre: Comedy\nMood: Joy\n\nKey object / product hook: A mysterious rubber chicken glove sparks laughter and adventure.\n\nCharacter prompt format:\n- Age/Role: Adult Crewmate (25-35 years old)\n- Face: Round, smiling face with a hint of curiosity\n- Hair: Messy, bright yellow hair with a few loose strands\n- Clothing: Simple white space suit with minor scratches and scuffs\n- Distinctive prop: Rubber chicken glove\n- Emotion: Excitement and confusion\n- Body language: Bouncy, enthusiastic movements\n- Consistency notes: Brighten up the overall tone\n\nImage style prompt:\n- Lighting: Warm, soft lighting with subtle shadows\n- Composition: Close-up shots of Yellow's reactions and the glove, with occasional wide shots for context\n- Camera feel: Quick cuts and smooth transitions to match the fast-paced humor\n- Detail level: High level of detail in character animations and props\n- Continuity: Maintaining a consistent style throughout the animation\n\nOverall art style prompt:\n- Palette: Bright, vibrant colors with pops of yellow and orange\n- World design: A stylized, retro-futuristic spaceship interior with simple, clean lines\n- Mood: Lighthearted, playful atmosphere with a hint of absurdity\n- Cinematic quality: Fast-paced cuts and dynamic camera movements to create energy\n- Sora-friendly clarity: Easy-to-follow visual storytelling with clear character expressions\n\nScene 1 - 0s:\nYellow's hand reaches into the storage compartment, revealing a bright yellow glove that looks like a rubber chicken.\n\nScene 2 - 2s:\nYellow pulls out the glove, examining it in confusion as their face lights up with excitement.\n\nScene 3 - 4s:\nThe camera zooms in on Yellow's hands as they put on the glove, which starts to bounce and squirm like a real chicken.\n\nScene 4 - 6s:\nYellow begins to dance around the room, the glove flapping wildly as they emit a high-pitched \"Bock! Bock!\" laugh.\n\nScene 5 - 8s:\nThe camera cuts to a montage of Yellow using the glove in various comedic ways: making silly chicken noises, waving it like a wand, and chasing after it as if it's alive.\n\nScene 6 - 10s:\nYellow's dance party reaches its climax, with confetti popping out of the storage compartment and the glove leading the way.\n\nScene 7 - 12s:\nThe music slows down, and Yellow looks directly at the camera, still wearing the glove and sporting a goofy grin.\n\nScene 8 - 14s:\nThe animation freezes on Yellow's face, with the rubber chicken glove sticking out from behind their helmet visor as the screen fades to black.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T01:26:57.966Z",
+  "updatedAt": "2026-04-18T01:26:57.966Z"
+}

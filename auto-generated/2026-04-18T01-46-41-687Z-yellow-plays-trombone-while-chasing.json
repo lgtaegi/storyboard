@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T01-46-41-687Z-yellow-plays-trombone-while-chasing",
+  "reason": "story-generated",
+  "name": "Yellow Plays Trombone While Chasing",
+  "title": "\"Toaster Tango\"",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Yellow plays a trombone while chasing after a runaway toaster in kitchen.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: \"Toaster Tango\"\n\nTotal duration: 15 seconds\n\nGenre: Comedy\n\nMood: Joy\n\nKey object / product hook: A runaway toaster is a humorous and relatable prop that connects to kitchen appliance brands, such as Smeg or KitchenAid.\n\nCharacter prompt format:\n- Age/Role: Young Adult\n- Face: Round with small nose and pursed lips\n- Hair: Short, curly blonde hair\n- Clothing: Yellow shirt with white apron\n- Distinctive prop: Yellow trombone\n- Emotion: Excitement\n- Body language: Quick gestures\n- Consistency notes: Bright, shiny costume\n\nImage style prompt:\n- Lighting: Soft, warm natural light with subtle kitchen backlight\n- Composition: Close-ups of characters and objects, with some medium shots for context\n- Camera feel: Fast-paced cuts, dynamic camera angles\n- Detail level: Simple shapes, minimal texture, vibrant colors\n- Continuity: Maintain consistent lighting and color palette throughout\n\nOverall art style prompt:\n- Palette: Bright, poppy colors (yellow, orange, red) with neutral backgrounds\n- World design: Simplicity of a small kitchen with iconic appliances\n- Mood: Upbeat and playful\n- Cinematic quality: Fast-paced cuts and energetic editing to match the tone\n- Sora-friendly clarity: Easy-to-understand visual narrative\n\nScene 1 - 0s:\nYellow leaps onto a kitchen counter, trombone at the ready, as a toaster on the edge of the counter suddenly springs to life.\n\nScene 2 - 3s:\nThe toaster zooms across the counter, leaving a trail of sparks and smoke behind it. Yellow pursues, trombone slung over their shoulder.\n\nScene 3 - 6s:\nYellow leaps into the air, using their small legs to propel themselves toward the toaster as it zooms under the kitchen sink.\n\nScene 4 - 9s:\nThe toaster pops out from beneath the sink, and Yellow uses their trombone to deflect a stray bread slice that's about to hit them. The toaster then flies straight up, landing on the ceiling with a loud clang.\n\nScene 5 - 12s:\nYellow lands safely back on the counter, triumphant, as the toaster sits atop the ceiling, sparking furiously and sending sparks dancing around it.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T01:46:41.687Z",
+  "updatedAt": "2026-04-18T01:46:41.687Z"
+}

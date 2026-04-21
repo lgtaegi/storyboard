@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T01-33-53-817Z-among-us-game-character-yellow",
+  "reason": "story-generated",
+  "name": "Among Us Game Character Yellow",
+  "title": "Yellow's Sneaky Stomp",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "shoes",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Among Us game character Yellow finds a shoes in a funny place.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: Yellow's Sneaky Stomp\n\nTotal duration: 15 seconds\n\nGenre: Comedy\nMood: Joy\n\nKey object / product hook: A bright red, neon-lit AirPods case that doubles as a makeshift shoe in the middle of the spaceship.\n\nCharacter prompt format:\nAge/Role: Adult Crewmate (30s), Face: Heart-shaped, Hair: Short brown spikes, Clothing: White crew uniform with yellow accents, Distinctive prop: Neon-lit AirPods case, Emotion: Curiosity, Body language: Leaning forward, Consistency notes: Yellow's signature slow blink.\n\nImage style prompt:\nLighting: Softbox lights with a warm glow, Composition: Over-the-shoulder view of Yellow, Camera feel: Smooth pans and zooms, Detail level: High contrast for neon highlights, Continuity: No harsh shadows or reflections.\n\nOverall art style prompt:\nPalette: Vibrant colors with pastel undertones (e.g., sky blue, mint green), World design: A cluttered spaceship interior with random equipment scattered around, Mood: Whimsical and playful, Cinematic quality: Fast-paced cuts, Sora-friendly clarity: Bright and easy to read.\n\nScene 1 - 0s:\nYellow crouches down in the corridor, eyes fixed on a bright red AirPods case, which is sitting alone on the floor. Yellow's head tilts back, revealing their helmet visor with a slight hint of surprise. Neon lights from nearby equipment reflect off the shoe-like case.\n\nScene 2 - 3s:\nYellow picks up the AirPods case and holds it at eye level, examining it carefully. They rotate the shoe-shaped object, studying its design and size. Yellow's slow blink is visible under their helmet visor as they try to figure out its purpose.\n\nScene 3 - 6s:\nYellow puts on the AirPods case like a makeshift shoe, striking a goofy pose in front of a nearby air vent. They adjust the fit by wiggling their legs and testing the balance. Yellow's face breaks into a wide smile as they start to dance around the corridor.\n\nScene 4 - 9s:\nYellow starts to walk in what appears to be a normal crew uniform, but with an exaggerated gait due to wearing the AirPods case on their feet. They bounce along the corridor, nearly tripping over their own feet. Yellow's helmet visor twitches with amusement as they realize how silly it looks.\n\nScene 5 - 12s:\nYellow freezes in a comical pose at the end of the corridor, one leg raised and the AirPods case wobbling precariously on their foot. The bright red neon lights create a dynamic contrast against the dimly lit background, making Yellow's goofy grin even more apparent.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T01:33:53.817Z",
+  "updatedAt": "2026-04-18T01:33:53.817Z"
+}

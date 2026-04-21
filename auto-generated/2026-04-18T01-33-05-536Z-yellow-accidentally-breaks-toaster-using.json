@@ -1,0 +1,29 @@
+{
+  "id": "2026-04-18T01-33-05-536Z-yellow-accidentally-breaks-toaster-using",
+  "reason": "story-generated",
+  "name": "Yellow Accidentally Breaks Toaster Using",
+  "title": "Yellow's Toaster Troubles",
+  "settings": {
+    "character": "Among Us game character Yellow",
+    "objectKeyword": "shoes",
+    "characterDesign": "Among Us game character design, rounded stretched bean-like body, small legs, helmet visor, yellow body",
+    "idea": "Yellow accidentally breaks a toaster using its sabotage in the kitchen.",
+    "genre": "Comedy",
+    "mood": "Joy",
+    "sceneCount": 5,
+    "duration": 15,
+    "timingMode": {
+      "scenes": "5",
+      "duration": "15",
+      "customScenes": 12,
+      "customDuration": 60
+    },
+    "language": "en",
+    "model": "llama3.2:latest",
+    "style": "2d flash animation style, simple outline art style, Among Us game style"
+  },
+  "storyboard": "Title: Yellow's Toaster Troubles\n\nTotal duration: 15 seconds\n\nGenre: Comedy\nMood: Joy\n\nKey object / product hook: A broken toaster is a humorous way to promote kitchen appliances, specifically toaster replacement parts or similar products.\n\nCharacter prompt format:\n- Age/Role: Young adult\n- Face: Round and cheerful with bright yellow eyes\n- Hair: None (bare head)\n- Clothing: Simple white crew-neck t-shirt, blue shorts\n- Distinctive prop: Broken toaster\n- Emotion: Embarrassed but playful\n- Body language: Leaning on the counter with a sheepish grin\n- Consistency notes: Yellow's expression and body language should convey innocence and amusement.\n\nImage style prompt:\n- Lighting: Bright and airy, emphasizing the kitchen environment\n- Composition: Wide shot of the kitchen, focusing on Yellow and the broken toaster\n- Camera feel: Playful, fast-paced cuts between different angles\n- Detail level: Basic furniture and appliances with a focus on the broken toaster\n- Continuity: Maintain consistent lighting and color palette throughout the animation\n\nOverall art style prompt:\n- Palette: Bright and pastel colors with pops of white and blue\n- World design: Simple kitchen environment, emphasizing functionality over decoration\n- Mood: Lighthearted and playful, with a hint of chaos\n- Cinematic quality: Fast-paced editing with dynamic camera movements\n- Sora-friendly clarity: Easy to read captions and clear character designs\n\nScene 1 - 0s:\nYellow's hands grasp the toaster, accidentally triggering its release mechanism.\n\nScene 2 - 3s:\nThe toaster crashes onto the counter, spewing forth broken toast and sparking a miniature electrical fire.\n\nScene 3 - 6s:\nYellow leaps back, startled, as the kitchen lights flicker ominously. The camera spins rapidly around them.\n\nScene 4 - 9s:\nA nearby stool becomes Yellow's makeshift shield as they frantically try to put out the toaster flames with a towel.\n\nScene 5 - 12s:\nWith the fire extinguished, Yellow triumphantly holds up the broken toaster and cracks a mischievous grin.",
+  "youtubeContent": "",
+  "createdAt": "2026-04-18T01:33:05.536Z",
+  "updatedAt": "2026-04-18T01:33:05.536Z"
+}
