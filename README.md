@@ -2,6 +2,9 @@
 
 Created: 2026-04-21 America/Denver  
 Created by lgtaegi
+Updated:
+- added INSTALL.md and check-requirements.command for easier setup
+- clarified that the app runs with Node.js built-in modules and Ollama
 
 ## Description
 
@@ -35,6 +38,12 @@ An AI storyboard tool for creating fast-paced short video stories with object-dr
 1. Open `start.command`
 2. Wait for the local server to start
 3. Open `http://127.0.0.1:5055`
+
+## Easy Setup
+
+- Read `INSTALL.md`
+- Run `check-requirements.command`
+- Run `start.command`
 
 ## Notes
 
