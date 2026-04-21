@@ -5,6 +5,7 @@ Created by lgtaegi
 Updated:
 - added INSTALL.md and check-requirements.command for easier setup
 - clarified that the app runs with Node.js built-in modules and Ollama
+- changed version backups to use one folder per update with only updated code files
 
 ## Description
 
@@ -32,6 +33,8 @@ An AI storyboard tool for creating fast-paced short video stories with object-dr
 - `art-styles/`: saved art style presets and fixed style slots
 - `app-settings/`: persistent app settings such as save name prefix
 - `versions/`: manual backup snapshots and version notes
+  - each update can have its own subfolder
+  - each backup folder should contain only the code files updated in that change plus `notes.md`
 
 ## Run Locally
 
@@ -44,6 +47,13 @@ An AI storyboard tool for creating fast-paced short video stories with object-dr
 - Read `INSTALL.md`
 - Run `check-requirements.command`
 - Run `start.command`
+
+## Version Backups
+
+- Run `create-version-backup.command` with the updated code files
+- A new folder is created inside `versions/`
+- Only the updated files for that change are copied into that folder
+- A `notes.md` file is created in the same folder
 
 ## Notes
 

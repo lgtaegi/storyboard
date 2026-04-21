@@ -2,6 +2,8 @@
 
 Created: 2026-04-21 America/Denver  
 Created by lgtaegi
+Updated:
+- added note about version backup folders for updated code files only
 
 ## Requirements
 
@@ -52,6 +54,9 @@ http://127.0.0.1:5055
 - `check-requirements.command`  
   Checks whether Node.js, Ollama, and the default model are ready
 
+- `create-version-backup.command`  
+  Creates a version folder containing only the updated code files for that change
+
 ## If Ollama Is Installed But Not Running
 
 Open the Ollama app first, then run:
@@ -91,3 +96,4 @@ OLLAMA_MODEL=qwen2.5:latest ./start.command
 - This app does not need `npm install`
 - It uses Node.js built-in modules only
 - Story data, art styles, and app settings are stored locally in this folder
+- Version backups are stored as per-update folders inside `versions/`
