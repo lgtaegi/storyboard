@@ -81,7 +81,7 @@ The app UI lets you switch models.
 If you want a different default at launch, run the app from Terminal like this:
 
 ```bash
-cd /Users/macmini/Documents/000_AI/00_storyboard
+cd /path/to/00_storyboard
 OLLAMA_MODEL=qwen2.5:latest ./start.command
 ```
 
