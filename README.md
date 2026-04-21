@@ -7,6 +7,7 @@ Updated:
 - clarified that the app runs with Node.js built-in modules and Ollama
 - changed version backups to use one folder per update with only updated code files
 - changed version backups to include essential runnable app files plus updated files
+- simplified backup folder names because each backup is now a runnable app bundle
 
 ## Description
 
@@ -53,7 +54,7 @@ An AI storyboard tool for creating fast-paced short video stories with object-dr
 ## Version Backups
 
 - Run `create-version-backup.command` with the updated code files
-- A new folder is created inside `versions/` with `_newCodes` in the name
+- A new folder is created inside `versions/`
 - Essential runnable app files are always copied into that folder
 - The updated files for that change are copied into that folder too
 - A `notes.md` file is created in the same folder

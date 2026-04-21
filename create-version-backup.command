@@ -5,6 +5,7 @@
 # - creates one backup folder per update
 # - copies updated code files plus essential runnable app files into that folder
 # - writes notes.md inside the same version folder
+# - uses simple version folder names because backups are runnable app bundles
 
 cd "$(dirname "$0")" || exit 1
 
@@ -25,9 +26,9 @@ fi
 VERSION_ID="$(date +%Y-%m-%dT%H-%M-%S)"
 SLUG_LABEL="$(printf '%s' "$LABEL" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g; s/-\{2,\}/-/g; s/^-//; s/-$//')"
 if [ -n "$SLUG_LABEL" ]; then
-  TARGET_DIR="versions/${VERSION_ID}_newCodes_${SLUG_LABEL}"
+  TARGET_DIR="versions/${VERSION_ID}_${SLUG_LABEL}"
 else
-  TARGET_DIR="versions/${VERSION_ID}_newCodes"
+  TARGET_DIR="versions/${VERSION_ID}"
 fi
 
 mkdir -p "$TARGET_DIR"

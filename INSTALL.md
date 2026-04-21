@@ -5,6 +5,7 @@ Created by lgtaegi
 Updated:
 - added note about version backup folders for updated code files only
 - backup folders now include essential runnable app files plus updated files
+- simplified backup folder names because each backup now acts as a runnable app set
 
 ## Requirements
 
@@ -98,4 +99,4 @@ OLLAMA_MODEL=qwen2.5:latest ./start.command
 - It uses Node.js built-in modules only
 - Story data, art styles, and app settings are stored locally in this folder
 - Version backups are stored as per-update folders inside `versions/`
-- Backup folder names can include `_newCodes` and an optional short label
+- Backup folder names use the timestamp and can include an optional short label
