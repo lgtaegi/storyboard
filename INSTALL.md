@@ -100,3 +100,6 @@ OLLAMA_MODEL=qwen2.5:latest ./start.command
 - Story data, art styles, and app settings are stored locally in this folder
 - Version backups are stored as per-update folders inside `versions/`
 - Backup folder names use the timestamp and can include an optional short label
+- `README.md` only updates use `_readme`
+- document-only updates use `_docs`
+- any code file update uses `_codeUpdated`

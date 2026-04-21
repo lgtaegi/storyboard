@@ -6,6 +6,7 @@
 # - copies updated code files plus essential runnable app files into that folder
 # - writes notes.md inside the same version folder
 # - uses simple version folder names because backups are runnable app bundles
+# - adds type-based suffixes such as _readme, _docs, or _codeUpdated
 
 cd "$(dirname "$0")" || exit 1
 
@@ -25,13 +26,6 @@ fi
 
 VERSION_ID="$(date +%Y-%m-%dT%H-%M-%S)"
 SLUG_LABEL="$(printf '%s' "$LABEL" | tr '[:upper:]' '[:lower:]' | sed 's/[^a-z0-9]/-/g; s/-\{2,\}/-/g; s/^-//; s/-$//')"
-if [ -n "$SLUG_LABEL" ]; then
-  TARGET_DIR="versions/${VERSION_ID}_${SLUG_LABEL}"
-else
-  TARGET_DIR="versions/${VERSION_ID}"
-fi
-
-mkdir -p "$TARGET_DIR"
 
 ESSENTIAL_FILES=(
   "index.html"
@@ -42,8 +36,24 @@ ESSENTIAL_FILES=(
   "check-requirements.command"
 )
 
+DOC_FILES=(
+  "README.md"
+  "INSTALL.md"
+)
+
+CODE_FILES=(
+  "index.html"
+  "server.js"
+  "start.command"
+  "check-requirements.command"
+  "create-version-backup.command"
+)
+
 UPDATED_FILES=()
 COPIED_FILES=()
+HAS_CODE_UPDATE=0
+HAS_README_UPDATE=0
+HAS_DOC_UPDATE=0
 
 add_unique_file() {
   local candidate="$1"
@@ -54,12 +64,30 @@ add_unique_file() {
   COPIED_FILES+=("$candidate")
 }
 
-for file in "${ESSENTIAL_FILES[@]}"; do
-  if [ -f "$file" ]; then
-    cp "$file" "$TARGET_DIR/"
-    add_unique_file "$file"
-  fi
-done
+contains_file() {
+  local candidate="$1"
+  shift
+  local item
+  for item in "$@"; do
+    [ "$candidate" = "$item" ] && return 0
+  done
+  return 1
+}
+
+classify_updates() {
+  local file
+  for file in "${UPDATED_FILES[@]}"; do
+    if contains_file "$file" "${CODE_FILES[@]}"; then
+      HAS_CODE_UPDATE=1
+    fi
+    if [ "$file" = "README.md" ]; then
+      HAS_README_UPDATE=1
+    fi
+    if contains_file "$file" "${DOC_FILES[@]}"; then
+      HAS_DOC_UPDATE=1
+    fi
+  done
+}
 
 for file in "$@"; do
   if [ ! -f "$file" ]; then
@@ -67,8 +95,37 @@ for file in "$@"; do
     continue
   fi
 
-  cp "$file" "$TARGET_DIR/"
   UPDATED_FILES+=("$file")
+done
+
+classify_updates
+
+TYPE_SUFFIX=""
+if [ "$HAS_CODE_UPDATE" -eq 1 ]; then
+  TYPE_SUFFIX="_codeUpdated"
+elif [ "$HAS_README_UPDATE" -eq 1 ] && [ "${#UPDATED_FILES[@]}" -eq 1 ]; then
+  TYPE_SUFFIX="_readme"
+elif [ "$HAS_DOC_UPDATE" -eq 1 ]; then
+  TYPE_SUFFIX="_docs"
+fi
+
+if [ -n "$SLUG_LABEL" ]; then
+  TARGET_DIR="versions/${VERSION_ID}${TYPE_SUFFIX}_${SLUG_LABEL}"
+else
+  TARGET_DIR="versions/${VERSION_ID}${TYPE_SUFFIX}"
+fi
+
+mkdir -p "$TARGET_DIR"
+
+for file in "${ESSENTIAL_FILES[@]}"; do
+  if [ -f "$file" ]; then
+    cp "$file" "$TARGET_DIR/"
+    add_unique_file "$file"
+  fi
+done
+
+for file in "${UPDATED_FILES[@]}"; do
+  cp "$file" "$TARGET_DIR/"
   add_unique_file "$file"
 done
 

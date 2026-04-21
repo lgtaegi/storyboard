@@ -57,6 +57,9 @@ An AI storyboard tool for creating fast-paced short video stories with object-dr
 - A new folder is created inside `versions/`
 - Essential runnable app files are always copied into that folder
 - The updated files for that change are copied into that folder too
+- `README.md` only updates use `_readme`
+- document-only updates use `_docs`
+- any code file update uses `_codeUpdated`
 - A `notes.md` file is created in the same folder
 
 Example:
