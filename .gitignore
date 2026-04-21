@@ -5,3 +5,5 @@
 
 .DS_Store
 versions/
+releases/
+RELEASE-GUIDE.local.md

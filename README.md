@@ -8,7 +8,6 @@ Updated:
 - changed version backups to use one folder per update with only updated code files
 - changed version backups to include essential runnable app files plus updated files
 - simplified backup folder names because each backup is now a runnable app bundle
-- added official release structure with VERSION, CHANGELOG, and create-release.command
 
 ## Description
 
@@ -39,7 +38,6 @@ An AI storyboard tool for creating fast-paced short video stories with object-dr
   - each update can have its own subfolder
   - each backup folder contains essential runnable app files plus the files updated in that change
   - each backup folder also contains `notes.md`
-- `releases/`: official packaged release folders such as `v1.0.0`
 
 ## Run Locally
 
@@ -68,19 +66,6 @@ Example:
 
 ```bash
 ./create-version-backup.command --label save-prefix index.html server.js
-```
-
-## Official Releases
-
-- `VERSION` stores the current official version number
-- `CHANGELOG.md` stores the official release history
-- `create-release.command` creates a release folder in `releases/`
-
-Example:
-
-```bash
-./create-release.command
-./create-release.command --label public-build
 ```
 
 ## Notes

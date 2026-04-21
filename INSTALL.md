@@ -6,7 +6,6 @@ Updated:
 - added note about version backup folders for updated code files only
 - backup folders now include essential runnable app files plus updated files
 - simplified backup folder names because each backup now acts as a runnable app set
-- added official release files and release packaging workflow
 
 ## Requirements
 
@@ -60,9 +59,6 @@ http://127.0.0.1:5055
 - `create-version-backup.command`  
   Creates a version folder containing essential runnable app files plus the updated files for that change
 
-- `create-release.command`  
-  Creates an official release folder inside `releases/`
-
 ## If Ollama Is Installed But Not Running
 
 Open the Ollama app first, then run:
@@ -107,4 +103,3 @@ OLLAMA_MODEL=qwen2.5:latest ./start.command
 - `README.md` only updates use `_readme`
 - document-only updates use `_docs`
 - any code file update uses `_codeUpdated`
-- Official packaged builds are stored in `releases/`
