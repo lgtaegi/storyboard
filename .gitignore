@@ -8,3 +8,8 @@
 versions/
 releases/
 RELEASE-GUIDE.local.md
+data/
+auto-generated/
+upload-stories/
+ai-story.html
+storyboard-server.js

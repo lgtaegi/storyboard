@@ -1,0 +1,43 @@
+{
+  "updatedAt": "2026-04-21T16:50:00-06:00",
+  "createdBy": "lgtaegi",
+  "models": [
+    {
+      "name": "qwen3:latest",
+      "title": "qwen3:latest",
+      "badges": ["Korean", "Multilingual", "Balanced"],
+      "note": "A stronger newer Qwen family pick when you want better multilingual handling or general local use."
+    },
+    {
+      "name": "deepseek-r1:latest",
+      "title": "deepseek-r1:latest",
+      "badges": ["Reasoning", "Logic"],
+      "note": "A strong open reasoning family when you want harder step-by-step thinking more than pure speed."
+    },
+    {
+      "name": "llama3.3:latest",
+      "title": "llama3.3:latest",
+      "badges": ["General", "Large"],
+      "note": "A more capable general-purpose Llama option, but much heavier than the smaller local defaults.",
+      "warning": "Large model warning: this one can feel extremely slow on 16GB Macs and may not be practical for interactive story generation."
+    },
+    {
+      "name": "mistral-small3.1:latest",
+      "title": "mistral-small3.1:latest",
+      "badges": ["Balanced", "Fast"],
+      "note": "A strong local balance pick for chat, structured output, and everyday app work on bigger Macs."
+    },
+    {
+      "name": "gemma3:12b",
+      "title": "gemma3:12b",
+      "badges": ["Multilingual", "Mid-size"],
+      "note": "A larger Gemma variant worth trying when the smaller latest tag feels too weak."
+    },
+    {
+      "name": "devstral:latest",
+      "title": "devstral:latest",
+      "badges": ["Coding", "Agentic"],
+      "note": "Mainly a coding-focused option, useful if you later want stronger code or tool-oriented behavior."
+    }
+  ]
+}

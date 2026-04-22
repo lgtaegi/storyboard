@@ -28,7 +28,7 @@ if ! ollama list >/dev/null 2>&1; then
   exit 1
 fi
 
-if ! ollama list | grep -q "^${MODEL%%:*}[[:space:]]"; then
+if ! ollama list | awk 'NR > 1 {print $1}' | grep -Fxq "$MODEL"; then
   echo "Model ${MODEL} is not installed yet."
   echo "Run: ollama pull ${MODEL}"
   exit 1

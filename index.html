@@ -6,6 +6,21 @@ Updated:
 - changed art style presets into fixed save slots
 - added save name prefix option with persistent settings
 - removed automatic object suffix from Save Story file names
+- added installed-model-only active selection with gray unavailable models
+- added model install and latest-update manager for Ollama models
+- sorted installed models to the top of the model lists
+- added installed model removal control in the model manager
+- added revert button to restore the previous story state in the current session
+- added explore-newer-models section with recommended models and custom model install
+- grouped all model tools into a single show-hide section and shortened the custom tag example
+- moved recommended model data into a separate JSON file with manual refresh
+- moved the main AI model selector above the advanced model tools section
+- made newer model recommendations always visible inside advanced model tools
+- limited the installed model manager to already-installed models only
+- added loading state feedback on recommendation install buttons
+- added visible warnings for very large models that tend to feel too slow on 16GB Macs
+- added reference script controls with a 0-100 strength slider and an absolute-priority option for user settings
+- stopped forcing the default art style back into generation when the art-style field is intentionally left blank
 -->
 <!doctype html>
 <html lang="en">
@@ -263,7 +278,7 @@ Updated:
 
       .actions {
         display: grid;
-        grid-template-columns: 1fr 1fr;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         gap: 10px;
       }
 
@@ -277,6 +292,138 @@ Updated:
         min-height: 24px;
         color: var(--muted);
         font-weight: 700;
+      }
+
+      .field-note {
+        margin-top: -4px;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+      }
+
+      .model-manager {
+        display: grid;
+        gap: 10px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #f9fafb;
+      }
+
+      .model-actions {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+      }
+
+      .pill-note {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        max-width: 100%;
+        padding: 5px 9px;
+        border-radius: 999px;
+        background: #eef4f2;
+        color: #2d4a42;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.65;
+      }
+
+      .danger-button {
+        border-color: #b8325f;
+        color: #b8325f;
+      }
+
+      .danger-button:hover {
+        background: #faeaf0;
+      }
+
+      .model-explorer {
+        display: grid;
+        gap: 12px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: #fbfcfd;
+      }
+
+      .model-suite {
+        display: grid;
+        gap: 12px;
+      }
+
+      .model-list {
+        display: grid;
+        gap: 10px;
+      }
+
+      .model-card {
+        display: grid;
+        gap: 8px;
+        padding: 12px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        background: white;
+      }
+
+      .model-card-top {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 10px;
+      }
+
+      .model-card h3 {
+        font-size: 15px;
+      }
+
+      .model-badges {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .model-badge {
+        display: inline-flex;
+        align-items: center;
+        padding: 4px 8px;
+        border-radius: 999px;
+        background: #eef4f2;
+        color: #2d4a42;
+        font-size: 12px;
+        font-weight: 700;
+      }
+
+      .model-card p {
+        font-size: 14px;
+      }
+
+      .model-card button {
+        width: fit-content;
+      }
+
+      .model-warning {
+        margin: 0;
+        padding: 8px 10px;
+        border: 1px solid #f0c89b;
+        border-radius: 6px;
+        background: #fff4e6;
+        color: #7a4a11;
+        font-size: 13px;
+        line-height: 1.45;
+        font-weight: 700;
+      }
+
+      .custom-model-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        gap: 10px;
+        align-items: end;
       }
 
       .story-head {
@@ -382,6 +529,19 @@ Updated:
         display: none;
       }
 
+      .app-footer {
+        width: min(100% - 36px, 1180px);
+        margin: 14px auto 22px;
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        align-items: center;
+        text-align: center;
+        color: var(--muted);
+        font-size: 12px;
+      }
+
       @media (max-width: 860px) {
         main {
           width: min(100% - 24px, 1180px);
@@ -419,11 +579,11 @@ Updated:
         </figure>
       </section>
 
-      <section class="workspace">
+      <section class="workspace" id="mainPage">
         <form class="panel controls" id="storyForm">
           <label>
             Character
-            <textarea id="character" placeholder="Among Us game character Yellow">Among Us game character Yellow</textarea>
+            <textarea id="character" placeholder="Type your main character here. Example: Among Us Black"></textarea>
           </label>
 
           <label>
@@ -440,11 +600,11 @@ Updated:
             <label>Art Style</label>
             <div class="radio-grid" role="radiogroup" aria-label="Art Style type">
               <label class="radio-card">
-                <input type="radio" name="artStyleMode" value="2d" checked />
+                <input type="radio" name="artStyleMode" value="2d" />
                 <span>2D Animation</span>
               </label>
               <label class="radio-card">
-                <input type="radio" name="artStyleMode" value="live" />
+                <input type="radio" name="artStyleMode" value="live" checked />
                 <span>Live-Action</span>
               </label>
               <label class="radio-card">
@@ -505,9 +665,33 @@ Avoid:
               <span>Story idea</span>
               <button type="button" class="secondary inline-button" id="generateIdea">Generate Idea</button>
             </span>
-            <textarea id="idea" placeholder="finds a baseball bat on the street">finds a baseball bat on the street</textarea>
+            <textarea id="idea" placeholder="Generate an idea or type your own short event hook."></textarea>
           </label>
           <p class="status">Every idea should include one clear object that drives the story, so it can later connect to a product link.</p>
+
+          <button type="button" class="secondary" id="toggleReferenceTools">Show reference script</button>
+
+          <section class="hidden" id="referenceSuite" aria-label="Reference script tools">
+            <label>
+              Reference script
+              <textarea id="referenceScript" placeholder="Paste a reference storyboard, ad script, or shot breakdown here if you want the app to borrow its structure or camera language."></textarea>
+            </label>
+            <div class="split">
+              <label>
+                Reference strength
+                <input id="referenceStrength" type="range" min="0" max="100" step="5" value="0" />
+                <small class="field-note" id="referenceStrengthNote">0%: ignore the reference. 100%: follow the reference structure and shot language as strongly as possible.</small>
+              </label>
+
+              <label class="check-row">
+                <input id="preserveCoreSettings" type="checkbox" checked />
+                <span>
+                  Always keep my settings first
+                  <small>When on, your character, Set, Art Style, and core object override the reference even at 100% strength.</small>
+                </span>
+              </label>
+            </div>
+          </section>
 
           <div class="split">
             <label>
@@ -518,6 +702,7 @@ Avoid:
                 <option>Mystery</option>
                 <option>Adventure</option>
                 <option>Drama</option>
+                <option>Horror</option>
                 <option selected>Comedy</option>
               </select>
             </label>
@@ -529,6 +714,7 @@ Avoid:
                 <option>Suspense</option>
                 <option>Hope</option>
                 <option>Melancholy</option>
+                <option>Horror</option>
                 <option selected>Joy</option>
                 <option>Tension</option>
               </select>
@@ -591,6 +777,48 @@ Avoid:
               <option value="gemma3:latest">gemma3:latest</option>
             </select>
           </label>
+          <p class="field-note" id="modelAvailabilityNote">Installed models stay active here. Uninstalled models will appear gray after the app checks Ollama.</p>
+
+          <button type="button" class="secondary" id="toggleModelTools">Show advanced model tools</button>
+
+          <section class="model-suite hidden" id="modelSuite" aria-label="Advanced AI model tools">
+
+            <section class="model-manager" aria-label="Installed model manager">
+              <span class="pill-note" id="modelInstallMode">Checking local Ollama models...</span>
+              <label>
+                Installed model manager
+                <select id="modelInstaller">
+                  <option value="llama3.2:latest">llama3.2:latest</option>
+                  <option value="llama3:latest">llama3:latest</option>
+                  <option value="qwen2.5:latest">qwen2.5:latest</option>
+                  <option value="mistral:latest">mistral:latest</option>
+                  <option value="gemma3:latest">gemma3:latest</option>
+                </select>
+              </label>
+              <p class="field-note" id="modelInstallHint">Choose one installed model here to update it to the latest tag or remove it from Ollama.</p>
+              <div class="model-actions">
+                <button type="button" class="secondary" id="refreshModels">Refresh Models</button>
+                <button type="button" id="installModel">Install Latest</button>
+                <button type="button" class="secondary danger-button" id="removeModel">Remove Installed</button>
+              </div>
+            </section>
+
+            <section class="model-explorer" id="modelExplorer" aria-label="Explore newer models">
+              <p class="field-note">These recommendations are loaded from a separate JSON file, so we can update the list without changing the app code.</p>
+              <button type="button" class="secondary" id="refreshRecommendedModels">Refresh recommendations</button>
+              <div class="model-list" id="recommendedModelList"></div>
+              <div>
+                <label>
+                  Custom model tag
+                  <div class="custom-model-row">
+                    <input id="customModelTag" type="text" placeholder="Ex. qwen3:latest" />
+                    <button type="button" id="installCustomModel">Install / Update</button>
+                  </div>
+                </label>
+                <p class="field-note">If a brand-new model name appears before it lands in the recommendation file, install it here directly.</p>
+              </div>
+            </section>
+          </section>
 
           <label class="check-row">
             <input id="includeScenePromptDetails" type="checkbox" />
@@ -611,6 +839,7 @@ Avoid:
           <div class="actions">
             <button type="submit" id="createStory">Create AI Story</button>
             <button type="button" class="secondary" id="copyStory">Copy Text</button>
+            <button type="button" class="secondary" id="revertStory" disabled>Revert Story</button>
           </div>
           <button type="button" class="secondary" id="generateYoutube">Generate YouTube Upload Content</button>
           <button type="button" class="secondary" id="convertStory">Convert Script to Korean</button>
@@ -643,6 +872,18 @@ Avoid:
           <div class="save-grid">
             <button type="button" class="secondary" id="saveProject">Save Story</button>
             <button type="button" class="secondary" id="loadProject">Load Selected</button>
+            <button type="button" class="secondary" id="sendToUpload">Send to Upload</button>
+          </div>
+
+          <label>
+            Upload Storys
+            <select id="uploadProject">
+              <option value="">No upload storys yet</option>
+            </select>
+          </label>
+
+          <div class="save-grid">
+            <button type="button" class="secondary" id="loadUploadProject">Load Upload</button>
           </div>
           <p class="status" id="statusText">Ready to create with Ollama llama3.2.</p>
         </form>
@@ -666,6 +907,11 @@ Avoid:
         </section>
       </section>
     </main>
+
+    <div class="app-footer">
+      <span id="appVersion">Version ...</span>
+      <span>Powered by lgtaegi</span>
+    </div>
 
     <script>
       const form = document.querySelector("#storyForm");
@@ -702,7 +948,7 @@ Avoid:
 - visible human faces
 - plastic toy surfaces
 - noisy textures`;
-      const defaultCharacterDesign = default2DArtStyle;
+      const defaultCharacterDesign = defaultLiveActionArtStyle;
       const characterInput = document.querySelector("#character");
       const objectKeywordInput = document.querySelector("#objectKeyword");
       const setDescriptionInput = document.querySelector("#setDescription");
@@ -712,6 +958,12 @@ Avoid:
       const customArtStyleRadioLabel = document.querySelector("#customArtStyleRadioLabel");
       const artStyleModeInputs = [...document.querySelectorAll('input[name="artStyleMode"]')];
       const ideaInput = document.querySelector("#idea");
+      const toggleReferenceToolsButton = document.querySelector("#toggleReferenceTools");
+      const referenceSuite = document.querySelector("#referenceSuite");
+      const referenceScriptInput = document.querySelector("#referenceScript");
+      const referenceStrengthInput = document.querySelector("#referenceStrength");
+      const referenceStrengthNote = document.querySelector("#referenceStrengthNote");
+      const preserveCoreSettingsInput = document.querySelector("#preserveCoreSettings");
       const genreInput = document.querySelector("#genre");
       const moodInput = document.querySelector("#mood");
       const sceneCountInput = document.querySelector("#sceneCount");
@@ -720,6 +972,20 @@ Avoid:
       const customDurationInput = document.querySelector("#customDuration");
       const languageInput = document.querySelector("#language");
       const modelInput = document.querySelector("#model");
+      const toggleModelToolsButton = document.querySelector("#toggleModelTools");
+      const modelSuite = document.querySelector("#modelSuite");
+      const modelInstallerInput = document.querySelector("#modelInstaller");
+      const refreshModelsButton = document.querySelector("#refreshModels");
+      const installModelButton = document.querySelector("#installModel");
+      const removeModelButton = document.querySelector("#removeModel");
+      const modelExplorer = document.querySelector("#modelExplorer");
+      const recommendedModelList = document.querySelector("#recommendedModelList");
+      const refreshRecommendedModelsButton = document.querySelector("#refreshRecommendedModels");
+      const customModelTagInput = document.querySelector("#customModelTag");
+      const installCustomModelButton = document.querySelector("#installCustomModel");
+      const modelAvailabilityNote = document.querySelector("#modelAvailabilityNote");
+      const modelInstallHint = document.querySelector("#modelInstallHint");
+      const modelInstallMode = document.querySelector("#modelInstallMode");
       const includeScenePromptDetailsInput = document.querySelector("#includeScenePromptDetails");
       const includeYoutubeOnCopyInput = document.querySelector("#includeYoutubeOnCopy");
       const storyTitle = document.querySelector("#storyTitle");
@@ -730,6 +996,7 @@ Avoid:
       const scriptBox = document.querySelector("#scriptBox");
       const youtubeBox = document.querySelector("#youtubeBox");
       const copyStory = document.querySelector("#copyStory");
+      const revertStory = document.querySelector("#revertStory");
       const toggleScript = document.querySelector("#toggleScript");
       const generateIdea = document.querySelector("#generateIdea");
       const createStory = document.querySelector("#createStory");
@@ -739,15 +1006,34 @@ Avoid:
       const useSaveNamePrefixInput = document.querySelector("#useSaveNamePrefix");
       const saveNamePrefixInput = document.querySelector("#saveNamePrefix");
       const savedProjectInput = document.querySelector("#savedProject");
+      const uploadProjectInput = document.querySelector("#uploadProject");
       const saveProject = document.querySelector("#saveProject");
       const loadProject = document.querySelector("#loadProject");
+      const sendToUploadButton = document.querySelector("#sendToUpload");
+      const loadUploadProjectButton = document.querySelector("#loadUploadProject");
       const savedCharacterDesignInput = document.querySelector("#savedCharacterDesign");
       const saveCharacterDesign = document.querySelector("#saveCharacterDesign");
       const loadCharacterDesign = document.querySelector("#loadCharacterDesign");
       const statusText = document.querySelector("#statusText");
+      const appVersionLabel = document.querySelector("#appVersion");
       let projectNameWasManuallyEdited = false;
+      let lastSuggestedProjectName = "";
       let saveNamePrefixTimer = null;
       const customArtStyleStorageKey = "aiStoryBuilder.customArtStyle";
+      const storyHistory = [];
+      const maxStoryHistory = 10;
+      let isApplyingStorySnapshot = false;
+      let modelCatalog = [];
+      let ollamaReachable = true;
+      let activeRecommendedInstall = "";
+      const knownModels = [
+        "llama3.2:latest",
+        "llama3:latest",
+        "qwen2.5:latest",
+        "mistral:latest",
+        "gemma3:latest"
+      ];
+      let recommendedModels = [];
 
       const beats = [
         {
@@ -816,21 +1102,200 @@ Avoid:
         return match ? match[1].trim() : "";
       }
 
+      function youtubeDescriptionOnlyFromContent(text) {
+        const match = String(text || "").match(/Description:\s*([\s\S]*?)(?:\n\s*#|\n\s*[A-Za-z0-9_-]+\s*,|$)/i);
+        return match ? match[1].trim() : "";
+      }
+
       function wordsForTitle(value) {
         return String(value || "")
           .replace(/[^\p{L}\p{N}\s-]/gu, " ")
           .split(/\s+/)
           .filter(Boolean)
-          .filter((word) => !["a", "an", "the", "that", "with", "and", "or", "in", "of", "to", "is", "this"].includes(word.toLowerCase()));
+          .filter((word) => ![
+            "a", "an", "the", "that", "with", "and", "or", "in", "of", "to", "is", "this",
+            "for", "into", "onto", "from", "toward", "towards", "at", "by", "near", "behind",
+            "beside", "inside", "under", "over", "while", "before", "after", "against", "around",
+            "same", "main", "key", "core", "visible", "suddenly", "unexpectedly", "instantly"
+          ].includes(word.toLowerCase()));
       }
 
       function titleCaseWords(words) {
         return words.map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()).join(" ");
       }
 
+      function objectWordsForMatch(value) {
+        return wordsForTitle(normalizeObjectPhrase(value));
+      }
+
+      function canonicalObjectKeyForMatch(value) {
+        const words = objectWordsForMatch(value);
+        if (!words.length) return "";
+        return words.length >= 2 ? words.slice(-2).join(" ") : words[0];
+      }
+
+      function objectMatchesForTitle(expectedObject, actualObject, fullText = "") {
+        const expectedWords = objectWordsForMatch(expectedObject);
+        if (!expectedWords.length) return false;
+        const actualWords = objectWordsForMatch(actualObject);
+        const expectedKey = canonicalObjectKeyForMatch(expectedObject);
+        const actualKey = canonicalObjectKeyForMatch(actualObject);
+        const text = String(fullText || "").toLowerCase();
+
+        if (expectedKey && actualKey && expectedKey === actualKey) return true;
+        if (expectedWords.at(-1) && actualWords.at(-1) && expectedWords.at(-1) === actualWords.at(-1)) return true;
+        if (actualWords.length && actualWords.every((word) => expectedWords.includes(word))) return true;
+        if (expectedWords.length && expectedWords.every((word) => actualWords.includes(word))) return true;
+        if (expectedKey && text.includes(expectedKey)) return true;
+        if (expectedWords.at(-1) && text.includes(expectedWords.at(-1))) return true;
+        return false;
+      }
+
       function objectNameFromIdea(idea) {
-        const match = String(idea || "").match(/\b(?:finds|uses|loses|drops|chases|hides|discovers|grabs|opens)\s+(?:a|an|the)?\s*([^.,;]+?)(?:\s+(?:at|in|inside|on|under|near|beside|behind)\b|[.!?]|$)/i);
-        return match ? match[1].trim() : "";
+        const source = String(idea || "").trim();
+        const patterns = [
+          /\b(?:puts on|put on|wears|wear|holds onto|hold onto|holding onto|picks up|pick up|rings|ring|throws|throw)\s+(?:(?:my|your|his|her|their|our|its)\s+)?(?:(?:a|an|the)\s+)?([^.,;]+?)(?:\s+(?:and|at|in|inside|on|under|near|beside|behind|before|with|while|into|as|for)\b|[.!?]|$)/i,
+          /\b(?:finds|uses|loses|drops|chases|hides|discovers|grabs|opens)\s+(?:(?:a|an|the)\s+)?([^.,;]+?)(?:\s+(?:at|in|inside|on|under|near|beside|behind)\b|[.!?]|$)/i,
+          /\b(?:tries|attempts)\s+to\s+(?:squeeze|wear|hide|grab|open|swallow|lick|hug|trade|drop)\s+(?:(?:a|an|the)\s+)?([^.,;]+?)(?:\s+(?:into|inside|in|on|under|near|behind|beside|at)\b|[.!?]|$)/i,
+          /\b(?:mistakes|treats)\s+(?:(?:a|an|the)\s+)?([^.,;]+?)(?:\s+(?:for|like)\b|[.!?]|$)/i,
+          /\b(?:shows|tests|activates|presses|bites|licks|wears|hugs|swaps|trades)\s+(?:(?:a|an|the)\s+)?([^.,;]+?)(?:\s+(?:at|in|inside|on|under|near|beside|behind|before|and)\b|[.!?]|$)/i,
+        ];
+        for (const pattern of patterns) {
+          const match = source.match(pattern);
+          if (match?.[1]) return match[1].trim();
+        }
+        return "";
+      }
+
+      function keyObjectFromStoryboard(text) {
+        const storyboard = String(text || "");
+        const hookMatch = storyboard.match(/Key object\s*\/\s*product hook:\s*([\s\S]*?)(?=\n\s*Set prompt:|\n\s*Art style prompt:|\n\s*Scene\s+\d+\s*-\s*\d+s:|$)/i);
+        const hookText = hookMatch ? hookMatch[1].trim() : "";
+        const genericHook = /one visible object must drive the story events/i.test(hookText);
+        if (!hookText || genericHook) return "";
+        const candidates = [
+          hookText.match(/\b(?:core object|key object|main object|object)\s*[:\-]?\s*([^.,;\n]+)/i)?.[1],
+          hookText.match(/\b(?:a|an|the)\s+([^.,;\n]+?)(?:\s+(?:drives|appears|returns|repeats|anchors|stays)\b|[.!?]|$)/i)?.[1],
+          hookText.match(/^([^.,;\n]{2,80})/i)?.[1],
+        ].map(value => String(value || "").trim()).filter(Boolean);
+        return candidates[0] || "";
+      }
+
+      function objectNameFromYoutubeTitle(text) {
+        const youtubeTitle = youtubeTitleFromContent(text);
+        if (!youtubeTitle) return "";
+        const candidates = [
+          youtubeTitle.match(/\b(?:a|an|the)\s+([^.,;:!?]+?)(?:\s+(?:sends|breaks|launches|starts|causes|creates|turns|makes)\b|[.!?]|$)/i)?.[1],
+          youtubeTitle.match(/^([^:!?.,]{2,80})/i)?.[1],
+        ].map((value) => String(value || "").trim()).filter(Boolean);
+        return candidates[0] || "";
+      }
+
+      function importantWordsFromYoutubeTitle(text) {
+        const youtubeTitle = youtubeTitleFromContent(text);
+        if (!youtubeTitle) return "";
+        const phrasePatterns = [
+          /\b(?:a|an|the)\s+([^.,;:!?]+?)(?:\s+(?:sends|breaks|launches|starts|causes|creates|turns|makes|into|through|across)\b|[.!?]|$)/i,
+          /\b(?:with|using)\s+(?:(?:a|an|the)\s+)?([^.,;:!?]+?)(?:\s+(?:to|for|into|through|across|in|on)\b|[.!?]|$)/i,
+        ];
+        for (const pattern of phrasePatterns) {
+          const match = youtubeTitle.match(pattern);
+          if (match?.[1]) {
+            return normalizeObjectPhrase(match[1].trim());
+          }
+        }
+        const words = wordsForTitle(youtubeTitle)
+          .filter((word) => ![
+            "among", "us", "suddenly", "unexpectedly", "instantly", "comedy", "joy",
+            "horror", "mystery", "adventure", "drama", "fantasy", "science", "fiction",
+            "video", "shorts", "short", "story", "crazy", "wild", "epic", "funny",
+            "launch", "orbit", "into", "through", "across", "must", "drive"
+          ].includes(word.toLowerCase()));
+        if (!words.length) return "";
+        return words.length >= 2 ? words.slice(0, 2).join(" ") : words[0];
+      }
+
+      function objectNameFromStoryboardScenes(text) {
+        const storyboard = String(text || "");
+        const sceneText = [...storyboard.matchAll(/Scene\s+\d+\s*-\s*\d+s:\s*([\s\S]*?)(?=\n\s*Scene\s+\d+\s*-\s*\d+s:|$)/gi)]
+          .map((match) => match[1].trim())
+          .join(" ");
+        if (!sceneText) return "";
+
+        const patterns = [
+          /\b(?:holding onto|hold onto|holds onto|held onto)\s+(?:(?:a|an|the)\s+)?([^.,;]+?)(?:\s+(?:for|in|with|while|as|before|against|toward|towards)\b|[.!?]|$)/i,
+          /\b(?:using|uses|used)\s+(?:(?:a|an|the|same)\s+)?([^.,;]+?)(?:\s+(?:as|to|for|in|with|while|before|against|that)\b|[.!?]|$)/i,
+          /\b(?:bites|licks|wears|hugs|swaps|trades|tests|activates|presses)\s+(?:(?:a|an|the)\s+)?([^.,;]+?)(?:\s+(?:in|with|toward|towards|above|below|while|as|before|against|under|near|beside|behind)\b|[.!?]|$)/i,
+          /\b(?:holds up|hold up|holding up|holds|hold|holding|carry|carries|carrying|raises|raised|lifts|lifted|shows|showing|presents|presenting)\s+(?:(?:a|an|the)\s+)?([^.,;]+?)(?:\s+(?:in|with|toward|towards|above|below|while|as|before|against|surrounded|set)\b|[.!?]|$)/i,
+          /\b(?:zooms?\s+in\s+on|camera\s+zooms?\s+in\s+on|focuses?\s+on)\s+(?:(?:a|an|the)\s+)?([^.,;]+?)(?:\s+(?:in|with|against|as|while|set)\b|[.!?]|$)/i,
+          /\b(?:the)\s+([^.,;]+?)(?:\s+(?:floats away|glows|shakes|spins|drops|falls|breaks|bursts)\b|[.!?]|$)/i,
+        ];
+
+        for (const pattern of patterns) {
+          const match = sceneText.match(pattern);
+          if (match?.[1]) return match[1].trim();
+        }
+        return "";
+      }
+
+      function firstTriggerObjectFromStoryboard(text) {
+        const storyboard = String(text || "");
+        const sceneText = [...storyboard.matchAll(/Scene\s+\d+\s*-\s*\d+s:\s*([\s\S]*?)(?=\n\s*Scene\s+\d+\s*-\s*\d+s:|$)/gi)]
+          .map((match) => match[1].trim())
+          .join(" ");
+        if (!sceneText) return "";
+
+        const patterns = [
+          /\b(?:picks up|pick up|grabs|grab|finds|find|takes|take|holds up|hold up|holds|hold|uses|use|presses|press|opens|open|bites|bite|licks|lick|wears|wears|throws|throw|launches|launches with|launches using)\s+(?:(?:a|an|the|same)\s+)?([^.,;]+?)(?:\s+(?:as|to|for|in|on|into|through|across|with|while|before|after|against|toward|towards|under|near|beside|behind)\b|[.!?]|$)/i,
+          /\b(?:camera\s+zooms?\s+in\s+on|zooms?\s+in\s+on|focuses?\s+on)\s+(?:(?:a|an|the)\s+)?([^.,;]+?)(?:\s+(?:as|to|for|in|on|into|through|across|with|while|before|after|against)\b|[.!?]|$)/i,
+        ];
+
+        for (const pattern of patterns) {
+          const match = sceneText.match(pattern);
+          if (match?.[1]) return normalizeObjectPhrase(match[1].trim());
+        }
+
+        return "";
+      }
+
+      function normalizeObjectPhrase(value) {
+        let phrase = String(value || "").trim();
+        if (!phrase) return "";
+        phrase = phrase
+          .replace(/^(?:a|an|the|same)\s+/i, "")
+          .replace(/^(?:my|your|his|her|their|our|its)\s+/i, "")
+          .replace(/\b(?:for|with|in|on|at|into|onto|toward|towards|against|while|before|after|as|to)\b[\s\S]*$/i, "")
+          .replace(/\b(?:moment|event|reaction|story|scene|situation|thing|object|stability|orbit|space|victory|chaos|problem|payoff)\b$/i, "")
+          .replace(/\b(?:using|holding|holds|holding onto|launches|launched|floating|floats|showing|shows)\b[\s\S]*$/i, "")
+          .replace(/[^\p{L}\p{N}\s-]/gu, " ")
+          .replace(/\s+/g, " ")
+          .trim();
+        return phrase;
+      }
+
+      function overlappingObjectFromIdeaAndText(ideaObject, text) {
+        const normalizedIdea = normalizeObjectPhrase(ideaObject);
+        if (!normalizedIdea) return "";
+
+        const ideaWords = wordsForTitle(normalizedIdea);
+        if (!ideaWords.length) return "";
+
+        const haystackWords = wordsForTitle(String(text || ""));
+        if (!haystackWords.length) return "";
+
+        const overlap = ideaWords.filter((word) => haystackWords.includes(word));
+        if (!overlap.length) return "";
+
+        if (ideaWords.length >= 2) {
+          for (let index = 0; index < ideaWords.length - 1; index += 1) {
+            const pair = ideaWords.slice(index, index + 2);
+            if (pair.every((word) => haystackWords.includes(word))) {
+              return pair.join(" ");
+            }
+          }
+        }
+
+        return overlap.length >= 2 ? overlap.slice(-2).join(" ") : overlap[0];
       }
 
       function cleanObjectForSaveName(value) {
@@ -851,39 +1316,91 @@ Avoid:
           .join("-");
       }
 
-      function hookWordFromTitle(value) {
-        const source = String(value || "").toLowerCase();
-        if (/mystery|secret|hidden/.test(source)) return "Mystery";
-        if (/chaos|meltdown|crazy/.test(source)) return "Chaos";
-        if (/twist|ending/.test(source)) return "Twist";
-        if (/find|discover|discovery/.test(source)) return "Find";
-        return "Surprise";
+      function shortObjectTitle(objectName) {
+        const objectWords = wordsForTitle(normalizeObjectPhrase(objectName))
+          .filter((word) => ![
+            "moment", "event", "reaction", "story", "scene", "situation", "thing", "object",
+            "stability", "orbit", "space", "victory", "chaos", "problem", "payoff"
+          ].includes(word.toLowerCase()));
+        if (!objectWords.length) return "Object";
+        const picked = objectWords.length >= 2
+          ? objectWords.slice(-2)
+          : objectWords.slice(0, 1);
+        return titleCaseWords(picked);
       }
 
-      function shortObjectTitle(objectName, sourceTitle) {
-        const objectWords = wordsForTitle(objectName).slice(0, 2);
-        if (!objectWords.length) return "Object Surprise";
-        const hook = hookWordFromTitle(sourceTitle);
-        const titleWords = objectWords.length >= 2 ? [...objectWords, hook] : [objectWords[0], hook];
-        return titleCaseWords(titleWords.slice(0, 3));
+      function bestEstimatedStoryObject(data) {
+        return firstTriggerObjectFromStoryboard(scriptBox.textContent)
+          || keyObjectFromStoryboard(scriptBox.textContent)
+          || objectNameFromIdea(data.idea)
+          || objectNameFromStoryboardScenes(scriptBox.textContent)
+          || "";
+      }
+
+      function matchedTitleObject(ideaObject, youtubeText) {
+        const youtubeTitle = youtubeTitleFromContent(youtubeText);
+        const youtubeDescriptionOnly = youtubeDescriptionOnlyFromContent(youtubeText);
+        if (!youtubeTitle) return "";
+        return overlappingObjectFromIdeaAndText(ideaObject, youtubeTitle)
+          || overlappingObjectFromIdeaAndText(ideaObject, youtubeDescriptionOnly)
+          || importantWordsFromYoutubeTitle(youtubeText)
+          || objectNameFromYoutubeTitle(youtubeText)
+          || "";
       }
 
       function suggestedProjectName() {
         const data = currentFormData();
-        const youtubeTitle = youtubeTitleFromContent(youtubeBox.textContent);
-        const sourceTitle = youtubeTitle || storyTitle.textContent || titleFromIdea(data.idea);
-        const objectSource = data.objectKeyword || objectNameFromIdea(data.idea) || "object";
-        const shortTitle = shortObjectTitle(objectSource, sourceTitle);
+        const youtubeText = youtubeBox.textContent;
+        let objectSource = "";
+
+        if (data.objectKeyword) {
+          objectSource = data.objectKeyword;
+        } else {
+          const ideaObject = bestEstimatedStoryObject(data);
+          const match = matchedTitleObject(ideaObject, youtubeText);
+          objectSource = ideaObject && match && objectMatchesForTitle(ideaObject, match, youtubeText)
+            ? match
+            : (ideaObject || match || "");
+        }
+
+        if (!normalizeObjectPhrase(objectSource)) return null;
+
+        const shortTitle = shortObjectTitle(objectSource);
         const prefix = useSaveNamePrefixInput.checked
           ? cleanSaveNamePrefix(saveNamePrefixInput.value)
           : "";
         return prefix ? `${prefix}_${shortTitle}` : shortTitle;
       }
 
+      function syncProjectNameManualState() {
+        const current = projectNameInput.value.trim();
+        projectNameWasManuallyEdited = Boolean(current) && current !== lastSuggestedProjectName;
+      }
+
       function setSuggestedProjectName() {
-        if (projectNameWasManuallyEdited && projectNameInput.value.trim()) return;
-        projectNameInput.value = suggestedProjectName();
+        const nextSuggested = suggestedProjectName();
+        if (!nextSuggested) {
+          if (!projectNameWasManuallyEdited) {
+            projectNameInput.value = "";
+            lastSuggestedProjectName = "";
+          }
+          statusText.textContent = "Could not detect a clear trigger object for Save name yet. Generate YouTube upload content or refine the idea/object first.";
+          return;
+        }
+        const current = projectNameInput.value.trim();
+        if (projectNameWasManuallyEdited && current && current !== lastSuggestedProjectName) return;
+        projectNameInput.value = nextSuggested;
+        lastSuggestedProjectName = nextSuggested;
         projectNameWasManuallyEdited = false;
+      }
+
+      function cloneTimingMode(timingMode = {}) {
+        return {
+          scenes: timingMode.scenes || sceneCountInput.value,
+          duration: timingMode.duration || durationInput.value,
+          customScenes: Number(timingMode.customScenes ?? customSceneCountInput.value),
+          customDuration: Number(timingMode.customDuration ?? customDurationInput.value)
+        };
       }
 
       async function loadSaveNamePrefixSettings() {
@@ -987,6 +1504,393 @@ Avoid:
         customInput.value = stringValue;
       }
 
+      function modelEntry(name) {
+        return modelCatalog.find((entry) => entry.name === name) || null;
+      }
+
+      function installedModelEntries() {
+        return modelCatalog.filter((entry) => entry.installed);
+      }
+
+      function sortedModelEntries() {
+        return [...modelCatalog].sort((left, right) => {
+          if (left.installed !== right.installed) {
+            return left.installed ? -1 : 1;
+          }
+          return knownModels.indexOf(left.name) - knownModels.indexOf(right.name);
+        });
+      }
+
+      function formatModelOptionLabel(entry, { installer = false } = {}) {
+        if (!entry) return "";
+        if (installer) {
+          return entry.installed ? `${entry.name} - installed` : `${entry.name} - not installed`;
+        }
+        return entry.installed ? entry.name : `${entry.name} - not installed`;
+      }
+
+      function modelLabelBadges(entry, recommendation = null) {
+        const badges = [
+          ...(Array.isArray(entry?.details?.families) ? entry.details.families : []),
+          ...(Array.isArray(recommendation?.badges) ? recommendation.badges : [])
+        ];
+        return badges.map((badge) => String(badge || "").trim().toLowerCase()).filter(Boolean);
+      }
+
+      function isLargeModelEntry(entry, recommendation = null) {
+        if (!entry && !recommendation) return false;
+        const size = Number(entry?.size || 0);
+        const badges = modelLabelBadges(entry, recommendation);
+        const name = String(entry?.name || recommendation?.name || "").toLowerCase();
+        const details = String(entry?.details?.parameter_size || "").toLowerCase();
+        return size >= 15 * 1024 * 1024 * 1024
+          || badges.includes("large")
+          || /\b(30b|32b|34b|40b|70b|72b|90b|100b)\b/.test(details)
+          || /\b(30b|32b|34b|40b|70b|72b|90b|100b)\b/.test(name)
+          || name.includes("llama3.3");
+      }
+
+      function largeModelWarning(entry, recommendation = null) {
+        if (!isLargeModelEntry(entry, recommendation)) return "";
+        return recommendation?.warning
+          || "Large model warning: this model may feel extremely slow on 16GB Macs and can be impractical for interactive story generation.";
+      }
+
+      function setAiButtonsDisabled(disabled) {
+        [generateIdea, createStory, generateYoutube, convertStory].forEach((button) => {
+          button.disabled = disabled;
+        });
+      }
+
+      function populateModelSelects(preferredModel = "", preferredInstallModel = "") {
+        const ordered = sortedModelEntries();
+        const installed = ordered.filter((entry) => entry.installed);
+        const unavailable = ordered.filter((entry) => !entry.installed);
+        const activeModel = installed.find((entry) => entry.name === preferredModel)?.name
+          || installed[0]?.name
+          || ordered[0]?.name
+          || knownModels[0];
+        const installModelName = modelEntry(preferredInstallModel)?.name
+          || modelEntry(preferredModel)?.name
+          || ordered[0]?.name
+          || knownModels[0];
+
+        const installedModelOptions = installed
+          .map((entry) => `<option value="${escapeHtml(entry.name)}">${escapeHtml(formatModelOptionLabel(entry))}</option>`)
+          .join("");
+        const unavailableModelOptions = unavailable
+          .map((entry) => `<option value="${escapeHtml(entry.name)}" disabled>${escapeHtml(formatModelOptionLabel(entry))}</option>`)
+          .join("");
+
+        modelInput.innerHTML = [
+          installedModelOptions ? `<optgroup label="Installed models">${installedModelOptions}</optgroup>` : "",
+          unavailableModelOptions ? `<optgroup label="Not installed yet">${unavailableModelOptions}</optgroup>` : ""
+        ].join("");
+
+        modelInstallerInput.innerHTML = installed
+          .map((entry) => `<option value="${escapeHtml(entry.name)}">${escapeHtml(formatModelOptionLabel(entry, { installer: true }))}</option>`)
+          .join("");
+
+        if (modelEntry(activeModel)?.installed) {
+          modelInput.value = activeModel;
+        }
+        if (installed.find((entry) => entry.name === installModelName)) {
+          modelInstallerInput.value = installModelName;
+        }
+      }
+
+      function refreshModelStatusUi() {
+        const installed = installedModelEntries();
+        const selectedInstall = modelEntry(modelInstallerInput.value);
+        const selectedActive = modelEntry(modelInput.value);
+        const activeLargeWarning = largeModelWarning(selectedActive);
+
+        if (!ollamaReachable) {
+          modelAvailabilityNote.textContent = "Could not reach local Ollama. Start Ollama first, then refresh the model list.";
+          modelInstallMode.textContent = "Ollama offline";
+          modelInstallHint.textContent = "The app could not check installed models, so installation controls are paused for now.";
+          installModelButton.disabled = true;
+          removeModelButton.disabled = true;
+          setAiButtonsDisabled(true);
+          return;
+        }
+
+        if (!installed.length) {
+          modelAvailabilityNote.textContent = "No installed Ollama models were found. Install one below, then the story buttons will turn back on.";
+          modelInstallMode.textContent = "No model installed";
+          modelInstallHint.textContent = "Install a model from the recommendation list or with a custom model tag below.";
+          setAiButtonsDisabled(true);
+        } else {
+          modelAvailabilityNote.textContent = activeLargeWarning
+            ? `${activeLargeWarning} Installed models are grouped first, and any model not installed yet stays gray in the main list.`
+            : "Installed models are grouped first. Any model not installed yet stays gray in the main list, and you can add or update it below.";
+          modelInstallMode.textContent = `${installed.length} model${installed.length === 1 ? "" : "s"} ready`;
+          setAiButtonsDisabled(false);
+        }
+
+        if (!selectedInstall) {
+          modelInstallHint.textContent = installed.length
+            ? "Choose one installed model here to update or remove it."
+            : "Install a model from the recommendation list or with a custom model tag below.";
+          installModelButton.disabled = true;
+          removeModelButton.disabled = true;
+          return;
+        }
+
+        installModelButton.disabled = false;
+        if (selectedInstall.installed) {
+          const updatedAt = selectedInstall.modifiedAt
+            ? new Date(selectedInstall.modifiedAt).toLocaleString()
+            : "unknown time";
+          const installWarning = largeModelWarning(selectedInstall);
+          installModelButton.textContent = "Check Latest / Update";
+          modelInstallHint.textContent = installWarning
+            ? `${selectedInstall.name} is installed. ${installWarning} Last local update: ${updatedAt}.`
+            : `${selectedInstall.name} is installed. Click to ask Ollama for the latest version. Last local update: ${updatedAt}.`;
+          removeModelButton.disabled = false;
+        } else {
+          installModelButton.textContent = "Install Latest";
+          modelInstallHint.textContent = `${selectedInstall.name} is not installed yet. Click to pull the latest version and add it to the active model list.`;
+          removeModelButton.disabled = true;
+        }
+
+        if (selectedActive?.installed) {
+          statusText.textContent = `Ready to create with Ollama ${selectedActive.name}.`;
+        }
+      }
+
+      function applyModelSelection(preferredModel = "", preferredInstallModel = "") {
+        populateModelSelects(preferredModel, preferredInstallModel);
+        refreshModelStatusUi();
+      }
+
+      async function installModelTag(modelName, messages = {}) {
+        const safeName = String(modelName || "").trim();
+        if (!safeName) {
+          statusText.textContent = messages.empty || "Enter a model tag first.";
+          return false;
+        }
+
+        installModelButton.disabled = true;
+        refreshModelsButton.disabled = true;
+        removeModelButton.disabled = true;
+        installCustomModelButton.disabled = true;
+        statusText.textContent = messages.progress || `Installing ${safeName} with Ollama...`;
+
+        try {
+          const response = await fetch("/api/models/install", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ model: safeName })
+          });
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not install the selected model.");
+          }
+
+          await refreshModelCatalog({
+            preferredModel: safeName,
+            preferredInstallModel: safeName
+          });
+          statusText.textContent = result.message || `${safeName} is ready in Ollama.`;
+          return true;
+        } catch (error) {
+          statusText.textContent = messages.errorPrefix
+            ? `${messages.errorPrefix} ${error.message}`
+            : `Could not install or update ${safeName}. ${error.message}`;
+          return false;
+        } finally {
+          refreshModelsButton.disabled = false;
+          installCustomModelButton.disabled = false;
+        }
+      }
+
+      function renderRecommendedModels() {
+        if (!recommendedModels.length) {
+          recommendedModelList.innerHTML = `<p class="field-note">No recommendations loaded yet. Refresh the list or add a custom model tag below.</p>`;
+          return;
+        }
+
+        recommendedModelList.innerHTML = recommendedModels.map((entry) => {
+          const installedEntry = modelEntry(entry.name);
+          const installed = Boolean(installedEntry?.installed);
+          const isBusy = activeRecommendedInstall === entry.name;
+          const warningText = largeModelWarning(installedEntry, entry);
+          const buttonLabel = isBusy
+            ? (installed ? "Checking Latest..." : "Installing...")
+            : (installed ? "Check Latest / Update" : "Install Latest");
+          return `
+            <article class="model-card">
+              <div class="model-card-top">
+                <div>
+                  <h3>${escapeHtml(entry.title)}</h3>
+                </div>
+                <span class="pill-note">${installed ? "Installed" : "Not installed"}</span>
+              </div>
+              <div class="model-badges">
+                ${entry.badges.map((badge) => `<span class="model-badge">${escapeHtml(badge)}</span>`).join("")}
+              </div>
+              <p>${escapeHtml(entry.note)}</p>
+              ${warningText ? `<p class="model-warning">${escapeHtml(warningText)}</p>` : ""}
+              <button type="button" class="secondary" data-install-model="${escapeHtml(entry.name)}"${isBusy ? " disabled" : ""}>${escapeHtml(buttonLabel)}</button>
+            </article>
+          `;
+        }).join("");
+      }
+
+      async function loadRecommendedModels({ quiet = false } = {}) {
+        refreshRecommendedModelsButton.disabled = true;
+        try {
+          const response = await fetch(`/recommended-models.json?ts=${Date.now()}`);
+          const payload = await response.json();
+          if (!response.ok) {
+            throw new Error(payload.error || "Could not load recommended models.");
+          }
+
+          recommendedModels = Array.isArray(payload.models) ? payload.models : [];
+          renderRecommendedModels();
+          if (!quiet) {
+            statusText.textContent = "Recommended models refreshed from the local JSON file.";
+          }
+        } catch (error) {
+          recommendedModels = [];
+          renderRecommendedModels();
+          if (!quiet) {
+            statusText.textContent = `Could not refresh recommended models. ${error.message}`;
+          }
+        } finally {
+          refreshRecommendedModelsButton.disabled = false;
+        }
+      }
+
+      function toggleModelTools() {
+        modelSuite.classList.toggle("hidden");
+        const isHidden = modelSuite.classList.contains("hidden");
+        toggleModelToolsButton.textContent = isHidden ? "Show advanced model tools" : "Hide advanced model tools";
+      }
+
+      function toggleReferenceTools() {
+        referenceSuite.classList.toggle("hidden");
+        const isHidden = referenceSuite.classList.contains("hidden");
+        toggleReferenceToolsButton.textContent = isHidden ? "Show reference script" : "Hide reference script";
+      }
+
+      async function installCustomModel() {
+        const customTag = customModelTagInput.value.trim();
+        const ok = await installModelTag(customTag, {
+          empty: "Enter a custom model tag first.",
+          progress: `Installing ${customTag} with Ollama...`,
+          errorPrefix: `Could not install or update ${customTag}.`
+        });
+        if (ok) {
+          customModelTagInput.value = "";
+        }
+      }
+
+      async function refreshModelCatalog(options = {}) {
+        const preferredModel = options.preferredModel ?? modelInput.value;
+        const preferredInstallModel = options.preferredInstallModel ?? modelInstallerInput.value;
+
+        refreshModelsButton.disabled = true;
+        installModelButton.disabled = true;
+        modelInstallMode.textContent = "Checking local Ollama models...";
+
+        try {
+          const response = await fetch("/api/models");
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not load local models.");
+          }
+
+          modelCatalog = (result.models || []).length
+            ? result.models
+            : knownModels.map((name) => ({ name, installed: false }));
+          ollamaReachable = result.ollamaReachable !== false;
+          applyModelSelection(preferredModel || result.defaultModel, preferredInstallModel);
+          renderRecommendedModels();
+        } catch (error) {
+          ollamaReachable = false;
+          modelCatalog = knownModels.map((name) => ({ name, installed: false }));
+          applyModelSelection(preferredModel, preferredInstallModel);
+          renderRecommendedModels();
+          statusText.textContent = `Could not refresh local models. ${error.message}`;
+        } finally {
+          refreshModelsButton.disabled = false;
+        }
+      }
+
+      async function installOrUpdateSelectedModel() {
+        const entry = modelEntry(modelInstallerInput.value);
+        if (!entry) {
+          statusText.textContent = "Choose a model first.";
+          return;
+        }
+
+        installModelButton.disabled = true;
+        refreshModelsButton.disabled = true;
+        installModelButton.textContent = entry.installed ? "Checking Latest..." : "Installing...";
+        statusText.textContent = entry.installed
+          ? `Checking Ollama for the latest ${entry.name}...`
+          : `Installing ${entry.name} with Ollama...`;
+
+        try {
+          const response = await fetch("/api/models/install", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ model: entry.name })
+          });
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not install the selected model.");
+          }
+
+          await refreshModelCatalog({
+            preferredModel: entry.name,
+            preferredInstallModel: entry.name
+          });
+          statusText.textContent = result.message || `${entry.name} is ready in Ollama.`;
+        } catch (error) {
+          statusText.textContent = `Could not install or update ${entry.name}. ${error.message}`;
+        } finally {
+          refreshModelsButton.disabled = false;
+        }
+      }
+
+      async function removeSelectedModel() {
+        const entry = modelEntry(modelInstallerInput.value);
+        if (!entry?.installed) {
+          statusText.textContent = "Choose an installed model to remove.";
+          return;
+        }
+
+        const confirmed = window.confirm(`Remove ${entry.name} from Ollama on this Mac?`);
+        if (!confirmed) return;
+
+        installModelButton.disabled = true;
+        refreshModelsButton.disabled = true;
+        removeModelButton.disabled = true;
+        statusText.textContent = `Removing ${entry.name} from Ollama...`;
+
+        try {
+          const response = await fetch("/api/models/delete", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ model: entry.name })
+          });
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not remove the selected model.");
+          }
+
+          await refreshModelCatalog();
+          statusText.textContent = result.message || `${entry.name} was removed from Ollama.`;
+        } catch (error) {
+          statusText.textContent = `Could not remove ${entry.name}. ${error.message}`;
+        } finally {
+          refreshModelsButton.disabled = false;
+        }
+      }
+
       function escapeHtml(value) {
         return value
           .replace(/&/g, "&amp;")
@@ -997,7 +1901,7 @@ Avoid:
       }
 
       function selectedArtStyleMode() {
-        return artStyleModeInputs.find((input) => input.checked)?.value || "2d";
+        return artStyleModeInputs.find((input) => input.checked)?.value || "live";
       }
 
       function fixedArtStyleIdForMode(mode = selectedArtStyleMode()) {
@@ -1109,7 +2013,7 @@ Avoid:
           characterDesignTitleInput.value = "Live-Action";
         } else if (mode === "custom") {
           const prompt = loadCustomArtStyleSlot();
-          characterDesignInput.value = prompt || characterDesignInput.value || default2DArtStyle;
+          characterDesignInput.value = prompt || characterDesignInput.value || defaultLiveActionArtStyle;
           characterDesignTitleInput.value = customArtStyleNameInput.value.trim() || "Custom Style";
         }
       }
@@ -1163,7 +2067,10 @@ Avoid:
       function makeScene(idea, genre, mood, style, index, sceneCount, duration, includeScenePromptDetails) {
         const beat = beats[index] || beats[beats.length - 1];
         const time = timestampFor(index, sceneCount, duration);
-        const baseText = `${idea}. ${beat.action}`;
+        const storySeed = String(idea || "").trim();
+        const baseText = storySeed
+          ? `${storySeed}. ${beat.action}`
+          : `A fresh visual event begins. ${beat.action}`;
         const text = includeScenePromptDetails
           ? `${baseText}; ${scenePromptDetailSuffix(genre, mood, style, index, sceneCount)}`
           : baseText;
@@ -1177,11 +2084,14 @@ Avoid:
       }
 
       function currentFormData() {
-        const character = characterInput.value.trim() || "Among Us game character Yellow";
+        const character = characterInput.value.trim();
         const objectKeyword = objectKeywordInput.value.trim();
         const setDescription = setDescriptionInput.value.trim();
-        const characterDesign = characterDesignInput.value.trim() || default2DArtStyle;
-        const idea = ideaInput.value.trim() || "finds a baseball bat on the street";
+        const characterDesign = characterDesignInput.value.trim();
+        const idea = ideaInput.value.trim();
+        const referenceScript = referenceScriptInput.value.trim();
+        const referenceStrength = Number(referenceStrengthInput.value || 0);
+        const preserveCoreSettings = preserveCoreSettingsInput.checked;
         const genre = genreInput.value;
         const mood = moodInput.value;
         const duration = resolvedDuration();
@@ -1201,10 +2111,149 @@ Avoid:
           customScenes: Number(customSceneCountInput.value),
           customDuration: Number(customDurationInput.value)
         };
-        return { character, objectKeyword, setDescription, characterDesign, artStyleMode, idea, genre, mood, sceneCount, duration, timingMode, language, model, style, includeScenePromptDetails, saveNamePrefix };
+        return { character, objectKeyword, setDescription, characterDesign, artStyleMode, idea, referenceScript, referenceStrength, preserveCoreSettings, genre, mood, sceneCount, duration, timingMode, language, model, style, includeScenePromptDetails, saveNamePrefix };
+      }
+
+      function updateReferenceStrengthNote() {
+        const value = Number(referenceStrengthInput.value || 0);
+        const hasReferenceScript = Boolean(referenceScriptInput.value.trim());
+        if (!hasReferenceScript) {
+          referenceStrengthNote.textContent = `${value}%: No reference script entered, so reference influence is currently off.`;
+          return;
+        }
+        const summary = value === 0
+          ? "Reference is off."
+          : value <= 30
+            ? "Light inspiration only."
+            : value <= 60
+              ? "Balanced structure and style borrowing."
+              : value <= 85
+                ? "Strong reference pull."
+                : value < 100
+                  ? "Very strong reference pull."
+                  : "Near-original reference replay.";
+        referenceStrengthNote.textContent = `${value}%: ${summary} ${preserveCoreSettingsInput.checked ? "Your character, Set, Art Style, and core object still stay first." : "The reference is allowed to reshape more of the storyboard flow."}`;
+      }
+
+      function currentStorySnapshot() {
+        return {
+          title: storyTitle.textContent,
+          genreTag: genreTag.textContent,
+          moodTag: moodTag.textContent,
+          durationTag: durationTag.textContent,
+          scenesHtml: sceneOutput.innerHTML,
+          storyboard: scriptBox.textContent,
+          youtubeContent: youtubeBox.textContent,
+          scriptHidden: scriptBox.classList.contains("hidden"),
+          toggleScriptLabel: toggleScript.textContent,
+          status: statusText.textContent,
+          settings: {
+            ...currentFormData(),
+            timingMode: cloneTimingMode(currentFormData().timingMode),
+            projectName: projectNameInput.value,
+            projectNameWasManuallyEdited,
+            customArtStyleName: customArtStyleNameInput.value.trim(),
+            characterDesignTitle: characterDesignTitleInput.value.trim(),
+            includeYoutubeOnCopy: includeYoutubeOnCopyInput.checked,
+            savedArtStyle: savedCharacterDesignInput.value,
+            savedProject: savedProjectInput.value
+          }
+        };
+      }
+
+      function updateRevertButton() {
+        revertStory.disabled = storyHistory.length === 0;
+      }
+
+      function pushStoryHistorySnapshot() {
+        if (isApplyingStorySnapshot) return;
+        const snapshot = currentStorySnapshot();
+        const previous = storyHistory.at(-1);
+        if (previous && JSON.stringify(previous) === JSON.stringify(snapshot)) return;
+        storyHistory.push(snapshot);
+        if (storyHistory.length > maxStoryHistory) {
+          storyHistory.shift();
+        }
+        updateRevertButton();
+      }
+
+      function applyStorySnapshot(snapshot) {
+        if (!snapshot) return;
+        isApplyingStorySnapshot = true;
+        try {
+          const settings = snapshot.settings || {};
+          characterInput.value = settings.character || "";
+          objectKeywordInput.value = settings.objectKeyword || "";
+          setDescriptionInput.value = settings.setDescription || "";
+          characterDesignInput.value = settings.characterDesign || characterDesignInput.value;
+          characterDesignTitleInput.value = settings.characterDesignTitle || "";
+          customArtStyleNameInput.value = settings.customArtStyleName || "";
+          updateCustomArtStyleLabel();
+          ideaInput.value = settings.idea || "";
+          referenceScriptInput.value = settings.referenceScript || "";
+          referenceStrengthInput.value = String(settings.referenceStrength ?? 0);
+          preserveCoreSettingsInput.checked = settings.preserveCoreSettings !== false;
+          updateReferenceStrengthNote();
+          genreInput.value = settings.genre || genreInput.value;
+          moodInput.value = settings.mood || moodInput.value;
+          setSelectOrCustom(sceneCountInput, customSceneCountInput, settings.sceneCount || sceneCountInput.value);
+          setSelectOrCustom(durationInput, customDurationInput, settings.duration || durationInput.value);
+          sceneCountInput.value = settings.timingMode?.scenes || sceneCountInput.value;
+          durationInput.value = settings.timingMode?.duration || durationInput.value;
+          customSceneCountInput.value = String(settings.timingMode?.customScenes ?? customSceneCountInput.value);
+          customDurationInput.value = String(settings.timingMode?.customDuration ?? customDurationInput.value);
+          updateCustomTimingFields();
+          languageInput.value = settings.language || languageInput.value;
+          applyModelSelection(settings.model || modelInput.value, settings.model || modelInstallerInput.value);
+          setArtStyleMode(settings.artStyleMode || selectedArtStyleMode());
+          includeScenePromptDetailsInput.checked = Boolean(settings.includeScenePromptDetails);
+          includeYoutubeOnCopyInput.checked = Boolean(settings.includeYoutubeOnCopy);
+          useSaveNamePrefixInput.checked = Boolean(settings.saveNamePrefix?.enabled);
+          saveNamePrefixInput.value = settings.saveNamePrefix?.prefix || "";
+          projectNameInput.value = settings.projectName || "";
+          lastSuggestedProjectName = suggestedProjectName();
+          projectNameWasManuallyEdited = Boolean(settings.projectNameWasManuallyEdited) && projectNameInput.value.trim() !== lastSuggestedProjectName;
+          if (settings.savedArtStyle) {
+            savedCharacterDesignInput.value = settings.savedArtStyle;
+          }
+          if (settings.savedProject) {
+            savedProjectInput.value = settings.savedProject;
+          }
+
+          storyTitle.textContent = snapshot.title || "Untitled AI Story";
+          genreTag.textContent = snapshot.genreTag || genreInput.value;
+          moodTag.textContent = snapshot.moodTag || moodInput.value;
+          durationTag.textContent = snapshot.durationTag || `${resolvedDuration()} seconds`;
+          sceneOutput.innerHTML = snapshot.scenesHtml || "";
+          scriptBox.textContent = snapshot.storyboard || "";
+          youtubeBox.textContent = snapshot.youtubeContent || "";
+          youtubeBox.classList.toggle("hidden", !snapshot.youtubeContent?.trim());
+          scriptBox.classList.toggle("hidden", Boolean(snapshot.scriptHidden));
+          toggleScript.textContent = snapshot.toggleScriptLabel || (scriptBox.classList.contains("hidden") ? "Show storyboard text" : "Hide storyboard text");
+          statusText.textContent = snapshot.status || "Previous story restored.";
+          updateConvertButtonLabel();
+        } finally {
+          isApplyingStorySnapshot = false;
+          updateRevertButton();
+        }
+      }
+
+      function revertToPreviousStory() {
+        const snapshot = storyHistory.pop();
+        if (!snapshot) {
+          statusText.textContent = "There is no earlier story to restore yet.";
+          updateRevertButton();
+          return;
+        }
+
+        applyStorySnapshot(snapshot);
+        statusText.textContent = "Previous story restored.";
       }
 
       function storyboardTextFromScenes(title, data, scenes) {
+        const artStylePrompt = data.characterDesign
+          ? `Art style for this story: ${data.characterDesign}. Keep the main character, object, set, materials, camera language, and negative style rules consistent across every scene.`
+          : "No fixed art style was entered; use one consistent visual style that fits the current story settings and any active reference.";
         return [
           `Title: ${title}`,
           `Total duration: ${data.duration} seconds`,
@@ -1220,7 +2269,7 @@ Avoid:
             : "No fixed set was entered; use the location created by the story idea or AI story generation.",
           "",
           "Art style prompt:",
-          `Art style for this story: ${data.characterDesign}. Keep the main character, object, set, materials, camera language, and negative style rules consistent across every scene.`,
+          artStylePrompt,
           "",
           ...(data.style ? ["Art direction:", data.style, ""] : []),
           ...scenes.map((scene) => `Scene ${scene.number} - ${scene.time}s:\n${scene.text}`)
@@ -1301,6 +2350,7 @@ Avoid:
 
       async function createAiStory() {
         const data = currentFormData();
+        pushStoryHistorySnapshot();
         createStory.disabled = true;
         createStory.textContent = "Creating...";
         statusText.textContent = `Asking local Ollama ${data.model} for a new story...`;
@@ -1415,6 +2465,7 @@ Avoid:
       async function generateStoryIdea(options = {}) {
         const shouldCreateStory = Boolean(options.createStory);
         const data = currentFormData();
+        pushStoryHistorySnapshot();
         generateIdea.disabled = true;
         generateIdea.textContent = "Generating...";
         statusText.textContent = `Asking ${data.model} for a fresh story idea...`;
@@ -1455,6 +2506,7 @@ Avoid:
           return;
         }
 
+        pushStoryHistorySnapshot();
         convertStory.disabled = true;
         convertStory.textContent = "Converting...";
         statusText.textContent = "Converting the current storyboard with Ollama...";
@@ -1506,6 +2558,27 @@ Avoid:
           }
         } catch (error) {
           statusText.textContent = `Could not refresh saved stories. ${error.message}`;
+        }
+      }
+
+      async function refreshUploadProjects(selectedId = "") {
+        try {
+          const response = await fetch("/api/upload-projects");
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not load upload storys.");
+          }
+
+          const projects = result.projects || [];
+          uploadProjectInput.innerHTML = projects.length
+            ? projects.map((project) => `<option value="${escapeHtml(project.id)}">${escapeHtml(project.name)} - ${escapeHtml(project.updatedAtLabel)}</option>`).join("")
+            : `<option value="">No upload storys yet</option>`;
+
+          if (selectedId) {
+            uploadProjectInput.value = selectedId;
+          }
+        } catch (error) {
+          statusText.textContent = `Could not refresh upload storys. ${error.message}`;
         }
       }
 
@@ -1597,9 +2670,9 @@ Avoid:
         }
 
         if (id === "__default") {
-          characterDesignTitleInput.value = "Default Yellow Crewmate Turnaround";
-          characterDesignInput.value = default2DArtStyle;
-          setArtStyleMode("2d");
+          characterDesignTitleInput.value = "Default Live-Action Style";
+          characterDesignInput.value = defaultLiveActionArtStyle;
+          setArtStyleMode("live");
           renderTemplateStory("Loaded default art style.");
           return;
         }
@@ -1614,7 +2687,7 @@ Avoid:
             throw new Error(result.error || "Could not load this art style.");
           }
 
-          characterDesignInput.value = result.design.design || default2DArtStyle;
+          characterDesignInput.value = result.design.design || defaultLiveActionArtStyle;
           characterDesignTitleInput.value = result.design.name || "";
           setArtStyleMode("saved");
           renderTemplateStory(`Loaded art style: ${result.design.name}.`);
@@ -1629,8 +2702,14 @@ Avoid:
       async function saveCurrentProject() {
         const data = currentFormData();
         setSuggestedProjectName();
-        const name = projectNameInput.value.trim() || suggestedProjectName();
+        const autoName = suggestedProjectName();
+        const name = projectNameInput.value.trim() || autoName;
         const storyboard = scriptBox.textContent.trim();
+
+        if (!name) {
+          statusText.textContent = "Save name is blocked because the app could not confirm a clear trigger object yet.";
+          return;
+        }
 
         saveProject.disabled = true;
         saveProject.textContent = "Saving...";
@@ -1654,6 +2733,8 @@ Avoid:
           }
 
           projectNameInput.value = result.project.name;
+          lastSuggestedProjectName = result.project.name;
+          projectNameWasManuallyEdited = false;
           await refreshSavedProjects(result.project.id);
           statusText.textContent = `Saved to data/${result.project.fileName}`;
         } catch (error) {
@@ -1664,6 +2745,104 @@ Avoid:
         }
       }
 
+      async function sendCurrentProjectToUpload() {
+        const data = currentFormData();
+        setSuggestedProjectName();
+        const autoName = suggestedProjectName();
+        const name = projectNameInput.value.trim() || autoName;
+        const storyboard = scriptBox.textContent.trim();
+
+        if (!storyboard) {
+          statusText.textContent = "Create a story first, then send it to upload.";
+          return;
+        }
+
+        if (!name) {
+          statusText.textContent = "Upload send is blocked because the app could not confirm a clear trigger object for the title yet.";
+          return;
+        }
+
+        sendToUploadButton.disabled = true;
+        sendToUploadButton.textContent = "Sending...";
+
+        try {
+          const response = await fetch("/api/upload-projects", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              title: storyTitle.textContent,
+              settings: data,
+              storyboard,
+              youtubeContent: youtubeBox.textContent.trim()
+            })
+          });
+
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not send this story to upload.");
+          }
+
+          await refreshUploadProjects(result.project.id);
+          statusText.textContent = `Sent to upload-stories/${result.project.fileName}`;
+        } catch (error) {
+          statusText.textContent = `Could not send to upload. ${error.message}`;
+        } finally {
+          sendToUploadButton.disabled = false;
+          sendToUploadButton.textContent = "Send to Upload";
+        }
+      }
+
+      function applyLoadedProject(project) {
+        const settings = project.settings || {};
+        characterInput.value = settings.character || "";
+        objectKeywordInput.value = settings.objectKeyword || "";
+        setDescriptionInput.value = settings.setDescription || "";
+        characterDesignInput.value = settings.characterDesign || "";
+        ideaInput.value = settings.idea || "";
+        referenceScriptInput.value = settings.referenceScript || "";
+        referenceStrengthInput.value = String(settings.referenceStrength ?? 0);
+        preserveCoreSettingsInput.checked = settings.preserveCoreSettings !== false;
+        updateReferenceStrengthNote();
+        genreInput.value = settings.genre || genreInput.value;
+        moodInput.value = settings.mood || moodInput.value;
+        const timingMode = settings.timingMode || {};
+        if (timingMode.scenes) {
+          sceneCountInput.value = timingMode.scenes;
+          customSceneCountInput.value = String(timingMode.customScenes || settings.sceneCount || customSceneCountInput.value);
+        } else {
+          setSelectOrCustom(sceneCountInput, customSceneCountInput, settings.sceneCount || sceneCountInput.value);
+        }
+        if (timingMode.duration) {
+          durationInput.value = timingMode.duration;
+          customDurationInput.value = String(timingMode.customDuration || settings.duration || customDurationInput.value);
+        } else {
+          setSelectOrCustom(durationInput, customDurationInput, settings.duration || durationInput.value);
+        }
+        updateCustomTimingFields();
+        languageInput.value = settings.language || languageInput.value;
+        applyModelSelection(settings.model || modelInput.value, settings.model || modelInstallerInput.value);
+        if (settings.model && !modelEntry(settings.model)?.installed) {
+          statusText.textContent = `${settings.model} is not installed right now, so the app switched to an installed model. You can add it below whenever you want.`;
+        }
+        setArtStyleMode(settings.artStyleMode || "saved");
+        includeScenePromptDetailsInput.checked = Boolean(settings.includeScenePromptDetails);
+        projectNameInput.value = project.name || "";
+        lastSuggestedProjectName = suggestedProjectName();
+        projectNameWasManuallyEdited = Boolean(project.name) && project.name !== lastSuggestedProjectName;
+
+        const data = currentFormData();
+        const storyboard = project.storyboard || "";
+        youtubeBox.textContent = project.youtubeContent || "";
+        youtubeBox.classList.toggle("hidden", !youtubeBox.textContent.trim());
+        const scenes = scenesFromStoryboardText(storyboard, data);
+        if (scenes) {
+          renderScenes(project.title || titleFromIdea(data.idea), data, applyScenePromptPreference(scenes, data));
+        } else {
+          renderTemplateStory("Saved settings loaded. No storyboard text was found, so a template story is showing.");
+        }
+      }
+
       async function loadSelectedProject() {
         const id = savedProjectInput.value;
         if (!id) {
@@ -1671,6 +2850,7 @@ Avoid:
           return;
         }
 
+        pushStoryHistorySnapshot();
         loadProject.disabled = true;
         loadProject.textContent = "Loading...";
 
@@ -1682,45 +2862,7 @@ Avoid:
           }
 
           const project = result.project;
-          const settings = project.settings || {};
-          characterInput.value = settings.character || "Among Us game character Yellow";
-          objectKeywordInput.value = settings.objectKeyword || "";
-          setDescriptionInput.value = settings.setDescription || "";
-          characterDesignInput.value = settings.characterDesign || default2DArtStyle;
-          ideaInput.value = settings.idea || "";
-          genreInput.value = settings.genre || genreInput.value;
-          moodInput.value = settings.mood || moodInput.value;
-          const timingMode = settings.timingMode || {};
-          if (timingMode.scenes) {
-            sceneCountInput.value = timingMode.scenes;
-            customSceneCountInput.value = String(timingMode.customScenes || settings.sceneCount || customSceneCountInput.value);
-          } else {
-            setSelectOrCustom(sceneCountInput, customSceneCountInput, settings.sceneCount || sceneCountInput.value);
-          }
-          if (timingMode.duration) {
-            durationInput.value = timingMode.duration;
-            customDurationInput.value = String(timingMode.customDuration || settings.duration || customDurationInput.value);
-          } else {
-            setSelectOrCustom(durationInput, customDurationInput, settings.duration || durationInput.value);
-          }
-          updateCustomTimingFields();
-          languageInput.value = settings.language || languageInput.value;
-          modelInput.value = settings.model || modelInput.value;
-          setArtStyleMode(settings.artStyleMode || "saved");
-          includeScenePromptDetailsInput.checked = Boolean(settings.includeScenePromptDetails);
-          projectNameInput.value = project.name || "";
-          projectNameWasManuallyEdited = Boolean(project.name);
-
-          const data = currentFormData();
-          const storyboard = project.storyboard || "";
-          youtubeBox.textContent = project.youtubeContent || "";
-          youtubeBox.classList.toggle("hidden", !youtubeBox.textContent.trim());
-          const scenes = scenesFromStoryboardText(storyboard, data);
-          if (scenes) {
-            renderScenes(project.title || titleFromIdea(data.idea), data, applyScenePromptPreference(scenes, data));
-          } else {
-            renderTemplateStory("Saved settings loaded. No storyboard text was found, so a template story is showing.");
-          }
+          applyLoadedProject(project);
 
           statusText.textContent = `Loaded ${project.name}.`;
         } catch (error) {
@@ -1728,6 +2870,36 @@ Avoid:
         } finally {
           loadProject.disabled = false;
           loadProject.textContent = "Load Selected";
+          updateConvertButtonLabel();
+        }
+      }
+
+      async function loadSelectedUploadProject() {
+        const id = uploadProjectInput.value;
+        if (!id) {
+          statusText.textContent = "Choose an upload story first.";
+          return;
+        }
+
+        pushStoryHistorySnapshot();
+        loadUploadProjectButton.disabled = true;
+        loadUploadProjectButton.textContent = "Loading...";
+
+        try {
+          const response = await fetch(`/api/upload-projects/${encodeURIComponent(id)}`);
+          const result = await response.json();
+          if (!response.ok) {
+            throw new Error(result.error || "Could not load this upload story.");
+          }
+
+          const project = result.project;
+          applyLoadedProject(project);
+          statusText.textContent = `Loaded upload story: ${project.name}.`;
+        } catch (error) {
+          statusText.textContent = `Could not load upload story. ${error.message}`;
+        } finally {
+          loadUploadProjectButton.disabled = false;
+          loadUploadProjectButton.textContent = "Load Upload";
           updateConvertButtonLabel();
         }
       }
@@ -1759,7 +2931,7 @@ Avoid:
       });
 
       projectNameInput.addEventListener("input", () => {
-        projectNameWasManuallyEdited = Boolean(projectNameInput.value.trim());
+        syncProjectNameManualState();
       });
 
       useSaveNamePrefixInput.addEventListener("change", () => {
@@ -1785,6 +2957,11 @@ Avoid:
         }
         saveCustomArtStyleSlot();
       });
+
+      toggleReferenceToolsButton.addEventListener("click", toggleReferenceTools);
+      referenceStrengthInput.addEventListener("input", updateReferenceStrengthNote);
+      preserveCoreSettingsInput.addEventListener("change", updateReferenceStrengthNote);
+      referenceScriptInput.addEventListener("input", updateReferenceStrengthNote);
 
       characterDesignInput.addEventListener("input", () => {
         if (selectedArtStyleMode() === "custom") {
@@ -1830,12 +3007,42 @@ Avoid:
       });
 
       convertStory.addEventListener("click", convertCurrentStory);
+      revertStory.addEventListener("click", revertToPreviousStory);
       generateIdea.addEventListener("click", () => generateStoryIdea({ createStory: false }));
       generateYoutube.addEventListener("click", generateYoutubeContent);
       saveProject.addEventListener("click", saveCurrentProject);
       loadProject.addEventListener("click", loadSelectedProject);
+      sendToUploadButton.addEventListener("click", sendCurrentProjectToUpload);
+      loadUploadProjectButton.addEventListener("click", loadSelectedUploadProject);
       saveCharacterDesign.addEventListener("click", saveCurrentCharacterDesign);
       loadCharacterDesign.addEventListener("click", loadSelectedCharacterDesign);
+      refreshModelsButton.addEventListener("click", () => refreshModelCatalog());
+      installModelButton.addEventListener("click", installOrUpdateSelectedModel);
+      removeModelButton.addEventListener("click", removeSelectedModel);
+      toggleModelToolsButton.addEventListener("click", toggleModelTools);
+      refreshRecommendedModelsButton.addEventListener("click", () => loadRecommendedModels());
+      installCustomModelButton.addEventListener("click", installCustomModel);
+      recommendedModelList.addEventListener("click", async (event) => {
+        const button = event.target.closest("[data-install-model]");
+        if (!button) return;
+        activeRecommendedInstall = button.dataset.installModel;
+        renderRecommendedModels();
+        try {
+          await installModelTag(button.dataset.installModel, {
+            progress: `Installing ${button.dataset.installModel} with Ollama...`
+          });
+        } finally {
+          activeRecommendedInstall = "";
+          renderRecommendedModels();
+        }
+      });
+      modelInstallerInput.addEventListener("change", refreshModelStatusUi);
+      modelInput.addEventListener("change", () => {
+        if (modelEntry(modelInput.value)) {
+          modelInstallerInput.value = modelInput.value;
+        }
+        refreshModelStatusUi();
+      });
 
       toggleScript.addEventListener("click", () => {
         scriptBox.classList.toggle("hidden");
@@ -1844,20 +3051,40 @@ Avoid:
           : "Hide storyboard text";
       });
 
+      async function loadAppVersion() {
+        try {
+          const response = await fetch(`/VERSION?ts=${Date.now()}`);
+          const version = (await response.text()).trim();
+          appVersionLabel.textContent = version ? `Version ${version}` : "Version unknown";
+        } catch (error) {
+          appVersionLabel.textContent = "Version unavailable";
+        }
+      }
+
       async function initializeApp() {
+        await loadAppVersion();
+        await loadRecommendedModels({ quiet: true });
+        await refreshModelCatalog();
         await loadSaveNamePrefixSettings();
         loadCustomArtStyleSlot();
         await hydrateCustomArtStyleLabelFromServer();
         await applyArtStyleMode(selectedArtStyleMode());
         if (!characterDesignInput.value.trim()) {
-          characterDesignInput.value = default2DArtStyle;
+          characterDesignInput.value = defaultLiveActionArtStyle;
         }
+        updateReferenceStrengthNote();
         renderTemplateStory();
         updateCustomTimingFields();
         refreshSavedProjects();
+        refreshUploadProjects();
         refreshSavedCharacterDesigns();
         updateConvertButtonLabel();
-        generateStoryIdea({ createStory: true });
+        if (installedModelEntries().length && ollamaReachable) {
+          generateStoryIdea({ createStory: true });
+        } else {
+          statusText.textContent = "Install one Ollama model below, then the story buttons will wake up.";
+        }
+        updateRevertButton();
       }
 
       initializeApp();
